@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/15 23:05:13 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/16 20:33:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	free_tokens_list(t_token *token_list)
 	while (token_list)
 	{
 		tmp = token_list;
+		free(token_list->value);
+		//token_list->value = NULL;
 		token_list = token_list->next;
 		free(tmp);
 	}
@@ -54,12 +56,12 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(shell.cmdline);
 			token_list = get_token(&shell);
+			printf("1\n");
 			print_token(token_list);
 			//split = ft_split(shell.cmdline, ' ');
 			free(shell.cmdline);
 			free_tokens_list(token_list);
 		}
-		free(shell.cmdline);
 		// if (!is_builtin(&shell))
 		// {
 		// 	split = ft_split(&shell.cmdline);

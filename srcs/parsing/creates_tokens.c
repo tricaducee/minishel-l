@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:03:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/15 23:10:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/16 20:40:01 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,23 @@ static int	create_token(t_token **token_list, char *token_value)
 {
 	if (!*token_list)
 	{
+		printf("create_token 1\n");
 		*token_list = token_new(token_value);
+		printf("token node : %s\n", (*token_list)->value);
 		(*token_list)->previous = NULL;
 	}
 	else
 	{
+		printf("create_token 2\n");
 		while ((*token_list)->next)
+		{
+			//printf("token node : %s\n", (*token_list)->value);
 			*token_list = (*token_list)->next;
+		}
 		(*token_list)->next = token_new(token_value);
 		(*token_list)->next->previous = *token_list;
 		*token_list = (*token_list)->next;
+		printf("token node : %s\n", (*token_list)->value);
 	}
 	// type select and check type
 	return (0);
@@ -59,10 +66,10 @@ t_token	*get_token(t_shell *shell)
 	{
 		while (shell->cmdline[i] == ' ') //all white space
 			++i;
-		j = i;
-		if (shell->cmdline[j] == '<' || shell->cmdline[j] == '>')
+		j = 0;
+		if (shell->cmdline[i + j] == '<' || shell->cmdline[i + j] == '>')
 		{
-			while (shell->cmdline[j] == '<' || shell->cmdline[j] == '>')
+			while (shell->cmdline[i + j] == '<' || shell->cmdline[i + j] == '>')
 				j++;
 			token_value = ft_substr(shell->cmdline, i, j);
 			if (!token_value)
@@ -72,14 +79,18 @@ t_token	*get_token(t_shell *shell)
 		}
 		else
 		{
-			while (shell->cmdline[j] && shell->cmdline[j] != ' ')
+			while (shell->cmdline[i + j] && shell->cmdline[i + j] != ' ' && shell->cmdline[i + j] != '<' && shell->cmdline[i + j] != '>')
 				j++;
 			token_value = ft_substr(shell->cmdline, i, j);
+			//token_value = ft_strldup(shell->cmdline + i, j);
 			if (!token_value)
 				return (NULL); //return exit
 			if (create_token(&token_list, token_value))
 				return (NULL); //return exit
+			while (token_list->previous)
+				token_list = token_list->previous;
 		}
+		i += j;
 	}
 	return (token_list);
 }

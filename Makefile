@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/15 23:13:40 by hrolle           ###   ########.fr        #
+#    Updated: 2022/10/16 14:23:13 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,14 @@ SRCS	=	main.c \
 			srcs/parsing/creates_tokens.c \
 			srcs/signals/sig_handler.c
 
-RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
-LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline
+#RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
+#LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline
 
-LIBFT_DIR		=	libft
-LIBFT			=	libft/libft.a
+INC_FLAGS := -Ilibs/libft/incs -Iincs
+LIBS := -Llibft -lft -lreadline
+
+INC_FLAGS += -I$(HOME)/.brew/opt/readline/include
+LIBS += -L$(HOME)/.brew/opt/readline/lib
 
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
@@ -37,7 +40,6 @@ RM		=	rm -f
 DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
 CFLAGS	=	-Wall -Wextra -Werror -g
-INCLUDE	=	$(LIBFT_DIR) -lft
 
 BLUE	= \033[0;34m
 VIOLET	= \033[0;36m
@@ -50,19 +52,19 @@ all:	$(NAME)
 
 $(NAME)	: $(OBJS)
 	@echo "$(BLUE)Making libft and bonuses... $(NONE)"
-	@$(MAKE) -C $(LIBFT_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) bonus
-	@$(CC) $(OBJS) $(CFLAGS) $(DEBUG) -I $(LIBFT_DIR) $(RDLINC) -L $(INCLUDE) $(LIBRDL) -o $(NAME)
+	@$(MAKE) -C libft
+	@$(MAKE) -C libft bonus
+	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) $(DEBUG) -o $(NAME)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
 
 clean:
 	@$(RM) $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C libft clean
 	@printf "$(GREEN) OBJS removed.\n$(NONE)"
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C libft fclean
 	@printf "$(GREEN) libft.a removed.\n$(NONE)"
 	@printf "$(GREEN) $(NAME) removed.\n$(NONE)"
 

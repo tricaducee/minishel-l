@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/13 15:16:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:36:49 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ static int	run_builtin(const char *str, int len, t_shell *shell)
 /*
 	run the builtin function if the command input matches with our builtin list
 */
-int	is_builtin(t_shell *shell)
+int	is_builtin(t_shell *shell, t_env *env)
 {
 	const char	*builtins[]
 		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
 	int			builtin_len;
 	int			i;
 
+	(void)env;
 	if (!shell->cmdline)
 		return (0);
 	i = -1;
@@ -45,3 +46,5 @@ int	is_builtin(t_shell *shell)
 	}
 	return (0);
 }
+
+

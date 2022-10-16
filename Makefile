@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/16 14:23:13 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/16 15:38:33 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS	=	main.c \
 			srcs/builtins/ft_env.c \
 			srcs/builtins/ft_exit.c \
 			srcs/builtins/ft_pwd.c \
-			srcs/builtins/is_builtin.c \
+			srcs/execution/is_builtin.c \
 			srcs/init/init_env.c \
 			srcs/init/init.c \
 			srcs/parsing/creates_tokens.c \
@@ -39,7 +39,7 @@ RM		=	rm -f
 
 DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
-CFLAGS	=	-Wall -Wextra -Werror -g
+#CFLAGS	=	-Wall -Wextra -Werror -g
 
 BLUE	= \033[0;34m
 VIOLET	= \033[0;36m

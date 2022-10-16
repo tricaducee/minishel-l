@@ -3,85 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   build_absolute_path.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:53:36 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/15 23:06:23 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:08:30 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
 /*
-	in case there is no PATH variable in env
+	if command is not given as an absolute path, we replace it by absolute path
+
+	Split path by ':' to get an array per path to binaries
+	Run through each binary's directory
+	access() is used to check if file exists
+
+	replace given binary (ex:ls) by its abs path (ex:bin/ls)
+
+	building absolute path
+	1. run through PATH arrays, append to empty binary_path
+	2. add '/' to PATH array
+	3. add input (command) entered by user (p. ex 'ls')
+	4. access() check if it exists
+	now we got the absolute path in binary_path
 */
-static void	print_and_free(char *path, char *bin, char **path_split)
+static void	build_absolute_path(char *path ,char **args)
 {
-	write(1, "zsh: command not found (path cleared)\n", 39);
+	char	**path_split;
+	char	*binary_path;
+	int		i;
+
+	binary_path = NULL;
+	path_split = NULL;
+	path_split = ft_split(path, ':');
 	free(path);
-	free(bin);
-	free(path_split);
+	path = NULL;
+	i = -1;
+	while (path_split[++i])
+	{
+		binary_path = (char *)ft_calloc(sizeof(char),
+			(ft_strlen(path_split[i]) + 1 + ft_strlen(args[0]) + 1));
+		if (binary_path == NULL)
+			break ; // stop loop, no more path to check
+		ft_strcat(binary_path, path_split[i]); // ls
+		ft_strcat(binary_path, "/");
+		ft_strcat(binary_path, args[0]);
+		if (access(binary_path, F_OK) == 0)
+			break ;
+		free(binary_path);
+		binary_path = NULL;
+	}
+	ft_free_ppointer(path_split);
+	free(args[0]);
+	args[0] = binary_path;
+	printf("get_absolute_path args[0] : [%s]\n", args[0]);
 }
 
 /*
-	but : voir si on nous a donne un chemin absolu vers un binaire ou pas (dans
-	ce cas on remplace la commande par son emplacement absolu car execve
-	necessite un chemin absolu vers les binaires a executer)
-	et verifier si le binaire existe avec access().
+	but :
+	1. verifier si on nous a donne un chemin absolu vers un binaire ou pas
+	si on recoit une commande 'ls', on la remplace par son emplacement absolu
+	car execve() necessite un chemin absolu vers les binaires a executer.
+	2. verifier si le binaire existe avec access().
 
-	Recuperer le contenu de la variable PATH
-	S'il est vide on le cree soit meme
-	Si la s entree n'est pas un chemin absolu on le cherche
-		on va split la string PATH par les :
-		chercher ou est notre binaire en parcourant chaque dossier
-		access va verifier l'existence du fichier
-	on remplace le binaire donné (ex:ls) par son emplacmement (ex:bin/ls)
+
 */
-void	build_absolute_path(char **str)
+void	is_absolute_path(char **args, t_env *env)
 {
 	char	*path;
-	char	*bin;
-	char	**path_split;
-	int		i;
 
-	path = ft_strdup(getenv("PATH"));
-	bin = NULL;
-	path_split = NULL;
-	if (str[0] == NULL)
+	(void)env;
+	path = ft_strdup(getenv("PATH")); //attention getenv le trouvera par l'OS
+	if (args[0] == NULL)
 		return ;
-	if (path == NULL)
+	if (path == NULL) // si PATH unset avant...
 	{
-		print_and_free(path, bin, path_split);
-		return ;
-	}
-	if (str[0][0] != '/' && ft_strncmp(str[0], "./", 2) != 0)
-	{
-		path_split = ft_split(path, ':');
 		free(path);
-		path = NULL;
-		i = -1;
-		while (path_split[++i])
-		{
-			bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + 1 + ft_strlen(str[0]) + 1));
-			if (bin == NULL)
-				break ;
-			ft_strcat(bin, path_split[i]);
-			ft_strcat(bin, "/");
-			ft_strcat(bin, str[0]);
-			if (access(bin, F_OK) == 0)
-				break ;
-			free(bin);
-			bin = NULL;
-		}
-		ft_free_ppointer(path_split);
-		free(str[0]);
-		str[0] = bin;
-		printf("get_absolute_path str[0] : [%s]\n", str[0]);
+		return ;
 	}
-	else
+	if (args[0][0] != '/' && ft_strncmp(args[0], "./", 2) != 0) // si on nous a pas donne un chemin absolu
+		build_absolute_path(path, args);
+	else // si on nous a bien donné /bin/ls, on est pret a executer la commande via execve
 	{
 		free(path);
 		path = NULL;
-		free(path_split);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creates_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:03:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/15 23:10:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/16 14:43:21 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static int	create_token(t_token **token_list, char *token_value)
 	return (0);
 }
 
+/*
+	reads string got by readline() char per char
+	if char is 'special' : treat it in its special way
+	if not special, split string to get a char** with pieces of cmdline
+*/
 t_token	*get_token(t_shell *shell)
 {
 	unsigned int	i;

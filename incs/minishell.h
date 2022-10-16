@@ -1,9 +1,17 @@
-//
-// Created by Hajar Sabir on 10/12/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
+/*   Updated: 2022/10/16 15:52:15 by lgenevey         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef MINISH_MINISHELL_H
-# define MINISH_MINISHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -81,16 +89,18 @@ void	handle_interrupt(int sig);
 void	sig_handler(t_shell *shell);
 
 // Builtins
-int		is_builtin(t_shell *shell);
 int		ft_env(t_shell *shell);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
 void	free_envs(t_env *env);
-void	build_absolute_path(char **str);
 void	exec_cmd(char **cmd);
+
+// Execution
+int		is_builtin(t_shell *shell, t_env *env);
+void	is_absolute_path(char **args, t_env *env);
 
 // Readline
 void	rl_replace_line (const char *, int);
 t_token	*get_token(t_shell *shell);
 
-#endif //MINISH_MINISHELL_H
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/15 23:05:13 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/16 15:52:20 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	free_tokens_list(t_token *token_list)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
-	t_token	*token_list;
-	//char	**split;
+	//t_token	*token_list;
+	char	**split;
 
 	(void)argc;
 	(void)argv;
-	sig_handler(&shell);
 	while (true)
 	{
 		init_shell(&shell, env);
+		sig_handler(&shell);
 		if (shell.cmdline
 			&& ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
 			ft_exit(&shell);
@@ -53,20 +53,23 @@ int	main(int argc, char **argv, char **env)
 		if (shell.cmdline)
 		{
 			add_history(shell.cmdline);
-			token_list = get_token(&shell);
-			print_token(token_list);
-			//split = ft_split(shell.cmdline, ' ');
-			free(shell.cmdline);
-			free_tokens_list(token_list);
+			// token_list = get_token(&shell);
+			// print_token(token_list);
+			split = ft_split(shell.cmdline, ' ');
+			if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
+				ft_env(&shell);
+			else if (ft_strncmp(split[0], "pwd",ft_strlen(split[0])) == 0)
+				ft_pwd();
+			else
+			{
+				is_absolute_path(split, shell.env);
+				exec_cmd(split);
+			}
+			//free(shell.cmdline);
+			//free_tokens_list(token_list);
 		}
 		free(shell.cmdline);
-		// if (!is_builtin(&shell))
-		// {
-		// 	split = ft_split(&shell.cmdline);
-		// 	printf("pas une builtin, faut executer avec execve\n");
-		// 	build_absolute_path(split);
-		// 	exec_cmd(split);
-		// }
+		exit(0);
 	}
 	return (0);
 }

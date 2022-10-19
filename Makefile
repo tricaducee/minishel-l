@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/19 14:31:30 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/19 16:52:41 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ SRCS	=	main.c \
 
 #RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
 #LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline
+
+RDLINC	=	-I$(HOME)/.brew/opt/readline/include
+LIBRDL =	-L$(HOME)/.brew/opt/readline/lib -lreadline
 
 INC_FLAGS := -Ilibs/libft/incs -Iincs
 LIBS := -Llibft -lft -lreadline

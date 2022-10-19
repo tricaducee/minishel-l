@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_non_builtin.c                              :+:      :+:    :+:   */
+/*   execute_non_builtins.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:22:37 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/13 15:22:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:33:50 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,5 @@ void	exec_cmd(char **cmd)
 		exit(1);
 	}
 }
+
+// recuperer le nom de la commande, utile pour le retour de exit()

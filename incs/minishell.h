@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/16 15:52:15 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:31:58 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 // Readline
 # include <readline/readline.h>
 # include <readline/history.h>
+
+//globale pour recuperer la valeur du statut de exit
 
 //token list
 enum e_tokens
@@ -52,15 +54,14 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-
 typedef struct s_cmd
 {
 	char			*name;
 	char			**args;
 	char			*redir_path;
 	int				pid;
-	int				stdin;
-	int				stdout;
+	int				std_in;
+	int				std_out;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -73,16 +74,16 @@ typedef struct s_shell
 	int					std_out;
 	t_cmd				*cmd;
 	t_env				*env;
+	char				**env_export;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
 
-/* Prototypes */
 // Init
 void	init_shell(t_shell *shell, char **env);
-t_env	*init_env(char **main_envs);
-
+t_env	*init_env(char **m_envs);
+char	**init_env_export(char **m_env);
 
 // Signals
 void	handle_interrupt(int sig);

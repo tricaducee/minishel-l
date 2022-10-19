@@ -6,11 +6,17 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:53:36 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/16 16:08:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:49:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+void	clean(char **path_split, char **args)
+{
+	ft_free_ppointer(path_split);
+	free(args[0]);
+}
 
 /*
 	if command is not given as an absolute path, we replace it by absolute path
@@ -54,10 +60,8 @@ static void	build_absolute_path(char *path ,char **args)
 		free(binary_path);
 		binary_path = NULL;
 	}
-	ft_free_ppointer(path_split);
-	free(args[0]);
+	clean(path_split, args);
 	args[0] = binary_path;
-	printf("get_absolute_path args[0] : [%s]\n", args[0]);
 }
 
 /*

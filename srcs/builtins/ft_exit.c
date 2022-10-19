@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/14 18:00:53 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:39:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	free_envs(t_env *env)
 	}
 }
 
+
+//valeurs de sortie et recuperer le numero de largument si il y a
+//attention + et - de 256
 void	ft_exit(t_shell *shell)
 {
 	free(shell->cmdline);

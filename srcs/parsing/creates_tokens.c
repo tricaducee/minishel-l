@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:03:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/16 14:43:21 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:52:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,23 @@ static int	create_token(t_token **token_list, char *token_value)
 {
 	if (!*token_list)
 	{
+		printf("create_token 1\n");
 		*token_list = token_new(token_value);
+		printf("token node : %s\n", (*token_list)->value);
 		(*token_list)->previous = NULL;
 	}
 	else
 	{
+		printf("create_token 2\n");
 		while ((*token_list)->next)
+		{
+			//printf("token node : %s\n", (*token_list)->value);
 			*token_list = (*token_list)->next;
+		}
 		(*token_list)->next = token_new(token_value);
 		(*token_list)->next->previous = *token_list;
 		*token_list = (*token_list)->next;
+		printf("token node : %s\n", (*token_list)->value);
 	}
 	// type select and check type
 	return (0);
@@ -48,6 +55,11 @@ static int	create_token(t_token **token_list, char *token_value)
 	reads string got by readline() char per char
 	if char is 'special' : treat it in its special way
 	if not special, split string to get a char** with pieces of cmdline
+	if double quote ne pas interpreter l'interieur
+	bash-3.2$ echo '"$PATH"'
+"	$PATH"
+	bash-3.2$ echo "'$PATH'"
+	'/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
 */
 t_token	*get_token(t_shell *shell)
 {
@@ -64,10 +76,10 @@ t_token	*get_token(t_shell *shell)
 	{
 		while (shell->cmdline[i] == ' ') //all white space
 			++i;
-		j = i;
-		if (shell->cmdline[j] == '<' || shell->cmdline[j] == '>')
+		j = 0;
+		if (shell->cmdline[i + j] == '<' || shell->cmdline[i + j] == '>')
 		{
-			while (shell->cmdline[j] == '<' || shell->cmdline[j] == '>')
+			while (shell->cmdline[i + j] == '<' || shell->cmdline[i + j] == '>')
 				j++;
 			token_value = ft_substr(shell->cmdline, i, j);
 			if (!token_value)
@@ -77,14 +89,18 @@ t_token	*get_token(t_shell *shell)
 		}
 		else
 		{
-			while (shell->cmdline[j] && shell->cmdline[j] != ' ')
+			while (shell->cmdline[i + j] && shell->cmdline[i + j] != ' ' && shell->cmdline[i + j] != '<' && shell->cmdline[i + j] != '>')
 				j++;
 			token_value = ft_substr(shell->cmdline, i, j);
+			//token_value = ft_strldup(shell->cmdline + i, j);
 			if (!token_value)
 				return (NULL); //return exit
 			if (create_token(&token_list, token_value))
 				return (NULL); //return exit
+			while (token_list->previous)
+				token_list = token_list->previous;
 		}
+		i += j;
 	}
 	return (token_list);
 }

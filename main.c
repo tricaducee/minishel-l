@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/16 15:52:20 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:43:02 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,59 @@ void	free_tokens_list(t_token *token_list)
 	while (token_list)
 	{
 		tmp = token_list;
+		free(token_list->value);
+		//token_list->value = NULL;
 		token_list = token_list->next;
 		free(tmp);
 	}
 }
 
+/*
+	HERMES
+*/
+/*
+int	main(int argc, char **argv, char **env)
+{
+	t_shell	shell;
+	t_token	*token_list;
+	//char	**split;
+
+	(void)argc;
+	(void)argv;
+	while (true)
+	{
+		init_shell(&shell, env);
+		sig_handler(&shell);
+		if (shell.cmdline
+			&& ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
+			ft_exit(&shell);
+		shell.cmdline = readline("Minishell 🍋 % ");
+		if (shell.cmdline)
+		{
+			add_history(shell.cmdline);
+			token_list = get_token(&shell);
+			printf("1\n");
+			print_token(token_list);
+			//split = ft_split(shell.cmdline, ' ');
+			free(shell.cmdline);
+			free_tokens_list(token_list);
+		}
+		// if (!is_builtin(&shell))
+		// {
+		// 	split = ft_split(&shell.cmdline);
+		// 	printf("pas une builtin, faut executer avec execve\n");
+		// 	build_absolute_path(split);
+		// 	exec_cmd(split);
+		// }
+	}
+	return (0);
+}
+*/
+
+
+/*
+	LUCIE
+*/
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
@@ -73,3 +121,4 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
+

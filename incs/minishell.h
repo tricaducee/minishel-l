@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/19 10:31:58 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:06:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				size;
 	struct s_env	*next;
 }	t_env;
 
@@ -74,7 +75,7 @@ typedef struct s_shell
 	int					std_out;
 	t_cmd				*cmd;
 	t_env				*env;
-	char				**env_export;
+	t_env				*export;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
@@ -83,7 +84,7 @@ typedef struct s_shell
 // Init
 void	init_shell(t_shell *shell, char **env);
 t_env	*init_env(char **m_envs);
-char	**init_env_export(char **m_env);
+char	**init_env_export(char **l_env);
 
 // Signals
 void	handle_interrupt(int sig);

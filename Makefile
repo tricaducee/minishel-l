@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/19 16:52:41 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/20 19:54:15 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,14 @@ SRCS	=	main.c \
 			srcs/binaries/build_absolute_path.c \
 			srcs/binaries/execute_non_builtins.c \
 			srcs/builtins/ft_env.c \
+			srcs/builtins/ft_export.c \
 			srcs/builtins/ft_exit.c \
 			srcs/builtins/ft_pwd.c \
 			srcs/execution/is_builtin.c \
-			srcs/init/init_env.c \
-			srcs/init/init_env_export.c \
-			srcs/init/init.c \
+			srcs/init/list_utils.c \
+			srcs/init/fill_env.c \
+			srcs/init/fill_export.c \
+			srcs/init/init_shell.c \
 			srcs/parsing/creates_tokens.c \
 			srcs/signals/sig_handler.c
 

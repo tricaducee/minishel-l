@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/19 17:01:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:57:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
-		if (shell.cmdline
-			&& ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
-			ft_exit(&shell);
 		shell.cmdline = readline("Minishell 🍋 % ");
+		printlist(shell.export);
+		printlist(shell.env);
 		if (shell.cmdline)
 		{
 			add_history(shell.cmdline);
@@ -113,7 +112,6 @@ int	main(int argc, char **argv, char **env)
 				is_absolute_path(split, shell.env);
 				exec_cmd(split);
 			}
-			//free(shell.cmdline);
 			//free_tokens_list(token_list);
 		}
 		free(shell.cmdline);

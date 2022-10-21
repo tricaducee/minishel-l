@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 17:11:10 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:00:05 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,11 @@ int	main(int argc, char **argv, char **env)
 			}
 			//free_tokens_list(token_list);
 		}
-		free(shell.cmdline);
-		exit(0);
+		else
+		{
+			free(shell.cmdline);
+			exit(0);
+		}
 	}
 	return (0);
 }

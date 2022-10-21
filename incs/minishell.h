@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 17:11:38 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/21 22:17:36 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ typedef struct s_shell
 }	t_shell;
 
 // List utils
-t_list	*get_last_env(t_list *node);
-t_list	*new_env_node(char	*name, char *value);
-void	env_add_back(t_list **lst, t_list *new);
-void	printlist(t_list *list);
-void	print_export(t_list *elem);
+void	printlist(t_list *top);
+void	print_export(t_list *top);
+void	push(t_list *from, t_list *to);
+t_list	*get_min_value(t_list *top);
+void	sort_alphabetically(t_list *export);
 
 // Init
 void	init_shell(t_shell *shell, char **env);

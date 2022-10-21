@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/20 15:06:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:11:38 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ typedef struct s_token
 }	t_token;
 
 // contains a copy of env variables
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	int				size;
-	struct s_env	*next;
-}	t_env;
+// typedef struct s_env
+// {
+// 	char			*name;
+// 	char			*value;
+// 	struct s_env	*next;
+// }	t_env;
 
 typedef struct s_cmd
 {
@@ -74,17 +73,24 @@ typedef struct s_shell
 	int 				std_in;
 	int					std_out;
 	t_cmd				*cmd;
-	t_env				*env;
-	t_env				*export;
+	t_list				*env;
+	t_list				*export;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
 
+// List utils
+t_list	*get_last_env(t_list *node);
+t_list	*new_env_node(char	*name, char *value);
+void	env_add_back(t_list **lst, t_list *new);
+void	printlist(t_list *list);
+void	print_export(t_list *elem);
+
 // Init
 void	init_shell(t_shell *shell, char **env);
-t_env	*init_env(char **m_envs);
-char	**init_env_export(char **l_env);
+t_list	*fill_env(char **m_env);
+t_list	*fill_export(t_list *env);
 
 // Signals
 void	handle_interrupt(int sig);
@@ -92,14 +98,16 @@ void	sig_handler(t_shell *shell);
 
 // Builtins
 int		ft_env(t_shell *shell);
+int		ft_export(t_shell *shell);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
-void	free_envs(t_env *env);
+
+// Binaries
 void	exec_cmd(char **cmd);
 
 // Execution
-int		is_builtin(t_shell *shell, t_env *env);
-void	is_absolute_path(char **args, t_env *env);
+int		is_builtin(t_shell *shell, t_list *env);
+void	is_absolute_path(char **args, t_list *env);
 
 // Readline
 void	rl_replace_line (const char *, int);

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:53:36 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/18 17:49:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:33:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	build_absolute_path(char *path ,char **args)
 
 
 */
-void	is_absolute_path(char **args, t_env *env)
+void	is_absolute_path(char **args, t_list *env)
 {
 	char	*path;
 

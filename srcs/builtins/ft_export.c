@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:49:17 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/19 10:29:40 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
+/*   Updated: 2022/10/21 17:11:23 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	init_shell(t_shell *shell, char **env)
+int	ft_export(t_shell *shell)
 {
-	shell->cmdline = NULL;
-	shell->cmd = NULL;
-	shell->env = init_env(env);
-	shell->env_export = init_env_export(env);
-	shell->std_in = 0;
-	shell->std_out = 0;
-	tcgetattr(0, &shell->term);
-	shell->sa_interrupt.sa_handler = &handle_interrupt;
-	shell->sa_backslash.sa_handler = SIG_IGN;
-}
+	t_list	*export_tmp;
 
-// nouvelle variable sans valeur affichee que dans export
+	export_tmp = shell->env;
+	while (export_tmp)
+	{
+		print_export(export_tmp);
+		export_tmp = export_tmp->next;
+	}
+	return (1);
+}

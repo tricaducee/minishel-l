@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/11 13:45:56 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/20 14:53:03 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRCS =	ft_bzero.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
 		ft_strcat.c \
-		ft_free_ppointer.c
+		ft_free_ppointer.c \
+		ft_strsdup.c
 
 SRCS_BONUS =	ft_lstnew.c \
 				ft_lstadd_front.c \

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:25:09 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/10 21:24:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:53:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strcat(char *dest, const char *src);
 void	ft_free_ppointer(char **array);
+char	**ft_strsdup(char **strs);
 
 //bonus
 

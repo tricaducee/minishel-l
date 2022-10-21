@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/20 19:57:11 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:11:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
+		print_export(shell.export);
 		shell.cmdline = readline("Minishell 🍋 % ");
-		printlist(shell.export);
-		printlist(shell.env);
 		if (shell.cmdline)
 		{
 			add_history(shell.cmdline);
@@ -105,6 +104,8 @@ int	main(int argc, char **argv, char **env)
 			split = ft_split(shell.cmdline, ' ');
 			if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
 				ft_env(&shell);
+			else if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
+				ft_export(&shell);
 			else if (ft_strncmp(split[0], "pwd",ft_strlen(split[0])) == 0)
 				ft_pwd();
 			else

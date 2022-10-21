@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:03:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/19 16:50:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:22:20 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	create_token(t_token **token_list, char *token_value)
 	bash-3.2$ echo '"$PATH"'
 "	$PATH"
 	bash-3.2$ echo "'$PATH'"
-	'/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
+	'/Users/lgenevey/.brew/bin:/Users/lgenevey/.nvm/versions/node/v16.14.0/bin:/
 */
 t_token	*get_token(t_shell *shell)
 {

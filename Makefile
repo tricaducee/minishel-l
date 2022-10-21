@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/20 19:54:15 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/21 15:48:13 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,11 @@ $(NAME)	: $(OBJS)
 	@$(MAKE) -C libft bonus
 	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) $(DEBUG) -o $(NAME)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
+
+norm:
+	@echo "$(VIOLET)[NORM - START]$(NONE)"
+	@norminette srcs/*/*.*
+	@echo "$(VIOLET)[NORM - END]$(NONE)"
 
 clean:
 	@$(RM) $(OBJS)

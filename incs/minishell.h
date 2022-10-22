@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 17:11:38 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/22 23:08:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 // Readline
 # include <readline/readline.h>
 # include <readline/history.h>
+
+// Parsing hrolle
+#include "../srcs/parsing/get_cmds.h"
 
 //globale pour recuperer la valeur du statut de exit
 

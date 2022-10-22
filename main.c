@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 18:00:05 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/22 23:58:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,43 @@ void	free_tokens_list(t_token *token_list)
 /*
 	HERMES
 */
-/*
-int	main(int argc, char **argv, char **env)
-{
-	t_shell	shell;
-	t_token	*token_list;
-	//char	**split;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_shell	shell;
+// 	//char	**split;
 
-	(void)argc;
-	(void)argv;
-	while (true)
-	{
-		init_shell(&shell, env);
-		sig_handler(&shell);
-		if (shell.cmdline
-			&& ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
-			ft_exit(&shell);
-		shell.cmdline = readline("Minishell 🍋 % ");
-		if (shell.cmdline)
-		{
-			add_history(shell.cmdline);
-			token_list = get_token(&shell);
-			printf("1\n");
-			print_token(token_list);
-			//split = ft_split(shell.cmdline, ' ');
-			free(shell.cmdline);
-			free_tokens_list(token_list);
-		}
+// 	(void)argc;
+// 	(void)argv;
+// 	while (true)
+// 	{
+// 		init_shell(&shell, env);
+// 		sig_handler(&shell);
+// 		shell.cmdline = readline("Minishell 🍋 % ");
+// 		//if (shell.cmdline
+// 		//	&& !ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
+// 		//	exit(0);
+// 		if (shell.cmdline)
+// 		{
+// 			//if (shell.cmdline[0])
+// 				add_history(shell.cmdline);
+// 			get_cmds(shell.cmdline);
+// 			free(shell.cmdline);
+// 		}
+// 		else
+// 		{
+// 			free(shell.cmdline);
+// 			exit (0);
+// 		}
+// 	}
+// 	return (0);
+// }
+/*
+	token_list
+*/
+			// token_list = get_token(&shell);
+			// print_token(token_list);
+			// //split = ft_split(shell.cmdline, ' ');
+			// free_tokens_list(token_list);
 		// if (!is_builtin(&shell))
 		// {
 		// 	split = ft_split(&shell.cmdline);
@@ -73,10 +83,6 @@ int	main(int argc, char **argv, char **env)
 		// 	build_absolute_path(split);
 		// 	exec_cmd(split);
 		// }
-	}
-	return (0);
-}
-*/
 
 
 /*

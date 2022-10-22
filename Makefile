@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/21 15:48:13 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/22 23:57:47 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,10 @@ SRCS	=	main.c \
 			srcs/init/fill_env.c \
 			srcs/init/fill_export.c \
 			srcs/init/init_shell.c \
-			srcs/parsing/creates_tokens.c \
+			srcs/parsing/get_cmds.c \
 			srcs/signals/sig_handler.c
+
+# SRCS	=	$(wildcard srcs/*/*.c *.c)
 
 #RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
 #LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline

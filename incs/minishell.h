@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:27:45 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:31:29 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/termios.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 // Readline

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:12:07 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:36:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ void	printlist(t_list *top)
 	}
 }
 
-/*
-	return the node that contains the min content
-*/
-t_list	*get_min_value(t_list *top)
-{
-	t_list	*elem_copy;
-	t_list	*min;
-
-	elem_copy = top;
-	if (elem_copy == NULL)
-		return (NULL);
-	min = elem_copy;
-	while (elem_copy)
-	{
-		if (ft_strcmp((char *)min->content, (char *)elem_copy->content) > 0)
-			min = elem_copy;
-		elem_copy = elem_copy->next;
-	}
-	return (min);
-}
-
 void ft_swap(t_list *a, t_list *b)
 {
 	char	*temp;
@@ -58,11 +37,7 @@ void ft_swap(t_list *a, t_list *b)
 }
 
 /*
-	prend export en argument (liste chainee copie de env)
-	la trie en entier une premiere fois dans une nouvelle liste
-	(donc cette fonction est utilisee dans init_export)
-	va stocker la sortie dans la structure shell.export
-	on supprime la liste chainee export, plus besoin
+	Bubble sort : sort export linked list for initialization.
 */
 void	sort_alphabetically(t_list *export)
 {

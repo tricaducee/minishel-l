@@ -253,42 +253,103 @@ void	free_tab(char **s)
 		free(s);
 }
 
+t_cmdli	*create_cmdli(void)
+{
+	t_cmdli	*ret;
+
+	ret = malloc(1 * sizeof(t_cmdli));
+	if (!ret)
+		return (NULL);
+	ret->cmd_path = NULL;
+	ret->cmd_args = NULL;
+	ret->pipe_in = NULL;
+	ret->pipe_out = NULL;
+	ret->here_doc = NULL;
+	ret->fd_in = -1;
+	ret->fd_out = -1;
+	ret->and_or = 0;
+	ret->previous = NULL;
+	ret->next = NULL;
+	return (ret);
+}
+
+void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret)
+{
+	if (!*cmds_list)
+		*cmds_list = create_cmdli();
+	if (!*cmds_list)
+		return (NULL);
+	if (interpret)
+	{
+		if (ft_strcmp(s, "<") && *type == EMPTY)
+	}
+}
 
 t_cmdli	*get_cmds(char *cmdline)
 {
 	unsigned int	i;
 	t_cmdli			*cmds_list;
-	char			**cmds_tab;
-	char			**tmp;
+	int				type;
 
 	if (!cmdline)
 		return (NULL);
 	i = 0;
+	type = 0;
 	cmds_list = NULL;
-	cmds_tab = NULL;
 	while (cmdline[i])
 	{
 		while (cmdline[i] == ' ') //all white space
 			++i;
-		tmp = cmds_tab;
 		if (cmdline[i] == '<')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '<'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '<'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '>')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '>'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '>'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '|')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '|'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '|'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '&')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '&'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '&'), &cmds_list, &type, 1);
 		else
-			cmds_tab = ft_strsjoin(split_cmd_sp(cmdline, &i), cmds_tab);
-		if (tmp)
-			free(tmp);
-		tmp = NULL;
+			type_and_set(split_cmd_sp(cmdline, &i), &cmds_list, &type, 0);
 	}
-	print_tab(cmds_tab);
-	free_tab(cmds_tab);
 	return (cmds_list);
 }
+
+
+// t_cmdli	*get_cmds(char *cmdline)
+// {
+// 	unsigned int	i;
+// 	t_cmdli			*cmds_list;
+// 	char			**cmds_tab;
+// 	char			**tmp;
+
+// 	if (!cmdline)
+// 		return (NULL);
+// 	i = 0;
+// 	cmds_list = NULL;
+// 	cmds_tab = NULL;
+// 	while (cmdline[i])
+// 	{
+// 		while (cmdline[i] == ' ') //all white space
+// 			++i;
+// 		tmp = cmds_tab;
+// 		if (cmdline[i] == '<')
+// 			type_and_set(split_cmd(cmdline, &i, '<'), cmds_tab);
+// 		else if (cmdline[i] == '>')
+// 			type_and_set(split_cmd(cmdline, &i, '>'), cmds_tab);
+// 		else if (cmdline[i] == '|')
+// 			type_and_set(split_cmd(cmdline, &i, '|'), cmds_tab);
+// 		else if (cmdline[i] == '&')
+// 			type_and_set(split_cmd(cmdline, &i, '&'), cmds_tab);
+// 		else
+// 			type_and_set(split_cmd_sp(cmdline, &i), cmds_tab);
+// 		if (tmp)
+// 			free(tmp);
+// 		tmp = NULL;
+// 	}
+// 	print_tab(cmds_tab);
+// 	free_tab(cmds_tab);
+// 	return (cmds_list);
+// }
 
 // int	main(int ac, char **av)
 // {

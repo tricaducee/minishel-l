@@ -1,0 +1,99 @@
+> :
+
+EMPTY	1
+CMD,	1
+ARG,	1
+PIPE,	1
+FILE,	1
+RED,	0
+ANDOR	1
+
+>> :
+
+EMPTY	1
+CMD,	1
+ARG,	1
+PIPE,	1
+FILE,	1
+RED,	0
+ANDOR	1
+
+< :
+
+EMPTY	1
+CMD,	1
+ARG,	1
+PIPE,	1
+FILE,	1
+RED,	0
+ANDOR	1
+
+<< :
+
+EMPTY	1
+CMD,	1
+ARG,	1
+PIPE,	1
+FILE,	1
+RED,	0
+ANDOR	1
+
+| :
+
+EMPTY	0
+CMD,	1
+ARG,	1
+PIPE,	0
+FILE,	Si cmdpath != NULL
+RED,	0
+ANDOR	0
+
+|| :
+
+EMPTY	0
+CMD,	1
+ARG,	1
+PIPE,	0
+FILE,	Si cmdpath != NULL
+RED,	0
+ANDOR	0
+
+&& :
+
+EMPTY	0
+CMD,	1
+ARG,	1
+PIPE,	0
+FILE,	Si cmdpath != NULL
+RED,	0
+ANDOR	0
+
+CMD :
+
+EMPTY	1
+CMD,	0
+ARG,	0
+PIPE,	1
+FILE,	1
+RED,	0
+ANDOR	1
+
+ARG :
+
+EMPTY	0
+CMD,	1
+ARG,	1
+PIPE,	0
+FILE,	0
+RED,	0
+ANDOR	0
+
+FILE :
+
+EMPTY	0
+CMD,	0
+ARG,	0
+PIPE,	0
+FILE,	0
+RED,	1
+ANDOR	0

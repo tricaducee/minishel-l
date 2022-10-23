@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:39:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:14:36 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	run_builtin(const char *str, int len, t_shell *shell)
 	if (ft_strncmp(str, "export", len) == 0)
 		ft_export(shell);
 	if (ft_strncmp(str, "pwd", len) == 0)
-		ft_pwd();
+		printf("ouioui\n");
+
 	return (1);
 }
 
@@ -44,7 +45,8 @@ int	is_builtin(t_shell *shell, t_list *env)
 	{
 		builtin_len = ft_strlen(builtins[i]);
 		if (ft_strncmp(builtins[i], shell->cmdline, builtin_len) == 0)
-			run_builtin(builtins[i], builtin_len, shell);
+			return 1;
+			//run_builtin(builtins[i], builtin_len, shell);
 	}
 	return (0);
 }

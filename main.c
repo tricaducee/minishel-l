@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:38:03 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:23:35 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,13 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(shell.cmdline);
 			split = ft_split(shell.cmdline, ' ');
-			if (!is_builtin(&shell, shell.env))
+			if (ft_strncmp(split[0], "pwd", ft_strlen(split[0])) == 0)
+				ft_pwd();
+			else if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
+				ft_env(&shell);
+			else if (ft_strncmp(split[0], "export", ft_strlen(split[0])) == 0)
+				ft_export(&shell);
+			else
 			{
 				is_absolute_path(split, shell.env);
 				exec_cmd(split);
@@ -118,4 +124,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
+
 

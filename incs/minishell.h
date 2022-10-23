@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:31:29 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:22:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,6 @@ typedef struct s_token
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
-
-// contains a copy of env variables
-// typedef struct s_env
-// {
-// 	char			*name;
-// 	char			*value;
-// 	struct s_env	*next;
-// }	t_env;
 
 typedef struct s_cmd
 {

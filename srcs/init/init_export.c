@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_export.c                                      :+:      :+:    :+:   */
+/*   init_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 17:25:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:18:15 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Creates a copy of env linked list in an other linked list
 	returns a t_list export not sorted
 */
-t_list	*fill_export(t_list *env)
+t_list	*init_export(t_list *env)
 {
 	t_list	*export;
 	t_list	*env_cpy;
@@ -30,7 +30,7 @@ t_list	*fill_export(t_list *env)
 	while (env_cpy)
 	{
 		if (export == NULL)
-			ft_lstnew(env_cpy->content);
+			export = ft_lstnew(env_cpy->content);
 		if (ft_strncmp("OLDPWD", env_cpy->content, 6) != 0)
 			is_oldpwd = 1;
 		ft_lstadd_back(&export, ft_lstnew(env_cpy->content));
@@ -38,5 +38,8 @@ t_list	*fill_export(t_list *env)
 	}
 	if (is_oldpwd)
 		ft_lstadd_back(&export, ft_lstnew("OLDPWD"));
+	sort_alphabetically(export);
 	return (export);
 }
+
+// trouve min

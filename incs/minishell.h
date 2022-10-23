@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:05:18 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:27:45 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 // Readline
 # include <readline/readline.h>
 # include <readline/history.h>
+
+// Parsing hrolle
+#include "../srcs/parsing/get_cmds.h"
 
 //globale pour recuperer la valeur du statut de exit
 

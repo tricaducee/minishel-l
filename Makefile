@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/23 13:32:06 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/23 16:27:32 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,10 @@ SRCS	=	main.c \
 			srcs/init/fill_env.c \
 			srcs/init/init_export.c \
 			srcs/init/init_shell.c \
-			srcs/parsing/creates_tokens.c \
+			srcs/parsing/get_cmds.c \
 			srcs/signals/sig_handler.c
+
+# SRCS	=	$(wildcard srcs/*/*.c *.c)
 
 #RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
 #LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline

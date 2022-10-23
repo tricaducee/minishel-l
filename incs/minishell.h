@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/21 22:17:36 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:05:18 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,13 @@ typedef struct s_shell
 
 // List utils
 void	printlist(t_list *top);
-void	print_export(t_list *top);
 void	push(t_list *from, t_list *to);
-t_list	*get_min_value(t_list *top);
 void	sort_alphabetically(t_list *export);
 
 // Init
 void	init_shell(t_shell *shell, char **env);
 t_list	*fill_env(char **m_env);
-t_list	*fill_export(t_list *env);
+t_list	*init_export(t_list *env);
 
 // Signals
 void	handle_interrupt(int sig);

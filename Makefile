@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/21 15:48:13 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/23 13:32:06 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS	=	main.c \
 			srcs/execution/is_builtin.c \
 			srcs/init/list_utils.c \
 			srcs/init/fill_env.c \
-			srcs/init/fill_export.c \
+			srcs/init/init_export.c \
 			srcs/init/init_shell.c \
 			srcs/parsing/creates_tokens.c \
 			srcs/signals/sig_handler.c
@@ -30,8 +30,8 @@ SRCS	=	main.c \
 #RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
 #LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline
 
-RDLINC	=	-I$(HOME)/.brew/opt/readline/include
-LIBRDL =	-L$(HOME)/.brew/opt/readline/lib -lreadline
+#RDLINC	=	-I$(HOME)/.brew/opt/readline/include
+#LIBRDL =	-L$(HOME)/.brew/opt/readline/lib -lreadline
 
 INC_FLAGS := -Ilibs/libft/incs -Iincs
 LIBS := -Llibft -lft -lreadline

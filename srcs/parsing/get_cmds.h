@@ -23,7 +23,7 @@ typedef enum e_type
 
 typedef struct	S_cmdli
 {
-	char			*cmd_path;
+	char			*cmd;
 	char			**cmd_args;
 	int				*pipe_in;
 	int				*pipe_out;
@@ -36,5 +36,6 @@ typedef struct	S_cmdli
 }					t_cmdli;
 
 t_cmdli	*get_cmds(char *cmdline);
+void	print_cmdli(t_cmdli *cmds_list);
 
 #endif

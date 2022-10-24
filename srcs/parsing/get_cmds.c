@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/24 17:27:43 by hrolle           ###   ########.fr       */
+=======
+/*   Updated: 2022/10/24 17:20:28 by lgenevey         ###   ########.fr       */
+>>>>>>> a817ec0a9cf867cd2d0defb20968b107e242a2d4
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_cmds.h"
-#include <stdio.h>//----------------------------------------------
+#include "../../incs/minishell.h"
+//#include <stdio.h>//----------------------------------------------
 
 void	print_error(char *s)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 15:21:03 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:15:06 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	free_tokens_list(t_token *token_list)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
-	//char	**split;
+	t_cmdli	*cmdli;
+	char	*read;
 
 	(void)argc;
 	(void)argv;
@@ -50,16 +51,17 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
-		shell.cmdline = readline("Minishell 🍋 % ");
-		//if (shell.cmdline
-		//	&& !ft_strncmp(shell.cmdline, "exit", ft_strlen(shell.cmdline) == 0))
-		//	exit(0);
-		if (shell.cmdline)
+		read = readline("Minishell 🍋 % ");
+		if (read)
 		{
-			//if (shell.cmdline[0])
-				add_history(shell.cmdline);
-			print_cmdli(get_cmds(shell.cmdline));
-			free(shell.cmdline);
+			add_history(read);
+			cmdli = get_cmds(read);
+			printf("cmd : [%s]\n", cmdli->cmd);
+			// else
+			// {
+			// 	is_absolute_path(split, shell.env);
+			// 	exec_cmd(split);
+			// }
 		}
 		else
 		{

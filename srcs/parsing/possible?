@@ -4,8 +4,11 @@ EMPTY	1
 CMD,	1
 ARG,	1
 PIPE,	1
-FILE,	1
-RED,	0
+RFILE,	1
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	1
 
 >> :
@@ -14,8 +17,11 @@ EMPTY	1
 CMD,	1
 ARG,	1
 PIPE,	1
-FILE,	1
-RED,	0
+RFILE,	1
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	1
 
 < :
@@ -24,8 +30,11 @@ EMPTY	1
 CMD,	1
 ARG,	1
 PIPE,	1
-FILE,	1
-RED,	0
+RFILE,	1
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	1
 
 << :
@@ -34,8 +43,11 @@ EMPTY	1
 CMD,	1
 ARG,	1
 PIPE,	1
-FILE,	1
-RED,	0
+RFILE,	1
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	1
 
 | :
@@ -44,8 +56,11 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-FILE,	Si cmdpath != NULL
-RED,	0
+RFILE,	Si cmdpath != NULL
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	0
 
 || :
@@ -54,8 +69,11 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-FILE,	Si cmdpath != NULL
-RED,	0
+RFILE,	Si cmdpath != NULL
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	0
 
 && :
@@ -64,8 +82,11 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-FILE,	Si cmdpath != NULL
-RED,	0
+RFILE,	Si cmdpath != NULL
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	0
 
 CMD :
@@ -74,8 +95,11 @@ EMPTY	1
 CMD,	0
 ARG,	0
 PIPE,	1
-FILE,	1
-RED,	0
+RFILE,	1
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	1
 
 ARG :
@@ -84,16 +108,22 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-FILE,	0
-RED,	0
+RFILE,	0
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	0
 
-FILE :
+RFILE :
 
 EMPTY	0
 CMD,	0
 ARG,	0
 PIPE,	0
-FILE,	0
-RED,	1
+RFILE,	0
+RDI,	0
+RDO,	0
+RDIH,	0
+RDOA,	0
 ANDOR	0

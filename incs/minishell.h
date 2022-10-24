@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:22:45 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 20:47:52 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct	S_cmdli
 }					t_cmdli;
 
 // Parsing
-
 t_cmdli	*get_cmds(t_list *env, char *cmdline);
 void	print_cmdli(t_cmdli *cmds_list);
 
@@ -86,6 +85,7 @@ void	print_cmdli(t_cmdli *cmds_list);
 void	printlist(t_list *top);
 void	push(t_list *from, t_list *to);
 void	sort_alphabetically(t_list *export);
+char	*ft_get_env(t_list *env, char *substr);
 
 // Init
 void	init_shell(t_shell *shell, char **env);
@@ -106,8 +106,8 @@ void	ft_exit(t_shell *shell);
 void	exec_cmd(char **cmd);
 
 // Execution
-int		run_builtin(const char *str, int len, t_cmdli *cmdli, t_shell *shell);
-int		is_builtin(t_cmdli *cmdli, t_shell *shell);
+int	run_builtin(const char *str, int len, char *cmd_name, t_shell *shell);
+int		is_builtin(char *cmd_name, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline

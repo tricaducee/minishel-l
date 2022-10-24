@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 17:22:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:19:56 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_shell
 {
 	char				*cmdline;
 	char				*prompt;
-	char				**tokens;
 	int 				std_in;
 	int					std_out;
 	t_cmd				*cmd;

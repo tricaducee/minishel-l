@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 12:19:56 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:21:27 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@
 //globale pour recuperer la valeur du statut de exit
 
 //token list
-enum e_tokens
-{
-	UNKNOWN_TOKEN = 0,
-	COMMAND,
-	OPTION,
-	PIPE,
-	ENV_VARIABLE,
-	REDIRECTION
-};
+// enum e_tokens
+// {
+// 	UNKNOWN_TOKEN = 0,
+// 	COMMAND,
+// 	OPTION,
+// 	PIPE,
+// 	ENV_VARIABLE,
+// 	REDIRECTION
+// };
 
 typedef struct s_token
 {

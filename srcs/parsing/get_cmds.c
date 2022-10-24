@@ -1,5 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_cmds.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
+/*   Updated: 2022/10/24 04:34:27 by hermesrolle      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_cmds.h"
 #include <stdio.h>//----------------------------------------------
+
+void	print_error(char *s)
+{
+	if (!s)
+		printf("Error\n");
+	else
+		printf("Error on %s\n", s);
+}
+
 static size_t	ft_strlen(char *s)
 {
 	int	i;
@@ -8,6 +29,18 @@ static size_t	ft_strlen(char *s)
 	while (s && s[i])
 		i++;
 	return (i);
+}
+
+static int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 || *s2)
+		return (0);
+	return (1);
 }
 
 static int	ft_strslen(char **s)
@@ -253,42 +286,154 @@ void	free_tab(char **s)
 		free(s);
 }
 
+t_cmdli	*create_cmdli(void)
+{
+	t_cmdli	*ret;
+
+	ret = malloc(1 * sizeof(t_cmdli));
+	if (!ret)
+		return (NULL);//------------------------------------------malloc return
+	ret->cmd_path = NULL;
+	ret->cmd_args = NULL;
+	ret->pipe_in = NULL;
+	ret->pipe_out = NULL;
+	ret->here_doc = NULL;
+	ret->fd_in = -1;
+	ret->fd_out = -1;
+	ret->and_or = 0;
+	ret->previous = NULL;
+	ret->next = NULL;
+	return (ret);
+}
+
+// EMPTY	0
+// CMD,	1
+// ARG,	1
+// PIPE,	0
+// RFILE,	Si cmdpath != NULL
+// RDI,	0
+// RDO,	0
+// RDIH,	0
+// RDOA,	0
+// ANDOR	0
+
+void	add_pipe(t_cmdli **cmds_list, t_type *type)
+{
+	*type = PIPE;
+	(*cmds_list)->next = create_cmdli();
+	(*cmds_list)->next->previous = (*cmds_list);
+	(*cmds_list)->pipe_out = malloc(2 * sizeof(int));
+	(*cmds_list)->next->pipe_in = (*cmds_list)->pipe_out;
+	*cmds_list = (*cmds_list)->next;
+	if (pipe((*cmds_list)->pipe_in) == -1)
+		return (print_error("pipe"));
+}
+
+void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret)
+{
+	int	rd;
+
+	if (*type == RDI || *type == RDO || *type == RDIH || *type == RDOA)
+		rd = 1;
+	else
+		rd = 0;
+	if (!*cmds_list)
+		*cmds_list = create_cmdli();
+	if (!*cmds_list)
+		return ;
+	if (interpret) // for <<<< <<< >>>> ||| etc... print s + 2
+	{
+		if (ft_strcmp(s, "<") && !rd)
+			*type = RDI;
+		else if (ft_strcmp(s, "<<") && !rd)
+			*type = RDIH;
+		else if (ft_strcmp(s, ">") && !rd)
+			*type = RDO;
+		else if (ft_strcmp(s, ">>") && !rd)
+			*type = RDOA;
+		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
+			add_pipe(cmds_list, type);
+		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
+			*type = ANDOR;
+		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
+			*type = ANDOR;
+	}
+}
+
+t_cmdli	*cmdli_first(t_cmdli *cmds_list)
+{
+	while (cmds_list->previous)
+		cmds_list = cmds_list->previous;
+	return (cmds_list);
+}
 
 t_cmdli	*get_cmds(char *cmdline)
 {
 	unsigned int	i;
 	t_cmdli			*cmds_list;
-	char			**cmds_tab;
-	char			**tmp;
+	t_type				type;
 
 	if (!cmdline)
 		return (NULL);
 	i = 0;
+	type = 0;
 	cmds_list = NULL;
-	cmds_tab = NULL;
 	while (cmdline[i])
 	{
 		while (cmdline[i] == ' ') //all white space
 			++i;
-		tmp = cmds_tab;
 		if (cmdline[i] == '<')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '<'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '<'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '>')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '>'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '>'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '|')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '|'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '|'), &cmds_list, &type, 1);
 		else if (cmdline[i] == '&')
-			cmds_tab = ft_strsjoin(split_cmd(cmdline, &i, '&'), cmds_tab);
+			type_and_set(split_cmd(cmdline, &i, '&'), &cmds_list, &type, 1);
 		else
-			cmds_tab = ft_strsjoin(split_cmd_sp(cmdline, &i), cmds_tab);
-		if (tmp)
-			free(tmp);
-		tmp = NULL;
+			type_and_set(split_cmd_sp(cmdline, &i), &cmds_list, &type, 0);
+		if (!cmds_list)
+			return (NULL);
 	}
-	print_tab(cmds_tab);
-	free_tab(cmds_tab);
-	return (cmds_list);
+	return (cmdli_first(cmds_list));
 }
+
+
+// t_cmdli	*get_cmds(char *cmdline)
+// {
+// 	unsigned int	i;
+// 	t_cmdli			*cmds_list;
+// 	char			**cmds_tab;
+// 	char			**tmp;
+
+// 	if (!cmdline)
+// 		return (NULL);
+// 	i = 0;
+// 	cmds_list = NULL;
+// 	cmds_tab = NULL;
+// 	while (cmdline[i])
+// 	{
+// 		while (cmdline[i] == ' ') //all white space
+// 			++i;
+// 		tmp = cmds_tab;
+// 		if (cmdline[i] == '<')
+// 			type_and_set(split_cmd(cmdline, &i, '<'), cmds_tab);
+// 		else if (cmdline[i] == '>')
+// 			type_and_set(split_cmd(cmdline, &i, '>'), cmds_tab);
+// 		else if (cmdline[i] == '|')
+// 			type_and_set(split_cmd(cmdline, &i, '|'), cmds_tab);
+// 		else if (cmdline[i] == '&')
+// 			type_and_set(split_cmd(cmdline, &i, '&'), cmds_tab);
+// 		else
+// 			type_and_set(split_cmd_sp(cmdline, &i), cmds_tab);
+// 		if (tmp)
+// 			free(tmp);
+// 		tmp = NULL;
+// 	}
+// 	print_tab(cmds_tab);
+// 	free_tab(cmds_tab);
+// 	return (cmds_list);
+// }
 
 // int	main(int ac, char **av)
 // {

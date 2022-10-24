@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 12:15:53 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:54:50 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(shell.cmdline);
 			split = ft_split(shell.cmdline, ' ');
 			if (ft_strncmp(split[0], "pwd", ft_strlen(split[0])) == 0)
-				printf("coucou\n");
+				ft_pwd();
 			else if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
 				ft_env(&shell);
 			else if (ft_strncmp(split[0], "export", ft_strlen(split[0])) == 0)

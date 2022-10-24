@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/24 16:58:55 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:27:43 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,17 +309,6 @@ t_cmdli	*create_cmdli(void)
 	ret->next = NULL;
 	return (ret);
 }
-
-// EMPTY	0
-// CMD,	1
-// ARG,	1
-// PIPE,	0
-// RFILE,	Si cmdpath != NULL
-// RDI,	0
-// RDO,	0
-// RDIH,	0
-// RDOA,	0
-// ANDOR	0
 
 void	add_pipe(t_cmdli **cmds_list, t_type *type)
 {

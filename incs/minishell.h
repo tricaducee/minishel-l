@@ -6,13 +6,16 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:36:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:38:58 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdbool.h>
@@ -21,13 +24,11 @@
 # include <signal.h>
 # include <limits.h>
 # include "../libft/libft.h"
+# include "../srcs/parsing/get_cmds.h"
 
 // Readline
 # include <readline/readline.h>
 # include <readline/history.h>
-
-// Parsing hrolle
-# include "../srcs/parsing/get_cmds.h"
 
 //globale pour recuperer la valeur du statut de exit
 
@@ -39,26 +40,47 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_cmd
-{
-	char			*name;
-	char			**args;
-	char			*redir_path;
-	int				pid;
-	int				std_in;
-	int				std_out;
-	struct s_cmd	*next;
-}	t_cmd;
-
 typedef struct s_shell
 {
-	t_cmdli				*cmdline;
 	t_list				*env;
 	t_list				*export;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
+
+typedef enum e_type
+{
+	EMPTY,
+	CMD,
+	ARG,
+	PIPE,
+	RFILE,
+	RDI,
+	RDO,
+	RDIH,
+	RDOA,
+	ANDOR
+}			t_type;
+
+typedef struct	S_cmdli
+{
+	char			*cmd;
+	char			**cmd_args;
+	int				*pipe_in;
+	int				*pipe_out;
+	char			*here_doc;
+	int				fd_in;
+	int				fd_out;
+	int				and_or;
+	struct S_cmdli	*previous;
+	struct S_cmdli	*next;
+}					t_cmdli;
+
+// Parsing
+
+t_cmdli	*get_cmds(t_list *env, char *cmdline);
+void	print_cmdli(t_cmdli *cmds_list);
 
 // List utils
 void	printlist(t_list *top);

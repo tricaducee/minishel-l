@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/24 17:20:28 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:14:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_cmds.h"
 #include "../../incs/minishell.h"
-//#include <stdio.h>//----------------------------------------------
 
 void	print_error(char *s)
 {
@@ -22,19 +20,7 @@ void	print_error(char *s)
 		printf("Error on %s\n", s);
 }
 
-static size_t	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i])
-		i++;
-	return (i);
-}
-
-static int	ft_strcmp(char *s1, char *s2)
+static int	ft_strcmp_int(char *s1, char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{
@@ -54,69 +40,6 @@ static int	ft_strslen(char **s)
 	while (s && s[i])
 		i++;
 	return (i);
-}
-
-static char	*ft_strdup(char *s)
-{
-	char			*ret;
-	unsigned int	i;
-
-	if (!s)
-		return (NULL);
-	ret	= malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		ret[i] = s[i];
-		++i;
-	}
-	ret[i] = 0;
-	return (ret);
-}
-
-static char	*ft_substr(char *s, unsigned int start, unsigned int len)
-{
-	char			*ret;
-	unsigned int	i;
-	unsigned int	f_len;
-
-	if (!s)
-		return (0);
-	f_len = ft_strlen(s);
-	if (start >= f_len)
-		return (ft_strdup(""));
-	if (len > f_len - start)
-		len = f_len - start;
-	ret = malloc((len + 1) * sizeof(char));
-	if (!ret)
-		return (0);
-	i = 0;
-	while (s[start + i] && i < len)
-	{
-		ret[i] = s[start + i];
-		i++;
-	}
-	ret[i] = 0;
-	return (ret);
-}
-
-static char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*str;
-	char	*ret;
-
-	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	ret = str;
-	if (!str)
-		return (0);
-	while (s1 && *s1)
-		*(str++) = *(s1++);
-	while (s2 && *s2)
-		*(str++) = *(s2++);
-	*str = 0;
-	return (ret);
 }
 
 char	*split_cmd(char *cmdline, unsigned int *i, char c)
@@ -165,9 +88,11 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
+	{
 		//new = ft_get_env(t_list *env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
 		(void)env;
 		new = ft_strdup("VARIABLE");
+	}
 	else
 		new = ft_strdup("$");
 	tmp = str;
@@ -311,17 +236,6 @@ t_cmdli	*create_cmdli(void)
 	return (ret);
 }
 
-// EMPTY	0
-// CMD,	1
-// ARG,	1
-// PIPE,	0
-// RFILE,	Si cmdpath != NULL
-// RDI,	0
-// RDO,	0
-// RDIH,	0
-// RDOA,	0
-// ANDOR	0
-
 void	add_pipe(t_cmdli **cmds_list, t_type *type)
 {
 	*type = PIPE;
@@ -399,19 +313,19 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 		return ;
 	if (interpret) // for <<<< <<< >>>> ||| etc... print s + 2
 	{
-		if (ft_strcmp(s, "<") && !rd)
+		if (ft_strcmp_int(s, "<") && !rd)
 			*type = RDI;
-		else if (ft_strcmp(s, "<<") && !rd)
+		else if (ft_strcmp_int(s, "<<") && !rd)
 			*type = RDIH;
-		else if (ft_strcmp(s, ">") && !rd)
+		else if (ft_strcmp_int(s, ">") && !rd)
 			*type = RDO;
-		else if (ft_strcmp(s, ">>") && !rd)
+		else if (ft_strcmp_int(s, ">>") && !rd)
 			*type = RDOA;
-		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd  && *type == RFILE)))
+		else if (ft_strcmp_int(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd  && *type == RFILE)))
 			add_pipe(cmds_list, type);
-		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
+		else if (ft_strcmp_int(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
 			add_andor(cmds_list, type, 2);
-		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
+		else if (ft_strcmp_int(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
 			add_andor(cmds_list, type, 1);
 		else
 		{
@@ -442,7 +356,7 @@ t_cmdli	*cmdli_first(t_cmdli *cmds_list)
 	return (cmds_list);
 }
 
-t_cmdli	*get_cmds(char *cmdline, t_list *env)
+t_cmdli	*get_cmds(t_list *env, char *cmdline)
 {
 	//printf("\nget_cmds in\n");
 	unsigned int	i;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 12:06:39 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/11/05 22:28:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:30:59 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static	int	ft_how_many_words(const char *str, char c)
+static	int	ft_how_many_words(char *str, char c)
 {
 	int	count;
 
@@ -31,7 +31,7 @@ static	int	ft_how_many_words(const char *str, char c)
 	return (count);
 }
 
-static int	ft_count_letters(const char *str, char c)
+static int	ft_count_letters(char *str, char c)
 {
 	size_t	i;
 
@@ -48,7 +48,7 @@ static void	ft_free(char **result, int i)
 	free(result);
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**str;
 	int		nb_words;

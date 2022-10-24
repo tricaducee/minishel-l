@@ -3,32 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:00:30 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/10/25 15:16:39 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:25:06 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// l23 : le + 1 c'est pour prendre en compte le 0 qui termine le tableau de char
-
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s)
 {
-	char	*copy;
-	int		i;
+	char			*ret;
+	unsigned int	i;
 
-	copy = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
-	if (copy == NULL)
+	if (!s)
+		return (NULL);
+	ret	= malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!ret)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (s[i])
 	{
-		copy[i] = s1[i];
-		i++;
+		ret[i] = s[i];
+		++i;
 	}
-	copy[i] = 0;
-	return (copy);
+	ret[i] = 0;
+	return (ret);
 }

@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 14:41:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/11/05 12:28:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:21 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "libft.h"
 
 char	*ft_my_strchr(char *s, char *c)
@@ -50,7 +50,7 @@ char	*ft_my_strrchr(char *s, char *c)
 	return (0);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	char	*str;
 	char	*start;

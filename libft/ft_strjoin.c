@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:56:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/06/21 12:50:08 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:33:01 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*s3;
-	int		len_s1;
-	int		len_s2;
+	char	*str;
+	char	*ret;
 
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	s3 = malloc(sizeof(char) * (len_s1 + len_s2 + 1));
-	if (!s3)
-		return (NULL);
-	ft_strlcpy(s3, s1, len_s1 + 1);
-	ft_strlcat(s3, s2, len_s1 + len_s2 + 1);
-	return (s3);
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	ret = str;
+	if (!str)
+		return (0);
+	while (s1 && *s1)
+		*(str++) = *(s1++);
+	while (s2 && *s2)
+		*(str++) = *(s2++);
+	*str = 0;
+	return (ret);
 }

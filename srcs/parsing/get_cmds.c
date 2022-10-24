@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/24 04:34:27 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:16:38 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,23 +322,59 @@ void	add_pipe(t_cmdli **cmds_list, t_type *type)
 	*type = PIPE;
 	(*cmds_list)->next = create_cmdli();
 	(*cmds_list)->next->previous = (*cmds_list);
-	(*cmds_list)->pipe_out = malloc(2 * sizeof(int));
+	if (!(*cmds_list)->pipe_out)
+		(*cmds_list)->pipe_out = malloc(2 * sizeof(int));
 	(*cmds_list)->next->pipe_in = (*cmds_list)->pipe_out;
 	*cmds_list = (*cmds_list)->next;
 	if (pipe((*cmds_list)->pipe_in) == -1)
 		return (print_error("pipe"));
 }
 
-void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret)
+void	add_andor(t_cmdli **cmds_list, t_type *type, int and_or)
+{
+	*type = ANDOR;
+	(*cmds_list)->next = create_cmdli();
+	(*cmds_list)->next->previous = (*cmds_list);
+	*cmds_list = (*cmds_list)->next;
+	(*cmds_list)->and_or = and_or;
+}
+
+void	add_arg(t_cmdli **cmds_list, char *arg, t_type *type)
+{
+	char	**tmp;
+
+	*type = ARG;
+	tmp = (*cmds_list)->cmd_args;
+	(*cmds_list)->cmd_args = ft_strsjoin(arg, tmp);
+	if (tmp)
+		free(tmp);
+}
+
+void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type) // if invalid cmd cmd_path = null and cmd_args[0] = "none"
+{
+	*type = CMD;
+	(*cmds_list)->cmd_path = cmd;
+}
+
+void	add_file(t_cmdli **cmds_list, char *file, t_type *type)
+{
+	*type = RFILE;	
+}
+
+void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // doit retourner valeur si continue ou pas
 {
 	int	rd;
 
+	//printf("\ntype_and_set in\n");
 	if (*type == RDI || *type == RDO || *type == RDIH || *type == RDOA)
 		rd = 1;
 	else
 		rd = 0;
 	if (!*cmds_list)
+	{
 		*cmds_list = create_cmdli();
+		//print_cmdli(*cmds_list);
+	}
 	if (!*cmds_list)
 		return ;
 	if (interpret) // for <<<< <<< >>>> ||| etc... print s + 2
@@ -351,24 +387,44 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret)
 			*type = RDO;
 		else if (ft_strcmp(s, ">>") && !rd)
 			*type = RDOA;
-		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
+		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path)  && *type == RFILE))
 			add_pipe(cmds_list, type);
-		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
-			*type = ANDOR;
-		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_path) && *type == RFILE))
-			*type = ANDOR;
+		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path) && *type == RFILE))
+			add_andor(cmds_list, type, 2);
+		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path) && *type == RFILE))
+			add_andor(cmds_list, type, 1);
+		else
+		{
+			//printf("\ntype_and_set out\n");
+			return (print_error(s));
+		}
 	}
+	else
+	{
+		if (*type == CMD || *type == ARG)
+			add_arg(cmds_list, s, type);
+		else if (!rd)
+			add_cmd(cmds_list, s, type);
+		else
+			add_file(cmds_list, s, type);
+	}
+	//printf("\ntype_and_set out\n");
 }
 
 t_cmdli	*cmdli_first(t_cmdli *cmds_list)
 {
+	//printf("\ncmdli_first in\n");
+	if (!cmds_list)
+		return (NULL);
 	while (cmds_list->previous)
 		cmds_list = cmds_list->previous;
+	//printf("\ncmdli_first out\n");
 	return (cmds_list);
 }
 
 t_cmdli	*get_cmds(char *cmdline)
 {
+	//printf("\nget_cmds in\n");
 	unsigned int	i;
 	t_cmdli			*cmds_list;
 	t_type				type;
@@ -395,6 +451,7 @@ t_cmdli	*get_cmds(char *cmdline)
 		if (!cmds_list)
 			return (NULL);
 	}
+	//printf("\nget_cmds out\n");
 	return (cmdli_first(cmds_list));
 }
 
@@ -435,10 +492,10 @@ t_cmdli	*get_cmds(char *cmdline)
 // 	return (cmds_list);
 // }
 
-// int	main(int ac, char **av)
-// {
-// 	if (ac < 2)
-// 		return (1);
-// 	get_cmds(av[1]);
-// 	return (0);
-// }
+int	main(int ac, char **av)
+{
+	if (ac < 2)
+		return (1);
+	print_cmdli(get_cmds(av[1]));
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 00:11:33 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:57:29 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_tokens_list(t_token *token_list)
 // 		{
 // 			//if (shell.cmdline[0])
 // 				add_history(shell.cmdline);
-// 			get_cmds(shell.cmdline);
+// 			print_cmdli(get_cmds(shell.cmdline));
 // 			free(shell.cmdline);
 // 		}
 // 		else

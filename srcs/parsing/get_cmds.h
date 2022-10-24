@@ -36,5 +36,6 @@ typedef struct	S_cmdli
 }					t_cmdli;
 
 t_cmdli	*get_cmds(char *cmdline);
+void	print_cmdli(t_cmdli *cmds_list);
 
 #endif

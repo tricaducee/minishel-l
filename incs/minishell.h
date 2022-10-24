@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 12:21:27 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:51:42 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,9 @@
 # include <readline/history.h>
 
 // Parsing hrolle
-#include "../srcs/parsing/get_cmds.h"
+# include "../srcs/parsing/get_cmds.h"
 
 //globale pour recuperer la valeur du statut de exit
-
-//token list
-// enum e_tokens
-// {
-// 	UNKNOWN_TOKEN = 0,
-// 	COMMAND,
-// 	OPTION,
-// 	PIPE,
-// 	ENV_VARIABLE,
-// 	REDIRECTION
-// };
 
 typedef struct s_token
 {
@@ -63,11 +52,7 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
-	char				*cmdline;
-	char				*prompt;
-	int 				std_in;
-	int					std_out;
-	t_cmd				*cmd;
+	t_cmdli				*cmdline;
 	t_list				*env;
 	t_list				*export;
 	struct termios		term;

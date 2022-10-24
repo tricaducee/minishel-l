@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/23 16:36:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:48:38 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,32 @@ void	sort_alphabetically(t_list *export)
 	}
 }
 
+/*
+	returns value of ENV VAR name searched
+	env : first node of our linked list of every ENV VAR
+	substr : name of the variable whose value we want.
+*/
+char	*ft_get_env(t_list *env, char *substr)
+{
+	t_list	*ptr;
+	char	*ret;
+	size_t	from;
+	size_t	to;
 
+	if (!env || !substr)
+		return (NULL);
+	ptr = env;
+	ret = ft_strdup("");
+	while (ptr)
+	{
+		from = (ft_strchr(ptr->content, '=') - (char *)ptr->content) + 1;
+		to = ft_strlen(substr);
+		if (ft_strncmp(substr, ptr->content, to) == 0)
+		{
+			ret = ft_substr(ptr->content, from, to - from);
+			printf("ft_get_env ret: [%s]\n", ret);
+		}
+		ptr = ptr->next;
+	}
+	return (ret);
+}

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 19:21:14 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:49:08 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
-			print_cmdli(cmdli);
+			//print_cmdli(cmdli);
+			ft_get_env(shell.env, "PATH");
 			if (!is_builtin(cmdli->cmd, &shell))
 			{
-				printf("c'est pas un builtin ok\n");
+				printf("c'est pas un builtin\n");
 			}
 		}
 		else

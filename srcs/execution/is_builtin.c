@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:57:25 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:47:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	run the builtin
 */
-int	run_builtin(const char *str, int len, t_cmdli *cmdli, t_shell *shell)
+int	run_builtin(const char *str, int len, char *cmd_name, t_shell *shell)
 {
 	if (ft_strncmp(str, "env", len) == 0)
 		ft_env(shell);

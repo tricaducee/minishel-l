@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:10:44 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:15:06 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_tokens_list(t_token *token_list)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
-	t_cmdli	cmd_infos;
+	t_cmdli	*cmdli;
 	char	*read;
 
 	(void)argc;
@@ -55,8 +55,8 @@ int	main(int argc, char **argv, char **env)
 		if (read)
 		{
 			add_history(read);
-			shell.cmdline = get_cmds(read);
-			printf("cmd : [%s]\n", shell.cmdline->cmd_path);
+			cmdli = get_cmds(read);
+			printf("cmd : [%s]\n", cmdli->cmd);
 			// else
 			// {
 			// 	is_absolute_path(split, shell.env);

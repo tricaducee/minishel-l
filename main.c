@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:15:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:19:49 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 		if (read)
 		{
 			add_history(read);
-			cmdli = get_cmds(read);
+			cmdli = get_cmds(shell.env, read);
 			printf("cmd : [%s]\n", cmdli->cmd);
 			// else
 			// {
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			free(shell.cmdline);
+			free(read);
 			exit (0);
 		}
 	}

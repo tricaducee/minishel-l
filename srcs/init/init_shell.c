@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:49:17 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 16:58:58 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:20:18 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_shell(t_shell *shell, char **m_env)
 {
-	shell->cmdline = NULL;
 	shell->env = fill_env(m_env);
 	shell->export = init_export(shell->env);
 	tcgetattr(0, &shell->term);

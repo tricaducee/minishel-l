@@ -1,41 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_cmds.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/24 18:06:52 by hrolle            #+#    #+#             */
+/*   Updated: 2022/10/24 18:21:53 by hrolle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_CMDS_H
 # define GET_CMDS_H
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <string.h>
+# include "../../incs/minishell.h"
 
-typedef enum e_type
-{
-	EMPTY,
-	CMD,
-	ARG,
-	PIPE,
-	RFILE,
-	RDI,
-	RDO,
-	RDIH,
-	RDOA,
-	ANDOR
-}			t_type;
 
-typedef struct	S_cmdli
-{
-	char			*cmd;
-	char			**cmd_args;
-	int				*pipe_in;
-	int				*pipe_out;
-	char			*here_doc;
-	int				fd_in;
-	int				fd_out;
-	int				and_or;
-	struct S_cmdli	*previous;
-	struct S_cmdli	*next;
-}					t_cmdli;
-
-t_cmdli	*get_cmds(char *cmdline);
-void	print_cmdli(t_cmdli *cmds_list);
 
 #endif

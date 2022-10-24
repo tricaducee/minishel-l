@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:35:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:36:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	exec_cmd(char **cmd);
 
 // Execution
 int		run_builtin(const char *str, int len, t_cmdli *cmdli, t_shell *shell);
-int	is_builtin(t_cmdli *cmdli, t_shell *shell);
+int		is_builtin(t_cmdli *cmdli, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline

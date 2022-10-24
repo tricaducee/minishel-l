@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/24 20:12:54 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 21:04:56 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 		j++;
 	if (j)
 	{
-		//new = ft_get_env(t_list *env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
-		(void)env;
-		new = ft_strdup("VARIABLE");
+		new = ft_get_env(env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
+		//(void)env;
+		//new = ft_strdup("VARIABLE");
 	}
 	else
 		new = ft_strdup("$");
@@ -309,10 +309,10 @@ void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//------------------
 			return (print_error(file));
 		free(file);
 	}
-	else
-	{
-		if (!(*cmds_list)->pipe_in)
-	}
+//	else
+//	{
+//		if (!(*cmds_list)->pipe_in)
+//	}
 	*type = RFILE;
 }
 

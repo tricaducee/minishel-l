@@ -25,7 +25,7 @@ void	print_cmdli(t_cmdli *cmds_list)
 	while (cmds_list)
 	{
 		printf("\nnode %u :\n\n", ++i);
-		printf("cmd_path = %s\n", cmds_list->cmd_path);
+		printf("cmd = %s\n", cmds_list->cmd);
 		print_tab(cmds_list->cmd_args);
 		if (cmds_list->pipe_in)
 			printf("pipe_in = yes\n");

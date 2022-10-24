@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/24 14:16:38 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:58:55 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static size_t	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
-	while (s && s[i])
+	if (!s)
+		return (i);
+	while (s[i])
 		i++;
 	return (i);
 }
@@ -146,7 +148,7 @@ static char	**ft_strsjoin(char *s, char **ss)
 	return (ret);
 }
 
-char	*add_var(char *cmdline, char *str, unsigned int *i)
+char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 {
 	char			*ret;
 	unsigned int	j;
@@ -162,7 +164,9 @@ char	*add_var(char *cmdline, char *str, unsigned int *i)
 				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
-		new = ft_strdup("VARIABLE"); //---------------------------- Chercher variable
+		//new = ft_get_env(t_list *env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
+		(void)env;
+		new = ft_strdup("VARIABLE");
 	else
 		new = ft_strdup("$");
 	tmp = str;
@@ -200,7 +204,7 @@ char	*add_quote(char *cmdline, char *str, unsigned int *i)
 	return (ret);
 }
 
-char	*add_dquote(char *cmdline, char *str, unsigned int *i)
+char	*add_dquote(char *cmdline, char *str, unsigned int *i, t_list *env)
 {
 	char			*ret;
 	unsigned int	j;
@@ -224,13 +228,13 @@ char	*add_dquote(char *cmdline, char *str, unsigned int *i)
 			free(tmp);
 		*i += j;
 		if (cmdline[*i] && cmdline[*i] == '$')
-			ret = add_var(cmdline, ret, i);
+			ret = add_var(cmdline, ret, i, env);
 	}
 	++*i;
 	return (ret);
 }
 
-char	*split_cmd_sp(char *cmdline, unsigned int *i)
+char	*split_cmd_sp(char *cmdline, unsigned int *i, t_list *env)
 {
 	unsigned int	j;
 	char			*ret;
@@ -259,11 +263,11 @@ char	*split_cmd_sp(char *cmdline, unsigned int *i)
 		}
 		*i += j;
 		if (cmdline[*i] && cmdline[*i] == '$')
-			ret = add_var(cmdline, ret, i);
+			ret = add_var(cmdline, ret, i, env);
 		if (cmdline[*i] && cmdline[*i] == '\'')
 			ret = add_quote(cmdline, ret, i);
 		if (cmdline[*i] && cmdline[*i] == '"')
-			ret = add_dquote(cmdline, ret, i);
+			ret = add_dquote(cmdline, ret, i, env);
 	}
 	return (ret);
 }
@@ -293,7 +297,7 @@ t_cmdli	*create_cmdli(void)
 	ret = malloc(1 * sizeof(t_cmdli));
 	if (!ret)
 		return (NULL);//------------------------------------------malloc return
-	ret->cmd_path = NULL;
+	ret->cmd = NULL;
 	ret->cmd_args = NULL;
 	ret->pipe_in = NULL;
 	ret->pipe_out = NULL;
@@ -350,15 +354,30 @@ void	add_arg(t_cmdli **cmds_list, char *arg, t_type *type)
 		free(tmp);
 }
 
-void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type) // if invalid cmd cmd_path = null and cmd_args[0] = "none"
+void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type)
 {
 	*type = CMD;
-	(*cmds_list)->cmd_path = cmd;
+	(*cmds_list)->cmd = cmd;
 }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)
 {
-	*type = RFILE;	
+	// if (*type == RDI)
+	// {
+	// 	if ((*cmds_list)->fd_in != -1)
+	// 		close((*cmds_list)->fd_in);
+	// 	(*cmds_list)->fd_in = open(file, O_RDONLY);
+	// 	if ((*cmds_list)->fd_in == -1)
+	// 		return (print_error(file));
+	// 	free(file);
+	// 	if (!(*cmds_list)->pipe_in)
+	// 		!(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
+	// 	if (!(*cmds_list)->pipe_in)
+	// 		return (print_error(file));
+	// 	pipe(!(*cmds_list)->pipe_in);
+
+	// }
+	*type = RFILE;
 }
 
 void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // doit retourner valeur si continue ou pas
@@ -387,11 +406,11 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 			*type = RDO;
 		else if (ft_strcmp(s, ">>") && !rd)
 			*type = RDOA;
-		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path)  && *type == RFILE))
+		else if (ft_strcmp(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd  && *type == RFILE)))
 			add_pipe(cmds_list, type);
-		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path) && *type == RFILE))
+		else if (ft_strcmp(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
 			add_andor(cmds_list, type, 2);
-		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd_args || (*cmds_list)->cmd_path) && *type == RFILE))
+		else if (ft_strcmp(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
 			add_andor(cmds_list, type, 1);
 		else
 		{
@@ -422,7 +441,7 @@ t_cmdli	*cmdli_first(t_cmdli *cmds_list)
 	return (cmds_list);
 }
 
-t_cmdli	*get_cmds(char *cmdline)
+t_cmdli	*get_cmds(char *cmdline, t_list *env)
 {
 	//printf("\nget_cmds in\n");
 	unsigned int	i;
@@ -447,7 +466,7 @@ t_cmdli	*get_cmds(char *cmdline)
 		else if (cmdline[i] == '&')
 			type_and_set(split_cmd(cmdline, &i, '&'), &cmds_list, &type, 1);
 		else
-			type_and_set(split_cmd_sp(cmdline, &i), &cmds_list, &type, 0);
+			type_and_set(split_cmd_sp(cmdline, &i, env), &cmds_list, &type, 0);
 		if (!cmds_list)
 			return (NULL);
 	}
@@ -492,10 +511,10 @@ t_cmdli	*get_cmds(char *cmdline)
 // 	return (cmds_list);
 // }
 
-int	main(int ac, char **av)
-{
-	if (ac < 2)
-		return (1);
-	print_cmdli(get_cmds(av[1]));
-	return (0);
-}
+// int	main(int ac, char **av)
+// {
+// 	if (ac < 2)
+// 		return (1);
+// 	print_cmdli(get_cmds(av[1]));
+// 	return (0);
+// }

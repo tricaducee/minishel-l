@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:19:49 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/24 18:40:18 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
+			print_cmdli(cmdli);
 			printf("cmd : [%s]\n", cmdli->cmd);
 			// else
 			// {

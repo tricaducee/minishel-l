@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:39:01 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 19:21:14 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	free_tokens_list(t_token *token_list)
 	}
 }
 
-/*
-	HERMES
-*/
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
@@ -51,17 +48,16 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
-		read = readline("Minishell 🍋 % ");
+		read = readline("Minishell 🍋🍑 % ");
 		if (read)
 		{
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
-			printf("cmd : [%s]\n", cmdli->cmd);
-			// else
-			// {
-			// 	is_absolute_path(split, shell.env);
-			// 	exec_cmd(split);
-			// }
+			print_cmdli(cmdli);
+			if (!is_builtin(cmdli->cmd, &shell))
+			{
+				printf("c'est pas un builtin ok\n");
+			}
 		}
 		else
 		{
@@ -71,46 +67,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
-
-/*
-	LUCIE
-*/
-int	main(int argc, char **argv, char **env)
-{
-	t_shell	shell;
-	char	**split;
-
-	(void)argc;
-	(void)argv;
-	while (true)
-	{
-		init_shell(&shell, env);
-		sig_handler(&shell);
-		shell.cmdline = readline("Minishell 🍋 % ");
-		if (shell.cmdline)
-		{
-			add_history(shell.cmdline);
-			split = ft_split(shell.cmdline, ' ');
-			if (ft_strncmp(split[0], "pwd", ft_strlen(split[0])) == 0)
-				ft_pwd();
-			else if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
-				ft_env(&shell);
-			else if (ft_strncmp(split[0], "export", ft_strlen(split[0])) == 0)
-				ft_export(&shell);
-			else
-			{
-				is_absolute_path(split, shell.env);
-				exec_cmd(split);
-			}
-		}
-		else
-		{
-			free(shell.cmdline);
-			exit(0);
-		}
-	}
-	return (0);
-}
-
-

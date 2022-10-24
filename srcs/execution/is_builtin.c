@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:35:48 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:57:25 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,26 @@ int	run_builtin(const char *str, int len, t_cmdli *cmdli, t_shell *shell)
 }
 
 /*
-	run the builtin function if the command input matches with our builtin list
+	check if cmd_name is a builtin
+	returns 0 if cmd_name is empty or if it's not a builtin
+	if cmd_name matches with builtin : run the builtin
 */
-int	is_builtin(t_cmdli *cmdli, t_shell *shell)
+int	is_builtin(char *cmd_name, t_shell *shell)
 {
 	const char	*builtins[]
 		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
 	int			builtin_len;
 	int			i;
 
-	if (!cmdli->cmd)
+	if (!cmd_name)
 		return (0);
-	i = -1;
-	while (builtins[++i])
+	i = 0;
+	while (builtins[i])
 	{
 		builtin_len = ft_strlen(builtins[i]);
-		if (ft_strncmp(builtins[i], cmdli->cmd, builtin_len) == 0)
-			run_builtin(builtins[i], builtin_len, cmdli, shell);
+		if (ft_strncmp(builtins[i], cmd_name, builtin_len) == 0)
+			run_builtin(builtins[i], builtin_len, cmd_name, shell);
+		++i;
 	}
 	return (0);
 }

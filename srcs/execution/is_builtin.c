@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 12:26:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:57:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_builtin(t_shell *shell, t_list *env)
 	while (builtins[++i])
 	{
 		builtin_len = ft_strlen(builtins[i]);
-		if (ft_strncmp(builtins[i], shell->cmdline, builtin_len) == 0)
+		if (ft_strncmp(builtins[i], shell->cmdline->cmd_path, builtin_len) == 0)
 			run_builtin(builtins[i], builtin_len, shell);
 	}
 	return (0);

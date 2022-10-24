@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 14:54:50 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:09:50 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	free_tokens_list(t_token *token_list)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
-	char	**split;
+	t_cmdli	cmd_infos;
+	char	*read;
 
 	(void)argc;
 	(void)argv;
@@ -99,22 +100,17 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
-		shell.cmdline = readline("Minishell 🍋 % ");
-		if (shell.cmdline)
+		read = readline("Minishell 🍋 % ");
+		if (read)
 		{
-			add_history(shell.cmdline);
-			split = ft_split(shell.cmdline, ' ');
-			if (ft_strncmp(split[0], "pwd", ft_strlen(split[0])) == 0)
-				ft_pwd();
-			else if (ft_strncmp(split[0], "env", ft_strlen(split[0])) == 0)
-				ft_env(&shell);
-			else if (ft_strncmp(split[0], "export", ft_strlen(split[0])) == 0)
-				ft_export(&shell);
-			else
-			{
-				is_absolute_path(split, shell.env);
-				exec_cmd(split);
-			}
+			add_history(read);
+			shell.cmdline = get_cmds(read);
+			printf("cmd : [%s]\n", shell.cmdline->cmd_path);
+			// else
+			// {
+			// 	is_absolute_path(split, shell.env);
+			// 	exec_cmd(split);
+			// }
 		}
 		else
 		{

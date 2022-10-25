@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:52 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:38:34 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,21 @@ int		ft_env(t_shell *shell);
 int		ft_export(t_shell *shell);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
+void	ft_unset(t_shell *shell, char **args);
 
 // Binaries
 void	exec_cmd(char **cmd);
 
 // Execution
-int	run_builtin(const char *str, int len, char *cmd_name, t_shell *shell);
-int		is_builtin(char *cmd_name, t_shell *shell);
+int		run_builtin(const char *str, t_cmdli *cmdli, t_shell *shell, int len);
+int		is_builtin(t_cmdli *cmdli, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline
 void	rl_replace_line (const char *, int);
 t_token	*get_token(t_shell *shell);
+
+// Heredoc
+char	*heredoc(char *limit);
 
 #endif

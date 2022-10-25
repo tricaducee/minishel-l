@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_is_uppercase.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 14:00:30 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:30:34 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/10/25 20:26:08 by lgenevey          #+#    #+#             */
+/*   Updated: 2022/10/25 20:27:00 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(char *s)
+/*
+	returns 0 if a letter is not uppercase
+	returns 1 if all letters are uppercase
+*/
+int	ft_is_uppercase(char *str)
 {
-	char			*ret;
-	unsigned int	i;
-
-	if (!s)
-		return (NULL);
-	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (s[i])
+	if (!str)
+		return (0);
+	while (*str)
 	{
-		ret[i] = s[i];
-		++i;
+		if (*str <= 'A' || *str >= 'Z')
+			return (0);
+		++str;
 	}
-	ret[i] = 0;
-	return (ret);
+	return (1);
 }

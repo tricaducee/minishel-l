@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/24 08:19:54 by hrolle           ###   ########.fr        #
+#    Updated: 2022/10/25 20:40:50 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS	=	main.c \
 			srcs/binaries/execute_non_builtins.c \
 			srcs/builtins/ft_env.c \
 			srcs/builtins/ft_export.c \
+			srcs/builtins/ft_unset.c \
 			srcs/builtins/ft_exit.c \
 			srcs/builtins/ft_pwd.c \
 			srcs/execution/is_builtin.c \
@@ -26,7 +27,8 @@ SRCS	=	main.c \
 			srcs/init/init_shell.c \
 			srcs/parsing/get_cmds.c \
 			srcs/parsing/print_cmdli.c \
-			srcs/signals/sig_handler.c
+			srcs/signals/sig_handler.c \
+			srcs/heredoc/heredoc.c
 
 # SRCS	=	$(wildcard srcs/*/*.c *.c)
 
@@ -46,7 +48,7 @@ OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 RM		=	rm -f
 
-DEBUG	=	#-fsanitize=address
+DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
 #CFLAGS	=	-Wall -Wextra -Werror -g
 

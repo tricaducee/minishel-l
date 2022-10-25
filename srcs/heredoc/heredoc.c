@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 21:36:23 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:50:09 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strjoin_nl(char *s1, char *s2)
 
 char	*heredoc(char *limit)
 {
-	static char	*line;
+	char	*line;
 	char		*ret;
 	char		*tmp;
 

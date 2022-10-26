@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:44 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/26 07:08:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_builtin(char *cmd_name, t_shell *shell)
 	{
 		builtin_len = ft_strlen(builtins[i]);
 		if (ft_strncmp(builtins[i], cmd_name, builtin_len) == 0)
-			run_builtin(builtins[i], builtin_len, cmd_name, shell);
+			return (run_builtin(builtins[i], builtin_len, cmd_name, shell));// j'ai modifier ça, j'ai juste return le retour de la fonction pour ne pas le perdre (ça me mettais toujours "c'est pas un built-in alors que si! voilà!")
 		++i;
 	}
 	return (0);

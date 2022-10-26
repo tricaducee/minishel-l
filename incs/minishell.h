@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:52 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/26 06:55:28 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <signal.h>
 # include <limits.h>
 # include "../libft/libft.h"
-# include "../srcs/parsing/get_cmds.h"
 
 // Readline
 # include <readline/readline.h>
@@ -80,6 +79,7 @@ typedef struct	S_cmdli
 // Parsing
 t_cmdli	*get_cmds(t_list *env, char *cmdline);
 void	print_cmdli(t_cmdli *cmds_list);
+char	*heredoc(char *limit);
 
 // List utils
 void	printlist(t_list *top);

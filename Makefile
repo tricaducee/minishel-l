@@ -6,7 +6,7 @@
 #    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/24 08:19:54 by hrolle           ###   ########.fr        #
+#    Updated: 2022/10/25 22:58:09 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	=	main.c \
 			srcs/init/init_shell.c \
 			srcs/parsing/get_cmds.c \
 			srcs/parsing/print_cmdli.c \
+			srcs/parsing/heredoc.c \
 			srcs/signals/sig_handler.c
 
 # SRCS	=	$(wildcard srcs/*/*.c *.c)

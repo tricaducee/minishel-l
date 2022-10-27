@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/26 07:09:23 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/27 01:10:22 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 			cmdli = get_cmds(shell.env, read);
 			print_cmdli(cmdli);
 			//ft_get_env(shell.env, "PATH");
-			if (!is_builtin(cmdli->cmd, &shell))
+			if (!is_builtin(cmdli, &shell))
 				printf("c'est pas un builtin :\(\n");
 			else
 				printf("c'est un builtin ! :D\n");

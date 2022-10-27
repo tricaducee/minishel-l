@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/25 22:58:09 by hrolle           ###   ########.fr        #
+#    Updated: 2022/10/27 01:03:22 by hermesrolle      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS	=	main.c \
 			srcs/builtins/ft_export.c \
 			srcs/builtins/ft_exit.c \
 			srcs/builtins/ft_pwd.c \
+			srcs/builtins/ft_echo.c \
 			srcs/execution/is_builtin.c \
 			srcs/init/list_utils.c \
 			srcs/init/fill_env.c \

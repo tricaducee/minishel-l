@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/26 06:55:28 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/27 02:49:02 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <readline/history.h>
 
 //globale pour recuperer la valeur du statut de exit
+int	errnum;
 
 typedef struct s_token
 {
@@ -101,13 +102,14 @@ int		ft_env(t_shell *shell);
 int		ft_export(t_shell *shell);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
+void	ft_echo(char **ss);
 
 // Binaries
 void	exec_cmd(char **cmd);
 
 // Execution
-int	run_builtin(const char *str, int len, char *cmd_name, t_shell *shell);
-int		is_builtin(char *cmd_name, t_shell *shell);
+int	run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell);
+int		is_builtin(t_cmdli *cmd, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline

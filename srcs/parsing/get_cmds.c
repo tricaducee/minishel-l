@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/25 22:54:52 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/27 00:16:54 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,7 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
-	{
 		new = ft_get_env(env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
-		//(void)env;
-		//new = ft_strdup("VARIABLE");
-	}
 	else
 		new = ft_strdup("$");
 	tmp = str;

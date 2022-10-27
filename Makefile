@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/25 20:40:50 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/27 23:35:10 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS	=	main.c \
 			srcs/builtins/ft_unset.c \
 			srcs/builtins/ft_exit.c \
 			srcs/builtins/ft_pwd.c \
+			srcs/builtins/ft_echo.c \
 			srcs/execution/is_builtin.c \
 			srcs/init/list_utils.c \
 			srcs/init/fill_env.c \
@@ -27,8 +28,8 @@ SRCS	=	main.c \
 			srcs/init/init_shell.c \
 			srcs/parsing/get_cmds.c \
 			srcs/parsing/print_cmdli.c \
-			srcs/signals/sig_handler.c \
-			srcs/heredoc/heredoc.c
+			srcs/parsing/heredoc.c \
+			srcs/signals/sig_handler.c
 
 # SRCS	=	$(wildcard srcs/*/*.c *.c)
 

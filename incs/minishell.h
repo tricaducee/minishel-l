@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:38:34 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/27 23:36:54 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # include <signal.h>
 # include <limits.h>
 # include "../libft/libft.h"
-# include "../srcs/parsing/get_cmds.h"
 
 // Readline
 # include <readline/readline.h>
 # include <readline/history.h>
 
 //globale pour recuperer la valeur du statut de exit
+int	errnum;
 
 typedef struct s_token
 {
@@ -80,6 +80,7 @@ typedef struct	S_cmdli
 // Parsing
 t_cmdli	*get_cmds(t_list *env, char *cmdline);
 void	print_cmdli(t_cmdli *cmds_list);
+char	*heredoc(char *limit);
 
 // List utils
 void	printlist(t_list *top);
@@ -101,14 +102,14 @@ int		ft_env(t_shell *shell);
 int		ft_export(t_shell *shell);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
-void	ft_unset(t_shell *shell, char **args);
+void	ft_echo(char **ss);
 
 // Binaries
 void	exec_cmd(char **cmd);
 
 // Execution
-int		run_builtin(const char *str, t_cmdli *cmdli, t_shell *shell, int len);
-int		is_builtin(t_cmdli *cmdli, t_shell *shell);
+int		run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell);
+int		is_builtin(t_cmdli *cmd, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline

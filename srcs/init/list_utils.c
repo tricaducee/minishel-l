@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/25 15:04:46 by lgenevey         ###   ########.fr       */
+=======
+/*   Updated: 2022/10/27 02:49:55 by hermesrolle      ###   ########.fr       */
+>>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +47,28 @@ void	sort_alphabetically(t_list *export)
 {
 	int swapped;
 	int	i;
-	t_list *ptr1;
-	t_list *lptr;
+	t_list *env1;
+	t_list *lenv;
 
 	if (export == NULL)
 		return ;
 	swapped = 1;
-	lptr = NULL;
+	lenv = NULL;
 	while (swapped)
 	{
 		swapped = 0;
-		ptr1 = export;
+		env1 = export;
 
-		while (ptr1->next != lptr)
+		while (env1->next != lenv)
 		{
-			if (ft_strcmp(ptr1->content, ptr1->next->content) > 0)
+			if (ft_strcmp(env1->content, env1->next->content) > 0)
 			{
-				ft_swap(ptr1, ptr1->next);
+				ft_swap(env1, env1->next);
 				swapped = 1;
 			}
-			ptr1 = ptr1->next;
+			env1 = env1->next;
 		}
-		lptr = ptr1;
+		lenv = env1;
 	}
 }
 
@@ -81,11 +85,18 @@ char	*ft_get_env(t_list *env, char *substr)
 
 	if (!env || !substr)
 		return (NULL);
+<<<<<<< HEAD
+=======
+	if (!ft_strcmp(substr, "?")) //gestion de errno
+		return (ft_itoa(errnum));
+	ret = NULL;
+>>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
 	while (env)
 	{
 		from = (ft_strchr(env->content, '=') - (char *)env->content) + 1;
 		to = ft_strlen(substr);
 		if (ft_strncmp(substr, env->content, to) == 0)
+<<<<<<< HEAD
 		{
 			ret = ft_substr(env->content, from, to - from);
 			break ;
@@ -94,5 +105,12 @@ char	*ft_get_env(t_list *env, char *substr)
 	}
 	if (!ret)
 		ret = ft_strdup("");
+=======
+			ret = ft_substr(env->content, from, to - from);
+		env = env->next;
+	}
+	if (!ret)
+		return (ft_strdup(""));
+>>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 07:11:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/28 08:48:34 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <readline/history.h>
 
 //globale pour recuperer la valeur du statut de exit
-int	errnum;
+int	g_errno;
 
 typedef struct s_token
 {

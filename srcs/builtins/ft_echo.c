@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/28 07:39:23 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/28 08:48:43 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,5 @@ void	ft_echo(char **ss)
 			write(1, "$", 1);
 		write(1, "\n", 1);
 	}
-	errnum = 0;
+	g_errno = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 02:49:55 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/28 08:49:29 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_get_env(t_list *env, char *substr)
 	if (!env || !substr)
 		return (NULL);
 	if (!ft_strcmp(substr, "?")) //gestion de errno
-		return (ft_itoa(errnum));
+		return (ft_itoa(g_errno));
 	ret = NULL;
 	while (env)
 	{

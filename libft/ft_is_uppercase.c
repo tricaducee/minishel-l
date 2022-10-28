@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_shell.c                                       :+:      :+:    :+:   */
+/*   ft_is_uppercase.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:49:17 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 23:58:49 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/10/25 20:26:08 by lgenevey          #+#    #+#             */
+/*   Updated: 2022/10/25 20:27:00 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "libft.h"
 
-void	init_shell(t_shell *shell, char **m_env)
+/*
+	returns 0 if a letter is not uppercase
+	returns 1 if all letters are uppercase
+*/
+int	ft_is_uppercase(char *str)
 {
-	shell->env = init_env(m_env);
-	shell->export = init_export(shell->env);
-	tcgetattr(0, &shell->term);
-	shell->sa_interrupt.sa_handler = &handle_interrupt;
-	shell->sa_backslash.sa_handler = SIG_IGN;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		if (*str <= 'A' || *str >= 'Z')
+			return (0);
+		++str;
+	}
+	return (1);
 }
-
-// nouvelle variable sans valeur affichee que dans export

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:00:30 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:25:06 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/25 20:30:34 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(char *s)
 
 	if (!s)
 		return (NULL);
-	ret	= malloc((ft_strlen(s) + 1) * sizeof(char));
+	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
 	i = 0;

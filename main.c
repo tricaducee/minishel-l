@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 08:46:22 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/28 09:02:09 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ int	main(int argc, char **argv, char **env)
 			free(read);
 			exit (0);
 		}
+		//ft_lstclear(&shell.env, free);
 	}
 	return (0);
 }
+
+//fonction free noeud de liste
+// fonction free strings de chaque noeud

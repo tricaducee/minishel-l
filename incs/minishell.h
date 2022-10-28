@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 04:15:05 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/28 09:02:20 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <readline/history.h>
 
 //globale pour recuperer la valeur du statut de exit
-int	errnum;
+int	g_errno;
 
 typedef struct s_token
 {
@@ -63,7 +63,7 @@ typedef enum e_type
 	ANDOR
 }			t_type;
 
-typedef struct	S_cmdli
+typedef struct S_cmdli
 {
 	char			*cmd;
 	char			**cmd_args;
@@ -94,7 +94,7 @@ char	*ft_get_env(t_list *env, char *substr);
 
 // Init
 void	init_shell(t_shell *shell, char **env);
-t_list	*fill_env(char **m_env);
+t_list	*init_env(char **m_env);
 t_list	*init_export(t_list *env);
 
 // Signals
@@ -112,12 +112,15 @@ void	ft_echo(char **ss);
 void	exec_cmd(char **cmd);
 
 // Execution
-int	run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell);
+int		run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell);
 int		is_builtin(t_cmdli *cmd, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline
-void	rl_replace_line (const char *, int);
+void	rl_replace_line(const char *text, int clear_undo);
 t_token	*get_token(t_shell *shell);
+
+// Heredoc
+char	*heredoc(char *limit);
 
 #endif

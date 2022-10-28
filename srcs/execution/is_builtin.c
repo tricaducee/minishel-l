@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 01:12:55 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/28 07:06:13 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell)
 {
 	if (ft_strncmp(str, "env", len) == 0)
 		ft_env(shell);
-	if (ft_strncmp(str, "export", len) == 0)
+	else if (ft_strncmp(str, "export", len) == 0)
 		ft_export(shell);
-	if (ft_strncmp(str, "pwd", len) == 0)
+	else if (ft_strncmp(str, "pwd", len) == 0)
 		ft_pwd();
 	if (!ft_strncmp(str, "echo", len))
 		ft_echo(cmd->cmd_args);
@@ -48,10 +48,8 @@ int	is_builtin(t_cmdli *cmd, t_shell *shell)
 	{
 		builtin_len = ft_strlen(builtins[i]);
 		if (ft_strncmp(builtins[i], cmd->cmd, builtin_len) == 0)
-			return (run_builtin(builtins[i], builtin_len, cmd, shell));// j'ai modifier ça, j'ai juste return le retour de la fonction pour ne pas le perdre (ça me mettais toujours "c'est pas un built-in alors que si! voilà!")
+			return (run_builtin(builtins[i], builtin_len, cmd, shell));
 		++i;
 	}
 	return (0);
 }
-
-

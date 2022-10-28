@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 01:10:22 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/28 08:46:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		init_shell(&shell, env);
 		sig_handler(&shell);
-		read = readline("Minishell 🍋🍑 % ");
+		read = readline("Minishell 🍋 % ");
 		if (read)
 		{
 			add_history(read);
@@ -59,6 +59,8 @@ int	main(int argc, char **argv, char **env)
 				printf("c'est pas un builtin :\(\n");
 			else
 				printf("c'est un builtin ! :D\n");
+			free_cmdli(&cmdli);
+			free(read);
 		}
 		else
 		{

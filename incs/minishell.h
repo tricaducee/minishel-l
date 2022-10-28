@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 02:49:02 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/28 04:15:05 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ typedef struct	S_cmdli
 	char			*here_doc;
 	int				fd_in;
 	int				fd_out;
+	char			**file_in;
+	char			**file_out;
+	t_type			file_type;
 	int				and_or;
 	struct S_cmdli	*previous;
 	struct S_cmdli	*next;
@@ -81,6 +84,7 @@ typedef struct	S_cmdli
 t_cmdli	*get_cmds(t_list *env, char *cmdline);
 void	print_cmdli(t_cmdli *cmds_list);
 char	*heredoc(char *limit);
+void	free_cmdli(t_cmdli **cmdli);
 
 // List utils
 void	printlist(t_list *top);

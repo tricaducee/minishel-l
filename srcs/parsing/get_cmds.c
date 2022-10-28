@@ -3,14 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/27 00:16:54 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/10/28 08:41:18 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+void	free_tab(char **s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s && s[i])
+		free(s[i++]);
+	if (s)
+		free(s);
+}
+
+void	free_content(t_cmdli *cmdli)
+{
+	if (cmdli->cmd)
+		free(cmdli->cmd);
+	if (cmdli->cmd_args)
+		free_tab(cmdli->cmd_args);
+	if (cmdli->pipe_in)
+	{
+		close(cmdli->pipe_in[0]);
+		close(cmdli->pipe_in[1]);
+		free(cmdli->pipe_in);
+	}
+	if (cmdli->pipe_out)
+	{
+		close(cmdli->pipe_out[0]);
+		close(cmdli->pipe_out[1]);
+		free(cmdli->pipe_out);
+	}
+	if (cmdli->here_doc)
+		free(cmdli->here_doc);
+	if (cmdli->file_in)
+		free(cmdli->file_in);
+	if (cmdli->file_out)
+		free(cmdli->file_out);
+}
+
+void	free_cmdli(t_cmdli **cmdli)
+{
+	t_cmdli	*tmp;
+
+	while (*cmdli)
+	{
+		free_content(*cmdli);
+		tmp = *cmdli;
+		*cmdli = (*cmdli)->next;
+		free(tmp);
+	}
+}
 
 void	print_error(char *s)
 {
@@ -88,7 +138,7 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
-		new = ft_get_env(env, ft_substr(cmdline, *i, j)); //---------------------------- Chercher variable
+		new = ft_get_env(env, ft_substr(cmdline, *i, j));//---------------------------- Chercher variable
 	else
 		new = ft_strdup("$");
 	tmp = str;
@@ -201,17 +251,6 @@ void	print_tab(char **s)
 		printf("%s\n", *(s++));
 }
 
-void	free_tab(char **s)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s && s[i])
-		free(s[i++]);
-	if (s)
-		free(s);
-}
-
 t_cmdli	*create_cmdli(void)
 {
 	t_cmdli	*ret;
@@ -223,6 +262,9 @@ t_cmdli	*create_cmdli(void)
 	ret->cmd_args = NULL;
 	ret->pipe_in = NULL;
 	ret->pipe_out = NULL;
+	ret->file_in = NULL;
+	ret->file_out = NULL;
+	ret->file_type = EMPTY;
 	ret->here_doc = NULL;
 	ret->fd_in = -1;
 	ret->fd_out = -1;
@@ -245,7 +287,6 @@ void	add_pipe(t_cmdli **cmds_list, t_type *type)
 	}
 	(*cmds_list)->next->pipe_in = (*cmds_list)->pipe_out;
 	*cmds_list = (*cmds_list)->next;
-	
 }
 
 void	add_andor(t_cmdli **cmds_list, t_type *type, int and_or)
@@ -274,46 +315,103 @@ void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type)
 	(*cmds_list)->cmd = cmd;
 }
 
+// void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
+// {
+// 	if (*type == RDI)
+// 	{
+// 		if ((*cmds_list)->fd_in != -1)
+// 			close((*cmds_list)->fd_in);
+// 		(*cmds_list)->fd_in = open(file, O_RDONLY);
+// 		if ((*cmds_list)->fd_in == -1)
+// 			return (print_error(file));
+// 		free(file);
+// 	}
+// 	else if (*type == RDO)
+// 	{
+// 		if ((*cmds_list)->fd_out != -1)
+// 			close((*cmds_list)->fd_out);
+// 		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 		if ((*cmds_list)->fd_out == -1)
+// 			return (print_error(file));
+// 		free(file);
+// 	}
+// 	else if (*type == RDOA)
+// 	{
+// 		if ((*cmds_list)->fd_out != -1)
+// 			close((*cmds_list)->fd_out);
+// 		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+// 		if ((*cmds_list)->fd_out == -1)
+// 			return (print_error(file));
+// 		free(file);
+// 	}
+// 	else
+// 	{
+// 		if (!(*cmds_list)->pipe_in)
+// 		{
+// 			(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
+// 			if (pipe((*cmds_list)->pipe_in) == -1)
+// 				return (print_error("pipe"));
+// 		}
+// 		(*cmds_list)->here_doc = heredoc(file);
+// 		write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
+// 	}
+// 	*type = RFILE;
+// }
+
+void	file_rdi(t_cmdli **cmds_list, char *file, t_type *type)
+{
+	char	**tmp;
+
+	tmp = (*cmds_list)->file_in;
+	(*cmds_list)->file_in = ft_strsjoin(file, tmp);
+	if (tmp)
+		free(tmp);	
+}
+
+void	file_rdo(t_cmdli **cmds_list, char *file, t_type *type)
+{
+	char	**tmp;
+
+	(*cmds_list)->file_type = RDO;
+	tmp = (*cmds_list)->file_out;
+	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
+	if (tmp)
+		free(tmp);	
+}
+
+void	file_rdoa(t_cmdli **cmds_list, char *file, t_type *type)
+{
+	char	**tmp;
+
+	(*cmds_list)->file_type = RDOA;
+	tmp = (*cmds_list)->file_out;
+	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
+	if (tmp)
+		free(tmp);	
+}
+
+void	file_heredoc(t_cmdli **cmds_list, char *file, t_type *type)
+{
+	if (!(*cmds_list)->pipe_in)
+	{
+		(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
+		if (pipe((*cmds_list)->pipe_in) == -1)
+			return (print_error("pipe"));
+	}
+	(*cmds_list)->here_doc = heredoc(file);
+	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));	
+}
+
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
 {
 	if (*type == RDI)
-	{
-		if ((*cmds_list)->fd_in != -1)
-			close((*cmds_list)->fd_in);
-		(*cmds_list)->fd_in = open(file, O_RDONLY);
-		if ((*cmds_list)->fd_in == -1)
-			return (print_error(file));
-		free(file);
-	}
+		file_rdi(cmds_list, file, type);
 	else if (*type == RDO)
-	{
-		if ((*cmds_list)->fd_out != -1)
-			close((*cmds_list)->fd_out);
-		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if ((*cmds_list)->fd_out == -1)
-			return (print_error(file));
-		free(file);
-	}
+		file_rdo(cmds_list, file, type);
 	else if (*type == RDOA)
-	{
-		if ((*cmds_list)->fd_out != -1)
-			close((*cmds_list)->fd_out);
-		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if ((*cmds_list)->fd_out == -1)
-			return (print_error(file));
-		free(file);
-	}
+		file_rdoa(cmds_list, file, type);
 	else
-	{
-		if (!(*cmds_list)->pipe_in)
-		{
-			(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
-			if (pipe((*cmds_list)->pipe_in) == -1)
-				return (print_error("pipe"));
-		}
-		(*cmds_list)->here_doc = heredoc(file);
-		write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
-	}
+		file_heredoc(cmds_list, file, type);
 	*type = RFILE;
 }
 
@@ -343,11 +441,11 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 			*type = RDO;
 		else if (ft_strcmp_int(s, ">>") && !rd)
 			*type = RDOA;
-		else if (ft_strcmp_int(s, "|") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd  && *type == RFILE)))
+		else if (ft_strcmp_int(s, "|") && (*type == CMD || *type == ARG || *type == RFILE))
 			add_pipe(cmds_list, type);
-		else if (ft_strcmp_int(s, "||") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
+		else if (ft_strcmp_int(s, "||") && (*type == CMD || *type == ARG || *type == RFILE))
 			add_andor(cmds_list, type, 2);
-		else if (ft_strcmp_int(s, "&&") && ((*type == CMD || *type == ARG) || ((*cmds_list)->cmd && *type == RFILE)))
+		else if (ft_strcmp_int(s, "&&") && (*type == CMD || *type == ARG || *type == RFILE))
 			add_andor(cmds_list, type, 1);
 		else
 		{

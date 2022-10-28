@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/27 23:35:10 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/27 23:58:08 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS	=	main.c \
 			srcs/builtins/ft_echo.c \
 			srcs/execution/is_builtin.c \
 			srcs/init/list_utils.c \
-			srcs/init/fill_env.c \
+			srcs/init/init_env.c \
 			srcs/init/init_export.c \
 			srcs/init/init_shell.c \
 			srcs/parsing/get_cmds.c \

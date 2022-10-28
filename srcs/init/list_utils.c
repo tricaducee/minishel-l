@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/10/25 15:04:46 by lgenevey         ###   ########.fr       */
-=======
-/*   Updated: 2022/10/27 02:49:55 by hermesrolle      ###   ########.fr       */
->>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
+/*   Updated: 2022/10/28 01:05:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +81,18 @@ char	*ft_get_env(t_list *env, char *substr)
 
 	if (!env || !substr)
 		return (NULL);
-<<<<<<< HEAD
-=======
 	if (!ft_strcmp(substr, "?")) //gestion de errno
 		return (ft_itoa(errnum));
 	ret = NULL;
->>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
 	while (env)
 	{
 		from = (ft_strchr(env->content, '=') - (char *)env->content) + 1;
 		to = ft_strlen(substr);
 		if (ft_strncmp(substr, env->content, to) == 0)
-<<<<<<< HEAD
-		{
-			ret = ft_substr(env->content, from, to - from);
-			break ;
-		}
-		env = env->next;
-	}
-	if (!ret)
-		ret = ft_strdup("");
-=======
 			ret = ft_substr(env->content, from, to - from);
 		env = env->next;
 	}
 	if (!ret)
 		return (ft_strdup(""));
->>>>>>> 03806329541c7c2babf228540bd8a24f6f5b5e53
 	return (ret);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_env.c                                         :+:      :+:    :+:   */
+/*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 17:51:26 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:59:44 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
+/*   Updated: 2022/10/28 00:22:46 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_list	*fill_env(char **m_env)
+t_list	*init_env(char **m_env)
 {
 	t_list	*ret;
 	t_list	*list;
@@ -22,7 +22,7 @@ t_list	*fill_env(char **m_env)
 	list = malloc(sizeof(t_list));
 	if (!list)
 		return (NULL);
-	list->content = *(m_env++);
+	list->content = ft_strdup(*(m_env++));
 	ret = list;
 	while (*m_env)
 	{

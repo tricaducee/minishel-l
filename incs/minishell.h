@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/27 23:36:54 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/28 07:11:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef enum e_type
 	ANDOR
 }			t_type;
 
-typedef struct	S_cmdli
+typedef struct S_cmdli
 {
 	char			*cmd;
 	char			**cmd_args;
@@ -90,7 +90,7 @@ char	*ft_get_env(t_list *env, char *substr);
 
 // Init
 void	init_shell(t_shell *shell, char **env);
-t_list	*fill_env(char **m_env);
+t_list	*init_env(char **m_env);
 t_list	*init_export(t_list *env);
 
 // Signals
@@ -113,7 +113,7 @@ int		is_builtin(t_cmdli *cmd, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 
 // Readline
-void	rl_replace_line (const char *, int);
+void	rl_replace_line(const char *text, int clear_undo);
 t_token	*get_token(t_shell *shell);
 
 // Heredoc

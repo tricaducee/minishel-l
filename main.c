@@ -13,28 +13,19 @@
 #include "incs/minishell.h"
 
 #include <stdio.h>
-static void	print_token(t_token *tokens)
-{
-	while (tokens)
-	{
-		printf("type = [%d] : value = [%s]\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
-}
 
-void	free_tokens_list(t_token *token_list)
-{
-	t_token	*tmp;
+// void	free_tokens_list(t_token *token_list)
+// {
+// 	t_token	*tmp;
 
-	while (token_list)
-	{
-		tmp = token_list;
-		free(token_list->value);
-		//token_list->value = NULL;
-		token_list = token_list->next;
-		free(tmp);
-	}
-}
+// 	while (token_list)
+// 	{
+// 		tmp = token_list;
+// 		free(token_list->value);
+// 		token_list = token_list->next;
+// 		free(tmp);
+// 	}
+// }
 
 int	main(int argc, char **argv, char **env)
 {

@@ -31,7 +31,7 @@ void	ft_unset(t_shell *shell, char **args)
 {
 	int		i;
 	t_list	*env;
-	t_list	*export;
+	//t_list	*export;
 	size_t	name_size;
 
 	if (!shell->env || !shell->export || !args)

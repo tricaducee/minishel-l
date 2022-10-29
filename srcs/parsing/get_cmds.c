@@ -6,25 +6,27 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/28 08:41:18 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:45:20 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	free_tab(char **s)
+void	free_tab(char **ss)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (s && s[i])
-		free(s[i++]);
-	if (s)
-		free(s);
+	if (!ss)
+		return ;
+	while (ss[i])
+		free(ss[i++]);
+	free(ss);
 }
 
 void	free_content(t_cmdli *cmdli)
 {
+	printf("free_content in\n");
 	if (cmdli->cmd)
 		free(cmdli->cmd);
 	if (cmdli->cmd_args)
@@ -35,18 +37,19 @@ void	free_content(t_cmdli *cmdli)
 		close(cmdli->pipe_in[1]);
 		free(cmdli->pipe_in);
 	}
-	if (cmdli->pipe_out)
-	{
-		close(cmdli->pipe_out[0]);
-		close(cmdli->pipe_out[1]);
-		free(cmdli->pipe_out);
-	}
+	//if (cmdli->pipe_out)
+	//{
+	//	close(cmdli->pipe_out[0]);
+	//	close(cmdli->pipe_out[1]);
+	//	free(cmdli->pipe_out);
+	//}
 	if (cmdli->here_doc)
 		free(cmdli->here_doc);
 	if (cmdli->file_in)
 		free(cmdli->file_in);
 	if (cmdli->file_out)
 		free(cmdli->file_out);
+	printf("free_content out\n");
 }
 
 void	free_cmdli(t_cmdli **cmdli)
@@ -112,10 +115,13 @@ static char	**ft_strsjoin(char *s, char **ss)
 	if (!ret)
 		return (NULL);
 	i = 0;
-	while (ss && ss[i])
+	if (ss)
 	{
-		ret[i] = ss[i];
-		++i;
+		while (ss[i])
+		{
+			ret[i] = ss[i];
+			++i;
+		}
 	}
 	ret[i] = s;
 	ret[++i] = 0;
@@ -358,7 +364,7 @@ void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type)
 // 	*type = RFILE;
 // }
 
-void	file_rdi(t_cmdli **cmds_list, char *file, t_type *type)
+void	file_rdi(t_cmdli **cmds_list, char *file)
 {
 	char	**tmp;
 
@@ -368,7 +374,7 @@ void	file_rdi(t_cmdli **cmds_list, char *file, t_type *type)
 		free(tmp);	
 }
 
-void	file_rdo(t_cmdli **cmds_list, char *file, t_type *type)
+void	file_rdo(t_cmdli **cmds_list, char *file)
 {
 	char	**tmp;
 
@@ -379,7 +385,7 @@ void	file_rdo(t_cmdli **cmds_list, char *file, t_type *type)
 		free(tmp);	
 }
 
-void	file_rdoa(t_cmdli **cmds_list, char *file, t_type *type)
+void	file_rdoa(t_cmdli **cmds_list, char *file)
 {
 	char	**tmp;
 
@@ -390,7 +396,7 @@ void	file_rdoa(t_cmdli **cmds_list, char *file, t_type *type)
 		free(tmp);	
 }
 
-void	file_heredoc(t_cmdli **cmds_list, char *file, t_type *type)
+void	file_heredoc(t_cmdli **cmds_list, char *file)
 {
 	if (!(*cmds_list)->pipe_in)
 	{
@@ -405,13 +411,13 @@ void	file_heredoc(t_cmdli **cmds_list, char *file, t_type *type)
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
 {
 	if (*type == RDI)
-		file_rdi(cmds_list, file, type);
+		file_rdi(cmds_list, file);
 	else if (*type == RDO)
-		file_rdo(cmds_list, file, type);
+		file_rdo(cmds_list, file);
 	else if (*type == RDOA)
-		file_rdoa(cmds_list, file, type);
+		file_rdoa(cmds_list, file);
 	else
-		file_heredoc(cmds_list, file, type);
+		file_heredoc(cmds_list, file);
 	*type = RFILE;
 }
 

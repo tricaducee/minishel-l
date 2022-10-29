@@ -49,9 +49,13 @@ OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 RM		=	rm -f
 
-DEBUG	=	-fsanitize=address
+#DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
-#CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
+
+ifeq ($(DEBUG), 1)
+	CFLAGS += -fsanitize=address -g3
+endif
 
 BLUE	= \033[0;34m
 VIOLET	= \033[0;36m

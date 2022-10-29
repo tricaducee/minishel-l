@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/29 16:52:01 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/29 16:59:53 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,13 @@ OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 RM		=	rm -f
 
-DEBUG	=	-fsanitize=address
+#DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
+
+ifeq ($(DEBUG), 1)
+	CFLAGS += -fsanitize=address -g3
+endif
 
 BLUE	= \033[0;34m
 VIOLET	= \033[0;36m

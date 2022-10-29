@@ -6,24 +6,26 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 16:52:20 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 16:59:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
 
-void	free_tokens_list(t_token *token_list)
-{
-	t_token	*tmp;
+#include <stdio.h>
 
-	while (token_list)
-	{
-		tmp = token_list;
-		free(token_list->value);
-		token_list = token_list->next;
-		free(tmp);
-	}
-}
+// void	free_tokens_list(t_token *token_list)
+// {
+// 	t_token	*tmp;
+
+// 	while (token_list)
+// 	{
+// 		tmp = token_list;
+// 		free(token_list->value);
+// 		token_list = token_list->next;
+// 		free(tmp);
+// 	}
+// }
 
 int	main(int argc, char **argv, char **env)
 {

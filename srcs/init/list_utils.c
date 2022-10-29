@@ -42,7 +42,6 @@ void ft_swap(t_list *a, t_list *b)
 void	sort_alphabetically(t_list *export)
 {
 	int swapped;
-	int	i;
 	t_list *env1;
 	t_list *lenv;
 

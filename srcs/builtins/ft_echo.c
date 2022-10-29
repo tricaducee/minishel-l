@@ -68,7 +68,7 @@ char	**set_options(char **ss, t_echoptions *options)
 	options->n = 0;
 	options->e = 0;
 	options->c = 0;
-	while (*ss && !ft_strcmp(*ss, "-n")
+	while ((*ss && !ft_strcmp(*ss, "-n"))
 		|| !ft_strcmp(*ss, "-e") || !ft_strcmp(*ss, "-c"))
 	{
 		if (!ft_strcmp(*ss, "-n"))

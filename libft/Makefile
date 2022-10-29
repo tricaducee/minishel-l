@@ -6,12 +6,11 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/25 20:26:57 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/29 15:08:21 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror
 SRCS =	ft_bzero.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
@@ -62,6 +61,7 @@ SRCS_BONUS =	ft_lstnew.c \
 				ft_lstiter.c \
 				ft_lstmap.c
 
+CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
@@ -73,11 +73,11 @@ all: $(NAME)
 
 $(NAME):
 	$(CC) $(CFLAGS) -c $(SRCS)
-	ar rcs $(NAME) $(OBJS)
+	ar rc $(NAME) $(OBJS)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
 
 bonus: $(OBJS_BONUS) $(OBJS)
-	ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
+	ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
 	@printf "$(GREEN) $(NAME) bonus ready.\n$(NONE)"
 
 clean:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 09:02:20 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:04:17 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	sig_handler(t_shell *shell);
 
 // Builtins
 int		ft_env(t_shell *shell);
-int		ft_export(t_shell *shell);
+int		ft_export(t_shell *shell, t_cmdli *cmdli);
 int		ft_pwd(void);
 void	ft_exit(t_shell *shell);
 void	ft_echo(char **ss);
@@ -112,7 +112,7 @@ void	ft_echo(char **ss);
 void	exec_cmd(char **cmd);
 
 // Execution
-int		run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell);
+int		run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
 int		is_builtin(t_cmdli *cmd, t_shell *shell);
 void	is_absolute_path(char **args, t_list *env);
 

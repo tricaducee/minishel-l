@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 07:06:13 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 16:04:09 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 /*
 	run the builtin
 */
-int	run_builtin(const char *str, int len, t_cmdli *cmd, t_shell *shell)
+int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
 {
 	if (ft_strncmp(str, "env", len) == 0)
 		ft_env(shell);
 	else if (ft_strncmp(str, "export", len) == 0)
-		ft_export(shell);
+		ft_export(shell, cmd);
 	else if (ft_strncmp(str, "pwd", len) == 0)
 		ft_pwd();
 	if (!ft_strncmp(str, "echo", len))
@@ -48,7 +48,7 @@ int	is_builtin(t_cmdli *cmd, t_shell *shell)
 	{
 		builtin_len = ft_strlen(builtins[i]);
 		if (ft_strncmp(builtins[i], cmd->cmd, builtin_len) == 0)
-			return (run_builtin(builtins[i], builtin_len, cmd, shell));
+			return (run_builtin(builtins[i], cmd, shell, builtin_len));
 		++i;
 	}
 	return (0);

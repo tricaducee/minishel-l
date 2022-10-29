@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/29 15:05:54 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/29 16:52:01 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ RM		=	rm -f
 
 DEBUG	=	-fsanitize=address
 #DEBUG	=	-g3
-#CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 BLUE	= \033[0;34m
 VIOLET	= \033[0;36m

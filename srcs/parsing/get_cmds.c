@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/28 08:41:18 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:23:20 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	free_content(t_cmdli *cmdli)
 {
 	if (cmdli->cmd)
 		free(cmdli->cmd);
-	if (cmdli->cmd_args)
-		free_tab(cmdli->cmd_args);
+	// if (cmdli->cmd_args)
+	// 	free_tab(cmdli->cmd_args);
 	if (cmdli->pipe_in)
 	{
 		close(cmdli->pipe_in[0]);
@@ -365,7 +365,7 @@ void	file_rdi(t_cmdli **cmds_list, char *file, t_type *type)
 	tmp = (*cmds_list)->file_in;
 	(*cmds_list)->file_in = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_rdo(t_cmdli **cmds_list, char *file, t_type *type)
@@ -376,7 +376,7 @@ void	file_rdo(t_cmdli **cmds_list, char *file, t_type *type)
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_rdoa(t_cmdli **cmds_list, char *file, t_type *type)
@@ -387,7 +387,7 @@ void	file_rdoa(t_cmdli **cmds_list, char *file, t_type *type)
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_heredoc(t_cmdli **cmds_list, char *file, t_type *type)
@@ -399,7 +399,7 @@ void	file_heredoc(t_cmdli **cmds_list, char *file, t_type *type)
 			return (print_error("pipe"));
 	}
 	(*cmds_list)->here_doc = heredoc(file);
-	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));	
+	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
 }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------

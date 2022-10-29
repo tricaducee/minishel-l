@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 15:18:00 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 15:59:05 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 	Creates a copy of env linked list in an other linked list
-	returns a t_list export not sorted
+	Add OLDPWD alone as the real bash export does
+	Returns a t_list export sorted
 */
 t_list	*init_export(t_list *env)
 {

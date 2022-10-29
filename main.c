@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 09:02:09 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:52:20 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
-
-#include <stdio.h>
-static void	print_token(t_token *tokens)
-{
-	while (tokens)
-	{
-		printf("type = [%d] : value = [%s]\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
-}
 
 void	free_tokens_list(t_token *token_list)
 {
@@ -30,7 +20,6 @@ void	free_tokens_list(t_token *token_list)
 	{
 		tmp = token_list;
 		free(token_list->value);
-		//token_list->value = NULL;
 		token_list = token_list->next;
 		free(tmp);
 	}
@@ -54,7 +43,6 @@ int	main(int argc, char **argv, char **env)
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
 			print_cmdli(cmdli);
-			//ft_get_env(shell.env, "PATH");
 			if (!is_builtin(cmdli, &shell))
 				printf("c'est pas un builtin :\(\n");
 			else
@@ -67,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 			free(read);
 			exit (0);
 		}
-		//ft_lstclear(&shell.env, free);
+		//ft_lstclear(&shell.export, free);
 	}
 	return (0);
 }

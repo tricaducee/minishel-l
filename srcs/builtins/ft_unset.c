@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:53:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 16:52:28 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_unset(t_shell *shell, char **args)
 {
 	int		i;
 	t_list	*env;
-	t_list	*export;
+	//t_list	*export;
 	size_t	name_size;
 
 	if (!shell->env || !shell->export || !args)
@@ -48,7 +48,7 @@ void	ft_unset(t_shell *shell, char **args)
 			if (ft_strncmp(args[i], env->content, name_size) == 0)
 			{
 				printf("ft_unset argument %d : [%s]\n", i, args[i]);
-				
+
 				env->next = env->next->next;
 				break ;
 			}

@@ -6,11 +6,12 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:26:08 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:27:00 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 16:18:33 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 /*
 	returns 0 if a letter is not uppercase
@@ -18,6 +19,7 @@
 */
 int	ft_is_uppercase(char *str)
 {
+	printf("dans ft_is_uppercase\n");
 	if (!str)
 		return (0);
 	while (*str)

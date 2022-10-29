@@ -6,19 +6,19 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:53:43 by hrolle            #+#    #+#             */
-/*   Updated: 2022/10/26 06:53:44 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/28 02:00:32 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	print_tab(char **ss)
+static void	print_tab(char **ss, char *s)
 {
 	if (!ss || !*ss)
-		printf("cmd_args = (null)\n");
+		printf("%s = (null)\n", s);
 	else
 	{
-		printf("cmd_args = %s\n", *(ss++));
+		printf("%s = %s\n", s, *(ss++));
 		while (*ss)
 			printf("           %s\n", *(ss++));
 	}
@@ -38,7 +38,7 @@ void	print_cmdli(t_cmdli *cmds_list)
 	{
 		printf("\nnode %u :\n\n", ++i);
 		printf("cmd = %s\n", cmds_list->cmd);
-		print_tab(cmds_list->cmd_args);
+		print_tab(cmds_list->cmd_args, "cmd_args");
 		if (cmds_list->pipe_in)
 			printf("pipe_in = yes\n");
 		else
@@ -47,8 +47,9 @@ void	print_cmdli(t_cmdli *cmds_list)
 			printf("pipe_out = yes\n");
 		else
 			printf("pipe_out = no\n");
-		printf("fd_in = %d\n", cmds_list->fd_in);
-		printf("fd_out = %d\n", cmds_list->fd_out);
+		print_tab(cmds_list->file_in, "file_in");
+		print_tab(cmds_list->file_out, "file_out");
+		printf("file_type = %d\n", cmds_list->file_type);
 		printf("here_doc = %s\n", cmds_list->here_doc);
 		printf("and_or = %d\n", cmds_list->and_or);
 		printf("next = %p\n", cmds_list->next);

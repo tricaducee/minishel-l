@@ -56,7 +56,7 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-RFILE,	Si cmdpath != NULL
+RFILE,	1
 RDI,	0
 RDO,	0
 RDIH,	0
@@ -69,7 +69,7 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-RFILE,	Si cmdpath != NULL
+RFILE,	1
 RDI,	0
 RDO,	0
 RDIH,	0
@@ -82,7 +82,7 @@ EMPTY	0
 CMD,	1
 ARG,	1
 PIPE,	0
-RFILE,	Si cmdpath != NULL
+RFILE,	1
 RDI,	0
 RDO,	0
 RDIH,	0

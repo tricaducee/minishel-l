@@ -6,26 +6,13 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 16:59:44 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:27:43 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
 
 #include <stdio.h>
-
-// void	free_tokens_list(t_token *token_list)
-// {
-// 	t_token	*tmp;
-
-// 	while (token_list)
-// 	{
-// 		tmp = token_list;
-// 		free(token_list->value);
-// 		token_list = token_list->next;
-// 		free(tmp);
-// 	}
-// }
 
 int	main(int argc, char **argv, char **env)
 {
@@ -51,16 +38,17 @@ int	main(int argc, char **argv, char **env)
 				printf("c'est un builtin ! :D\n");
 			free_cmdli(&cmdli);
 			free(read);
+			free_nodes_contents(&shell.export);
+			free_nodes(&shell.env);
 		}
 		else
 		{
 			free(read);
+			free_nodes_contents(&shell.export);
+			free_nodes(&shell.env);
 			exit (0);
 		}
 		//ft_lstclear(&shell.export, free);
 	}
 	return (0);
 }
-
-//fonction free noeud de liste
-// fonction free strings de chaque noeud

@@ -6,38 +6,32 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/30 15:40:12 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/30 16:35:19 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
-SRCS	=	main.c \
-			srcs/binaries/build_absolute_path.c \
-			srcs/binaries/execute_non_builtins.c \
-			srcs/builtins/ft_env.c \
-			srcs/builtins/ft_export.c \
-			srcs/builtins/ft_unset.c \
-			srcs/builtins/ft_exit.c \
-			srcs/builtins/ft_pwd.c \
-			srcs/builtins/ft_echo.c \
-			srcs/execution/is_builtin.c \
-			srcs/init/list_utils.c \
-			srcs/init/init_env.c \
-			srcs/init/init_export.c \
-			srcs/init/init_shell.c \
-			srcs/parsing/get_cmds.c \
-			srcs/parsing/print_cmdli.c \
-			srcs/parsing/heredoc.c \
-			srcs/signals/sig_handler.c
+# SRCS	=	main.c \
+# 			srcs/binaries/build_absolute_path.c \
+# 			srcs/binaries/execute_non_builtins.c \
+# 			srcs/builtins/ft_env.c \
+# 			srcs/builtins/ft_export.c \
+# 			srcs/builtins/ft_unset.c \
+# 			srcs/builtins/ft_exit.c \
+# 			srcs/builtins/ft_pwd.c \
+# 			srcs/builtins/ft_echo.c \
+# 			srcs/execution/is_builtin.c \
+# 			srcs/init/list_utils.c \
+# 			srcs/init/init_env.c \
+# 			srcs/init/init_export.c \
+# 			srcs/init/init_shell.c \
+# 			srcs/parsing/get_cmds.c \
+# 			srcs/parsing/print_cmdli.c \
+# 			srcs/parsing/heredoc.c \
+# 			srcs/signals/sig_handler.c
 
-# SRCS	=	$(wildcard srcs/*/*.c *.c)
-
-#RDLINC	=	-I/Users/hrolle/.brew/opt/readline/include
-#LIBRDL =	-L/Users/hrolle/.brew/opt/readline/lib -lreadline
-
-#RDLINC	=	-I$(HOME)/.brew/opt/readline/include
-#LIBRDL =	-L$(HOME)/.brew/opt/readline/lib -lreadline
+SRCS	=	$(wildcard srcs/*/*.c *.c)
 
 INC_FLAGS := -Ilibs/libft/incs -Iincs
 LIBS := -Llibft -lft -lreadline

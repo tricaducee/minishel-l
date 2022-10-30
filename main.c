@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 09:02:09 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:59:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int argc, char **argv, char **env)
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
 			print_cmdli(cmdli);
-			//ft_get_env(shell.env, "PATH");
 			if (!is_builtin(cmdli, &shell))
 				printf("c'est pas un builtin :\(\n");
 			else
@@ -58,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 			free(read);
 			exit (0);
 		}
-		//ft_lstclear(&shell.env, free);
+		//ft_lstclear(&shell.export, free);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/30 16:28:00 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/30 16:32:41 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	free_content(t_cmdli *cmdli)
 	printf("free_content in\n");
 	if (cmdli->cmd)
 		free(cmdli->cmd);
-	if (cmdli->cmd_args)
-		free_tab(cmdli->cmd_args);
+	// if (cmdli->cmd_args)
+	// 	free_tab(cmdli->cmd_args);
 	if (cmdli->pipe_in)
 	{
 		close(cmdli->pipe_in[0]);
@@ -357,8 +357,12 @@ void	file_heredoc(t_cmdli **cmds_list, char *file)
 			return (error_cmdli(cmds_list, "pipe"));
 	}
 	(*cmds_list)->here_doc = heredoc(file);
+<<<<<<< HEAD
 	write((*cmds_list)->pipe_in[1],
 		(*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
+=======
+	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
+>>>>>>> 84d9738d011f61a34371f4f855004af0693f6f9f
 }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------

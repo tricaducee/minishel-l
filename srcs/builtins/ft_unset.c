@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 16:52:28 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 13:52:21 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@
 */
 void	ft_unset(t_shell *shell, char **args)
 {
-	int		i;
-	t_list	*env;
-	//t_list	*export;
-	size_t	name_size;
+	int			i;
+	t_variable	*env;
 
 	if (!shell->env || !shell->export || !args)
 		return ;
@@ -42,10 +40,9 @@ void	ft_unset(t_shell *shell, char **args)
 		if (!ft_is_uppercase(args[i]))
 			return ;
 		env = shell->env;
-		name_size = ft_strlen(args[i]); //taille du nom de la variable
 		while (env)
 		{
-			if (ft_strncmp(args[i], env->content, name_size) == 0)
+			if (ft_strcmp(args[i], env->name) == 0)
 			{
 				printf("ft_unset argument %d : [%s]\n", i, args[i]);
 

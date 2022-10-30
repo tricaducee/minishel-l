@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/29 17:00:05 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/29 22:19:17 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_tab(char **ss)
 
 void	free_content(t_cmdli *cmdli)
 {
-	printf("free_content in\n");
 	if (cmdli->cmd)
 		free(cmdli->cmd);
 	// if (cmdli->cmd_args)
@@ -49,7 +48,6 @@ void	free_content(t_cmdli *cmdli)
 		free(cmdli->file_in);
 	if (cmdli->file_out)
 		free(cmdli->file_out);
-	printf("free_content out\n");
 }
 
 void	free_cmdli(t_cmdli **cmdli)
@@ -128,7 +126,7 @@ static char	**ft_strsjoin(char *s, char **ss)
 	return (ret);
 }
 
-char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
+char	*add_var(char *cmdline, char *str, unsigned int *i, t_variable *env)
 {
 	char			*ret;
 	unsigned int	j;
@@ -182,7 +180,7 @@ char	*add_quote(char *cmdline, char *str, unsigned int *i)
 	return (ret);
 }
 
-char	*add_dquote(char *cmdline, char *str, unsigned int *i, t_list *env)
+char	*add_dquote(char *cmdline, char *str, unsigned int *i, t_variable *env)
 {
 	char			*ret;
 	unsigned int	j;
@@ -212,7 +210,7 @@ char	*add_dquote(char *cmdline, char *str, unsigned int *i, t_list *env)
 	return (ret);
 }
 
-char	*split_cmd_sp(char *cmdline, unsigned int *i, t_list *env)
+char	*split_cmd_sp(char *cmdline, unsigned int *i, t_variable *env)
 {
 	unsigned int	j;
 	char			*ret;
@@ -249,7 +247,6 @@ char	*split_cmd_sp(char *cmdline, unsigned int *i, t_list *env)
 	}
 	return (ret);
 }
-
 
 void	print_tab(char **s)
 {
@@ -482,7 +479,7 @@ t_cmdli	*cmdli_first(t_cmdli *cmds_list)
 	return (cmds_list);
 }
 
-t_cmdli	*get_cmds(t_list *env, char *cmdline)
+t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 {
 	//printf("\nget_cmds in\n");
 	unsigned int	i;

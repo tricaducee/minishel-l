@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/28 08:49:29 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 13:53:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,58 @@
 /*
 	print a list from a copy pointer
 */
-void	printlist(t_list *top)
+void	printlist(t_variable *top)
 {
-	t_list	*elem_copy;
+	t_variable	*elem_copy;
 
 	elem_copy = top;
 	while (elem_copy)
 	{
-		printf("%s\n", ((char *)elem_copy->content));
+		printf("%s=%s\n", elem_copy->name, elem_copy->value);
 		elem_copy = elem_copy->next;
 	}
 }
 
-void ft_swap(t_list *a, t_list *b)
+/*
+	tri par insertion a la place
+*/
+void ft_swap(t_variable *a, t_variable *b)
 {
-	char	*temp;
+	t_variable	*tmp;
 
-	temp = a->content;
-	a->content = b->content;
-	b->content = temp;
+	tmp = a;
+	a = b;
+	b = tmp;
 }
 
 /*
 	Bubble sort : sort export linked list for initialization.
 */
-void	sort_alphabetically(t_list *export)
+void	sort_alphabetically(t_variable *export)
 {
 	int swapped;
-	t_list *env1;
-	t_list *lenv;
+	t_variable *compared;
+	t_variable *tmp;
 
 	if (export == NULL)
 		return ;
 	swapped = 1;
-	lenv = NULL;
+	tmp = NULL;
 	while (swapped)
 	{
 		swapped = 0;
-		env1 = export;
+		compared = export;
 
-		while (env1->next != lenv)
+		while (compared->next != tmp)
 		{
-			if (ft_strcmp(env1->content, env1->next->content) > 0)
+			if (ft_strcmp(compared->name, compared->next->name) > 0)
 			{
-				ft_swap(env1, env1->next);
+				ft_swap(compared, compared->next);
 				swapped = 1;
 			}
-			env1 = env1->next;
+			compared = compared->next;
 		}
-		lenv = env1;
+		tmp = compared;
 	}
 }
 
@@ -72,26 +75,17 @@ void	sort_alphabetically(t_list *export)
 	env : first node of our linked list of every ENV VAR
 	substr : name of the variable whose value we want.
 */
-char	*ft_get_env(t_list *env, char *substr)
+char	*ft_get_env(t_variable *env, char *substr)
 {
-	char	*ret;
-	size_t	from;
-	size_t	to;
-
 	if (!env || !substr)
 		return (NULL);
 	if (!ft_strcmp(substr, "?")) //gestion de errno
 		return (ft_itoa(g_errno));
-	ret = NULL;
 	while (env)
 	{
-		from = (ft_strchr(env->content, '=') - (char *)env->content) + 1;
-		to = ft_strlen(substr);
-		if (ft_strncmp(substr, env->content, to) == 0)
-			ret = ft_substr(env->content, from, to - from);
+		if (!ft_strcmp(env->name, substr))
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
-	if (!ret)
-		return (ft_strdup(""));
-	return (ret);
+	return (ft_strdup(""));
 }

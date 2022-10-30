@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 15:59:05 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:52:59 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,38 @@
 /*
 	Creates a copy of env linked list in an other linked list
 	Add OLDPWD alone as the real bash export does
-	Returns a t_list export sorted
+	Returns a t_variable export sorted
 */
-t_list	*init_export(t_list *env)
+t_variable	*init_export(t_variable *env)
 {
-	t_list	*export;
-	t_list	*env_cpy;
+	t_variable	*export;
+	t_variable	*ret;
+	t_variable	*env_cpy;
 
 	if (!env)
 		return (NULL);
-	export = NULL;
+	export = (t_variable *)malloc(sizeof(t_variable));
+	if (!export)
+		return (NULL);
+	ret = export;
 	env_cpy = env;
 	while (env_cpy)
 	{
-		ft_lstadd_back(&export, ft_lstnew(env_cpy->content));
+		export->name = env_cpy->name;
+		export->value = env_cpy->value;
 		env_cpy = env_cpy->next;
+		export->next = 	(t_variable *)malloc(sizeof(t_variable));
+		if (!export->next)
+			return (NULL);
+		export = export->next;
 	}
-	ft_lstadd_back(&export, ft_lstnew("OLDPWD"));
+	export->name = ft_strdup("OLDPWD");
+	export->value = ft_strdup("");
+	export->next = NULL;
 	sort_alphabetically(export);
-	return (export);
+	return (ret);
 }
+
 
 
 // free les strings des noeuds depuis export ca va aussi le faire pour env

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/29 14:45:20 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/30 16:28:00 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	free_content(t_cmdli *cmdli)
 		close(cmdli->pipe_in[1]);
 		free(cmdli->pipe_in);
 	}
-	//if (cmdli->pipe_out)
-	//{
-	//	close(cmdli->pipe_out[0]);
-	//	close(cmdli->pipe_out[1]);
-	//	free(cmdli->pipe_out);
-	//}
 	if (cmdli->here_doc)
 		free(cmdli->here_doc);
 	if (cmdli->file_in)
@@ -65,7 +59,7 @@ void	free_cmdli(t_cmdli **cmdli)
 	}
 }
 
-void	print_error(char *s)
+void	error_cmdli(t_cmdli **cmds_list, char *s)
 {
 	if (!s)
 		printf("Error\n");
@@ -111,7 +105,7 @@ static char	**ft_strsjoin(char *s, char **ss)
 	char			**ret;
 	unsigned int	i;
 
-	ret	= malloc((ft_strslen(ss) + 2) * sizeof(char *));
+	ret = malloc((ft_strslen(ss) + 2) * sizeof(char *));
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -139,9 +133,9 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_list *env)
 	++*i;
 	ret = NULL;
 	while (cmdline[*i + j] && cmdline[*i + j] != '$' && cmdline[*i + j]
-				!= ' ' && cmdline[*i + j] != '<' && cmdline[*i + j]
-				!= '>' && cmdline[*i + j] != '|' && cmdline[*i + j]
-				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
+		!= ' ' && cmdline[*i + j] != '<' && cmdline[*i + j]
+		!= '>' && cmdline[*i + j] != '|' && cmdline[*i + j]
+		!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
 		new = ft_get_env(env, ft_substr(cmdline, *i, j));//---------------------------- Chercher variable
@@ -194,7 +188,8 @@ char	*add_dquote(char *cmdline, char *str, unsigned int *i, t_list *env)
 	while (cmdline[*i] && cmdline[*i] != '"')
 	{
 		j = 0;
-		while (cmdline[*i + j] && cmdline[*i + j] != '"' && cmdline[*i + j] != '$')
+		while (cmdline[*i + j] && cmdline[*i + j]
+			!= '"' && cmdline[*i + j] != '$')
 			j++;
 		tmp = ret;
 		new = ft_substr(cmdline, *i, j);
@@ -220,14 +215,15 @@ char	*split_cmd_sp(char *cmdline, unsigned int *i, t_list *env)
 	char			*new;
 
 	ret = NULL;
-	while (cmdline[*i] && cmdline[*i] != ' ' && cmdline[*i] != '<' && cmdline[*i]
-				!= '>' && cmdline[*i] != '|' && cmdline[*i] != '&')
+	while (cmdline[*i] && cmdline[*i] != ' ' && cmdline[*i]
+		!= '<' && cmdline[*i] != '>' && cmdline[*i]
+		!= '|' && cmdline[*i] != '&')
 	{
 		j = 0;
 		while (cmdline[*i + j] && cmdline[*i + j] != '$' && cmdline[*i + j]
-				!= ' ' && cmdline[*i + j] != '<' && cmdline[*i + j]
-				!= '>' && cmdline[*i + j] != '|' && cmdline[*i + j]
-				!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
+			!= ' ' && cmdline[*i + j] != '<' && cmdline[*i + j]
+			!= '>' && cmdline[*i + j] != '|' && cmdline[*i + j]
+			!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 			++j;
 		if (j)
 		{
@@ -249,7 +245,6 @@ char	*split_cmd_sp(char *cmdline, unsigned int *i, t_list *env)
 	}
 	return (ret);
 }
-
 
 void	print_tab(char **s)
 {
@@ -289,7 +284,7 @@ void	add_pipe(t_cmdli **cmds_list, t_type *type)
 	{
 		(*cmds_list)->pipe_out = malloc(2 * sizeof(int));
 		if (pipe((*cmds_list)->pipe_out) == -1)
-			return (print_error("pipe"));
+			return (error_cmdli(cmds_list, "pipe"));
 	}
 	(*cmds_list)->next->pipe_in = (*cmds_list)->pipe_out;
 	*cmds_list = (*cmds_list)->next;
@@ -321,49 +316,6 @@ void	add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type)
 	(*cmds_list)->cmd = cmd;
 }
 
-// void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
-// {
-// 	if (*type == RDI)
-// 	{
-// 		if ((*cmds_list)->fd_in != -1)
-// 			close((*cmds_list)->fd_in);
-// 		(*cmds_list)->fd_in = open(file, O_RDONLY);
-// 		if ((*cmds_list)->fd_in == -1)
-// 			return (print_error(file));
-// 		free(file);
-// 	}
-// 	else if (*type == RDO)
-// 	{
-// 		if ((*cmds_list)->fd_out != -1)
-// 			close((*cmds_list)->fd_out);
-// 		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 		if ((*cmds_list)->fd_out == -1)
-// 			return (print_error(file));
-// 		free(file);
-// 	}
-// 	else if (*type == RDOA)
-// 	{
-// 		if ((*cmds_list)->fd_out != -1)
-// 			close((*cmds_list)->fd_out);
-// 		(*cmds_list)->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 		if ((*cmds_list)->fd_out == -1)
-// 			return (print_error(file));
-// 		free(file);
-// 	}
-// 	else
-// 	{
-// 		if (!(*cmds_list)->pipe_in)
-// 		{
-// 			(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
-// 			if (pipe((*cmds_list)->pipe_in) == -1)
-// 				return (print_error("pipe"));
-// 		}
-// 		(*cmds_list)->here_doc = heredoc(file);
-// 		write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
-// 	}
-// 	*type = RFILE;
-// }
-
 void	file_rdi(t_cmdli **cmds_list, char *file)
 {
 	char	**tmp;
@@ -371,7 +323,7 @@ void	file_rdi(t_cmdli **cmds_list, char *file)
 	tmp = (*cmds_list)->file_in;
 	(*cmds_list)->file_in = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_rdo(t_cmdli **cmds_list, char *file)
@@ -382,7 +334,7 @@ void	file_rdo(t_cmdli **cmds_list, char *file)
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_rdoa(t_cmdli **cmds_list, char *file)
@@ -393,7 +345,7 @@ void	file_rdoa(t_cmdli **cmds_list, char *file)
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
 	if (tmp)
-		free(tmp);	
+		free(tmp);
 }
 
 void	file_heredoc(t_cmdli **cmds_list, char *file)
@@ -402,10 +354,11 @@ void	file_heredoc(t_cmdli **cmds_list, char *file)
 	{
 		(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
 		if (pipe((*cmds_list)->pipe_in) == -1)
-			return (print_error("pipe"));
+			return (error_cmdli(cmds_list, "pipe"));
 	}
 	(*cmds_list)->here_doc = heredoc(file);
-	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));	
+	write((*cmds_list)->pipe_in[1],
+		(*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
 }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
@@ -425,16 +378,12 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 {
 	int	rd;
 
-	//printf("\ntype_and_set in\n");
 	if (*type == RDI || *type == RDO || *type == RDIH || *type == RDOA)
 		rd = 1;
 	else
 		rd = 0;
 	if (!*cmds_list)
-	{
 		*cmds_list = create_cmdli();
-		//print_cmdli(*cmds_list);
-	}
 	if (!*cmds_list)
 		return ;
 	if (interpret) // for <<<< <<< >>>> ||| etc... print s + 2
@@ -454,10 +403,8 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 		else if (ft_strcmp_int(s, "&&") && (*type == CMD || *type == ARG || *type == RFILE))
 			add_andor(cmds_list, type, 1);
 		else
-		{
-			//printf("\ntype_and_set out\n");
-			return (print_error(s));
-		}
+			return (error_cmdli(cmds_list, s));
+		free(s);
 	}
 	else
 	{
@@ -468,26 +415,22 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 		else
 			add_file(cmds_list, s, type);
 	}
-	//printf("\ntype_and_set out\n");
 }
 
 t_cmdli	*cmdli_first(t_cmdli *cmds_list)
 {
-	//printf("\ncmdli_first in\n");
 	if (!cmds_list)
 		return (NULL);
 	while (cmds_list->previous)
 		cmds_list = cmds_list->previous;
-	//printf("\ncmdli_first out\n");
 	return (cmds_list);
 }
 
 t_cmdli	*get_cmds(t_list *env, char *cmdline)
 {
-	//printf("\nget_cmds in\n");
 	unsigned int	i;
 	t_cmdli			*cmds_list;
-	t_type				type;
+	t_type			type;
 
 	if (!cmdline)
 		return (NULL);
@@ -511,10 +454,8 @@ t_cmdli	*get_cmds(t_list *env, char *cmdline)
 		if (!cmds_list)
 			return (NULL);
 	}
-	//printf("\nget_cmds out\n");
 	return (cmdli_first(cmds_list));
 }
-
 
 // t_cmdli	*get_cmds(char *cmdline)
 // {

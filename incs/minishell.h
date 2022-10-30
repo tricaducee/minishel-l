@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/29 16:04:17 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:25:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,17 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_variable
+{
+	char				*name;
+	char				*value;
+	struct s_variable	*next;
+}	t_variable;
+
 typedef struct s_shell
 {
-	t_list				*env;
-	t_list				*export;
+	t_variable			*env;
+	t_variable			*export;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
@@ -81,21 +88,23 @@ typedef struct S_cmdli
 }					t_cmdli;
 
 // Parsing
-t_cmdli	*get_cmds(t_list *env, char *cmdline);
+t_cmdli	*get_cmds(t_variable *env, char *cmdline);
 void	print_cmdli(t_cmdli *cmds_list);
 char	*heredoc(char *limit);
 void	free_cmdli(t_cmdli **cmdli);
 
 // List utils
-void	printlist(t_list *top);
-void	push(t_list *from, t_list *to);
-void	sort_alphabetically(t_list *export);
-char	*ft_get_env(t_list *env, char *substr);
+void		printlist(t_variable *top);
+void		sort_alphabetically(t_variable *export);
+char		*ft_get_env(t_variable *env, char *substr);
+t_variable	*create_t_variable_node(char *s);
+void		free_nodes_contents(t_variable **list);
+void		free_nodes(t_variable **list);
 
 // Init
-void	init_shell(t_shell *shell, char **env);
-t_list	*init_env(char **m_env);
-t_list	*init_export(t_list *env);
+void		init_shell(t_shell *shell, char **env);
+t_variable	*init_env(char **m_env);
+t_variable	*init_export(t_variable *env);
 
 // Signals
 void	handle_interrupt(int sig);

@@ -6,7 +6,7 @@
 #    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/29 16:59:53 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/10/30 15:40:12 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,6 @@ OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 RM		=	rm -f
 
-#DEBUG	=	-fsanitize=address
-#DEBUG	=	-g3
 CFLAGS	=	-Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)
@@ -70,7 +68,7 @@ $(NAME)	: $(OBJS)
 	@echo "$(BLUE)Making libft and bonuses... $(NONE)"
 	@$(MAKE) -C libft
 	@$(MAKE) -C libft bonus
-	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) $(DEBUG) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
 
 norm:

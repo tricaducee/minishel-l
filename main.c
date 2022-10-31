@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 16:27:43 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 19:10:19 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ int	main(int argc, char **argv, char **env)
 		init_shell(&shell, env);
 		sig_handler(&shell);
 		read = readline("Minishell 🍋 % ");
+		printf("coucou\n");
 		if (read)
 		{
 			add_history(read);
 			cmdli = get_cmds(shell.env, read);
+			// if (!ft_strncmp(read, "exit", 4))
+			// 	ft_exit(&shell, &cmdli, read);
 			print_cmdli(cmdli);
 			if (!is_builtin(cmdli, &shell))
 				printf("c'est pas un builtin :\(\n");
@@ -48,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 			free_nodes(&shell.env);
 			exit (0);
 		}
-		//ft_lstclear(&shell.export, free);
 	}
 	return (0);
 }

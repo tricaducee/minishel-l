@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/30 16:34:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:52:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	free_content(t_cmdli *cmdli)
 {
 	if (cmdli->cmd)
 		free(cmdli->cmd);
-	// if (cmdli->cmd_args)
-	// 	free_tab(cmdli->cmd_args);
+	if (cmdli->cmd_args)
+		free_tab(cmdli->cmd_args);
 	if (cmdli->pipe_in)
 	{
 		close(cmdli->pipe_in[0]);
@@ -59,6 +59,7 @@ void	free_cmdli(t_cmdli **cmdli)
 
 void	error_cmdli(t_cmdli **cmds_list, char *s)
 {
+	(void) cmds_list;
 	if (!s)
 		printf("Error\n");
 	else

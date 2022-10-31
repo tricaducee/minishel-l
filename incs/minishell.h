@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 16:25:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 23:47:06 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	free_cmdli(t_cmdli **cmdli);
 
 // List utils
 void		printlist(t_variable *top);
-void		sort_alphabetically(t_variable *export);
+void		sort_insertion(t_variable *export);
 char		*ft_get_env(t_variable *env, char *substr);
 t_variable	*create_t_variable_node(char *s);
 void		free_nodes_contents(t_variable **list);
@@ -114,7 +114,7 @@ void	sig_handler(t_shell *shell);
 int		ft_env(t_shell *shell);
 int		ft_export(t_shell *shell, t_cmdli *cmdli);
 int		ft_pwd(void);
-void	ft_exit(t_shell *shell);
+int		ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
 void	ft_echo(char **ss);
 
 // Binaries

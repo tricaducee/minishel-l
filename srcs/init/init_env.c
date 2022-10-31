@@ -6,46 +6,11 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 15:04:32 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 19:04:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-/*
-	free node address (used for env linked list)
-*/
-void	free_nodes(t_variable **list)
-{
-	t_variable	*tmp;
-
-	while (*list)
-	{
-		tmp = *list;
-		*list = (*list)->next;
-		free(tmp);
-	}
-}
-
-/*
-	free node address and node content (name and value)
-	(used for export linked list)
-*/
-void	free_nodes_contents(t_variable **list)
-{
-	t_variable	*tmp;
-
-	while (*list)
-	{
-		if ((*list)->name)
-			free((*list)->name);
-		if ((*list)->value)
-			free((*list)->value);
-		tmp = *list;
-		*list = (*list)->next;
-		free(tmp);
-	}
-}
 
 /*
 	creates our proper list of ENV VAR
@@ -124,5 +89,6 @@ t_variable	*init_env(char **m_env)
 		node = node->next;
 	}
 	node->next = NULL;
+	printf("coucou init_env\n");
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 16:21:39 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:46:47 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 		if (!ft_strcmp(*cmdli->cmd_args, "="))
 		{
 			invalid_identifier = 1;
-			
+			continue ;
 		}
 		while (node)
 		{

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 13:53:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/30 23:59:39 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,41 @@ void	printlist(t_variable *top)
 }
 
 /*
+	free node address (used for env linked list)
+*/
+void	free_nodes(t_variable **list)
+{
+	t_variable	*tmp;
+
+	while (*list)
+	{
+		tmp = *list;
+		*list = (*list)->next;
+		free(tmp);
+	}
+}
+
+/*
+	free node address and node content (name and value)
+	(used for export linked list)
+*/
+void	free_nodes_contents(t_variable **list)
+{
+	t_variable	*tmp;
+
+	while (*list)
+	{
+		if ((*list)->name)
+			free((*list)->name);
+		if ((*list)->value)
+			free((*list)->value);
+		tmp = *list;
+		*list = (*list)->next;
+		free(tmp);
+	}
+}
+
+/*
 	tri par insertion a la place
 */
 void ft_swap(t_variable *a, t_variable *b)
@@ -42,7 +77,7 @@ void ft_swap(t_variable *a, t_variable *b)
 /*
 	Bubble sort : sort export linked list for initialization.
 */
-void	sort_alphabetically(t_variable *export)
+void	sort_insertion(t_variable *export)
 {
 	int swapped;
 	t_variable *compared;

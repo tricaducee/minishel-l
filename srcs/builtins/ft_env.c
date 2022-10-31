@@ -6,11 +6,26 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 17:33:38 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:28:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+/*
+	print a list from a copy pointer
+*/
+static void	printlist(t_variable *top)
+{
+	t_variable	*elem_copy;
+
+	elem_copy = top;
+	while (elem_copy)
+	{
+		printf("%s=%s\n", elem_copy->name, elem_copy->value);
+		elem_copy = elem_copy->next;
+	}
+}
 
 /*
 	Displays env variables

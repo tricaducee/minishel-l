@@ -6,26 +6,11 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:25:53 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:28:45 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-/*
-	print a list from a copy pointer
-*/
-void	printlist(t_variable *top)
-{
-	t_variable	*elem_copy;
-
-	elem_copy = top;
-	while (elem_copy)
-	{
-		printf("%s=%s\n", elem_copy->name, elem_copy->value);
-		elem_copy = elem_copy->next;
-	}
-}
 
 /*
 	free node address (used for env linked list)
@@ -63,9 +48,9 @@ void	free_nodes_contents(t_variable **list)
 }
 
 /*
-	faire un tri par insertion a la place
+	faire un tri par insertion a l'occasion
 */
-void ft_swap(t_variable *a, t_variable *b)
+static void ft_swap(t_variable *a, t_variable *b)
 {
 	char	*tmp_name;
 	char	*tmp_value;

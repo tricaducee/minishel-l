@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:09:14 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:29:17 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,10 @@ char		*heredoc(char *limit);
 void		free_cmdli(t_cmdli **cmdli);
 
 // List utils
-void		printlist(t_variable *top);
+void		free_nodes(t_variable **list);
+void		free_nodes_contents(t_variable **list);
 void		sort_alpha(t_variable *export);
 char		*ft_get_env(t_variable *env, char *substr);
-void		free_nodes_contents(t_variable **list);
-void		free_nodes(t_variable **list);
 
 // Init
 void		init_shell(t_shell *shell, char **env);

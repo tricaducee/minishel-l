@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:29:17 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 21:00:18 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,12 @@ char		*ft_get_env(t_variable *env, char *substr);
 
 // Init
 void		init_shell(t_shell *shell, char **env);
+
 t_variable	*init_env(char **m_env);
+char		*ft_strldup(char *s, unsigned int len);
+void		split_variable(t_variable *node, char *s);
+t_variable	*create_t_variable_node(char *s);
+
 t_variable	*init_export(t_variable *env);
 
 // Signals

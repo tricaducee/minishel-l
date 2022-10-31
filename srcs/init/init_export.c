@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:09:47 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:42:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /*
 	creates new node for t_variable linked list
+	t_variable *env : source data
+	returns new node with datas
 */
 static t_variable	*create_node(t_variable *env)
 {
@@ -49,6 +51,8 @@ t_variable	*init_export(t_variable *env)
 		export = export->next;
 		env = env->next;
 	}
+	export->name = ft_strdup("OLDPWD");
+	export->value = NULL;
 	export->next = NULL;
 	sort_alpha(ret);
 	return (ret);

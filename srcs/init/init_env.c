@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 19:49:25 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:59:00 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	previous directory visited. Gonna be updated in ft_cd builtin.
 */
 
-static char	*ft_strldup(char *s, unsigned int len)
+char	*ft_strldup(char *s, unsigned int len)
 {
 	char			*ret;
 	unsigned int	i;
@@ -41,7 +41,7 @@ static char	*ft_strldup(char *s, unsigned int len)
 	initialize list name and list value from char string
 	separated by '=' sign
 */
-static void	split_variable(t_variable *node, char *s)
+void	split_variable(t_variable *node, char *s)
 {
 	unsigned int	i;
 
@@ -59,7 +59,7 @@ static void	split_variable(t_variable *node, char *s)
 /*
 	creates new node for t_variable linked list
 */
-static t_variable	*create_t_variable_node(char *s)
+t_variable	*create_t_variable_node(char *s)
 {
 	t_variable *node;
 

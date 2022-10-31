@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:02:36 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:09:47 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_variable	*init_export(t_variable *env)
 		env = env->next;
 	}
 	export->next = NULL;
+	sort_alpha(ret);
 	return (ret);
 }
 

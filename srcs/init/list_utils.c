@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 23:59:39 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 20:25:53 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,25 @@ void	free_nodes_contents(t_variable **list)
 }
 
 /*
-	tri par insertion a la place
+	faire un tri par insertion a la place
 */
 void ft_swap(t_variable *a, t_variable *b)
 {
-	t_variable	*tmp;
+	char	*tmp_name;
+	char	*tmp_value;
 
-	tmp = a;
-	a = b;
-	b = tmp;
+	tmp_name = a->name;
+	tmp_value = a->value;
+	a->name = b->name;
+	a->value = b->value;
+	b->name = tmp_name;
+	b->value = tmp_value;
 }
 
 /*
 	Bubble sort : sort export linked list for initialization.
 */
-void	sort_insertion(t_variable *export)
+void	sort_alpha(t_variable *export)
 {
 	int swapped;
 	t_variable *compared;

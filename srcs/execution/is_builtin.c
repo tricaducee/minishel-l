@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 21:32:18 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 19:11:26 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
 		ft_pwd();
 	if (!ft_strncmp(str, "echo", len))
 		ft_echo(cmd->cmd_args);
-
 	return (1);
 }
 
@@ -41,7 +40,7 @@ int	is_builtin(t_cmdli *cmd, t_shell *shell)
 	int			builtin_len;
 	int			i;
 
-	if (!cmd->cmd)
+	if (!cmd || !cmd->cmd)
 		return (0);
 	i = 0;
 	while (builtins[i])

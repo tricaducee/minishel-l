@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/31 05:41:17 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/31 23:29:17 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,19 +283,19 @@ t_cmdli	*create_cmdli(void)
 	if (!ret)
 		return (NULL);//------------------------------------------malloc return
 	*ret = (t_cmdli){};//---------------------------------initialisation
-	ret->cmd = NULL;
-	ret->cmd_args = NULL;
-	ret->pipe_in = NULL;
-	ret->pipe_out = NULL;
-	ret->file_in = NULL;
-	ret->file_out = NULL;
-	ret->file_type = EMPTY;
-	ret->here_doc = NULL;
+	// ret->cmd = NULL;
+	// ret->cmd_args = NULL;
+	// ret->pipe_in = NULL;
+	// ret->pipe_out = NULL;
+	// ret->file_in = NULL;
+	// ret->file_out = NULL;
+	// ret->file_type = EMPTY;
+	// ret->here_doc = NULL;
 	ret->fd_in = -1;
 	ret->fd_out = -1;
-	ret->and_or = 0;
-	ret->previous = NULL;
-	ret->next = NULL;
+	// ret->and_or = 0;
+	// ret->previous = NULL;
+	// ret->next = NULL;
 	return (ret);
 }
 
@@ -390,8 +390,11 @@ void	file_heredoc(t_cmdli **cmds_list, char *file)
 	if (!(*cmds_list)->pipe_in)
 	{
 		(*cmds_list)->pipe_in = malloc(2 * sizeof(int));
+		if (!(*cmds_list)->pipe_in)
+			return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 		if (pipe((*cmds_list)->pipe_in) == -1)
-			return (error_cmdli(cmds_list, "pipe"));
+			return (error_cmdli(cmds_list,
+					"minishell: unsuccessful pipe generation\n"));//---------------------------------------------------------------------------------
 	}
 	(*cmds_list)->here_doc = heredoc(file);
 	write((*cmds_list)->pipe_in[1],

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/30 16:34:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 05:41:17 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,21 @@ void	free_tab(char **ss)
 	free(ss);
 }
 
+t_cmdli	*cmdli_first(t_cmdli *cmds_list)
+{
+	if (!cmds_list)
+		return (NULL);
+	while (cmds_list->previous)
+		cmds_list = cmds_list->previous;
+	return (cmds_list);
+}
+
 void	free_content(t_cmdli *cmdli)
 {
 	if (cmdli->cmd)
 		free(cmdli->cmd);
-	// if (cmdli->cmd_args)
-	// 	free_tab(cmdli->cmd_args);
+	if (cmdli->cmd_args)
+		free_tab(cmdli->cmd_args);
 	if (cmdli->pipe_in)
 	{
 		close(cmdli->pipe_in[0]);
@@ -48,6 +57,7 @@ void	free_cmdli(t_cmdli **cmdli)
 {
 	t_cmdli	*tmp;
 
+	*cmdli = cmdli_first(*cmdli);
 	while (*cmdli)
 	{
 		free_content(*cmdli);
@@ -57,12 +67,27 @@ void	free_cmdli(t_cmdli **cmdli)
 	}
 }
 
+t_cmdli	*error_cmdli_nl(t_cmdli **cmds_list)
+{
+	free_cmdli(cmds_list);
+	printf("minishell: syntax error near unexpected token `newline'");
+	g_errno = 258;
+	return (NULL);
+}
+
 void	error_cmdli(t_cmdli **cmds_list, char *s)
 {
-	if (!s)
-		printf("Error\n");
-	else
-		printf("Error on %s\n", s);
+	free_cmdli(cmds_list);
+	g_errno = 1;
+	printf("%s\n", s);
+}
+
+void	error_cmdli_interpret(t_cmdli **cmds_list, char *s)
+{
+	free_cmdli(cmds_list);
+	printf("minishell: syntax error near unexpected token `%.2s'", s);
+	g_errno = 258;
+	free(s);
 }
 
 static int	ft_strcmp_int(char *s1, char *s2)
@@ -136,7 +161,7 @@ char	*add_var(char *cmdline, char *str, unsigned int *i, t_variable *env)
 		!= '&' && cmdline[*i + j] != '\'' && cmdline[*i + j] != '"')
 		j++;
 	if (j)
-		new = ft_get_env(env, ft_substr(cmdline, *i, j));//---------------------------- Chercher variable
+		new = ft_get_env(env, ft_substr(cmdline, *i, j));
 	else
 		new = ft_strdup("$");
 	tmp = str;
@@ -257,6 +282,7 @@ t_cmdli	*create_cmdli(void)
 	ret = malloc(1 * sizeof(t_cmdli));
 	if (!ret)
 		return (NULL);//------------------------------------------malloc return
+	*ret = (t_cmdli){};//---------------------------------initialisation
 	ret->cmd = NULL;
 	ret->cmd_args = NULL;
 	ret->pipe_in = NULL;
@@ -277,12 +303,15 @@ void	add_pipe(t_cmdli **cmds_list, t_type *type)
 {
 	*type = PIPE;
 	(*cmds_list)->next = create_cmdli();
+	if (!(*cmds_list)->next)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	(*cmds_list)->next->previous = (*cmds_list);
 	if (!(*cmds_list)->pipe_out)
 	{
 		(*cmds_list)->pipe_out = malloc(2 * sizeof(int));
 		if (pipe((*cmds_list)->pipe_out) == -1)
-			return (error_cmdli(cmds_list, "pipe"));
+			return (error_cmdli(cmds_list,
+					"minishell: unsuccessful pipe generation\n"));//---------------------------------------------
 	}
 	(*cmds_list)->next->pipe_in = (*cmds_list)->pipe_out;
 	*cmds_list = (*cmds_list)->next;
@@ -292,6 +321,8 @@ void	add_andor(t_cmdli **cmds_list, t_type *type, int and_or)
 {
 	*type = ANDOR;
 	(*cmds_list)->next = create_cmdli();
+	if (!(*cmds_list)->next)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	(*cmds_list)->next->previous = (*cmds_list);
 	*cmds_list = (*cmds_list)->next;
 	(*cmds_list)->and_or = and_or;
@@ -304,6 +335,8 @@ void	add_arg(t_cmdli **cmds_list, char *arg, t_type *type)
 	*type = ARG;
 	tmp = (*cmds_list)->cmd_args;
 	(*cmds_list)->cmd_args = ft_strsjoin(arg, tmp);
+	if (!(*cmds_list)->cmd_args)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	if (tmp)
 		free(tmp);
 }
@@ -320,6 +353,8 @@ void	file_rdi(t_cmdli **cmds_list, char *file)
 
 	tmp = (*cmds_list)->file_in;
 	(*cmds_list)->file_in = ft_strsjoin(file, tmp);
+	if (!(*cmds_list)->file_in)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	if (tmp)
 		free(tmp);
 }
@@ -331,6 +366,8 @@ void	file_rdo(t_cmdli **cmds_list, char *file)
 	(*cmds_list)->file_type = RDO;
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
+	if ((*cmds_list)->file_out)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	if (tmp)
 		free(tmp);
 }
@@ -342,6 +379,8 @@ void	file_rdoa(t_cmdli **cmds_list, char *file)
 	(*cmds_list)->file_type = RDOA;
 	tmp = (*cmds_list)->file_out;
 	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
+	if (!(*cmds_list)->file_out)
+		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));//---------------------------------------------
 	if (tmp)
 		free(tmp);
 }
@@ -355,7 +394,8 @@ void	file_heredoc(t_cmdli **cmds_list, char *file)
 			return (error_cmdli(cmds_list, "pipe"));
 	}
 	(*cmds_list)->here_doc = heredoc(file);
-	write((*cmds_list)->pipe_in[1], (*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
+	write((*cmds_list)->pipe_in[1],
+		(*cmds_list)->here_doc, ft_strlen((*cmds_list)->here_doc));
 }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)//--------------------------------------------------------------------------------------------------------
@@ -400,7 +440,7 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 		else if (ft_strcmp_int(s, "&&") && (*type == CMD || *type == ARG || *type == RFILE))
 			add_andor(cmds_list, type, 1);
 		else
-			return (error_cmdli(cmds_list, s));
+			return (error_cmdli_interpret(cmds_list, s));
 		free(s);
 	}
 	else
@@ -412,15 +452,6 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret) // 
 		else
 			add_file(cmds_list, s, type);
 	}
-}
-
-t_cmdli	*cmdli_first(t_cmdli *cmds_list)
-{
-	if (!cmds_list)
-		return (NULL);
-	while (cmds_list->previous)
-		cmds_list = cmds_list->previous;
-	return (cmds_list);
 }
 
 t_cmdli	*get_cmds(t_variable *env, char *cmdline)
@@ -451,6 +482,8 @@ t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 		if (!cmds_list)
 			return (NULL);
 	}
+	if (type != CMD && type != ARG && type != RFILE)
+		return (error_cmdli_nl(&cmds_list));
 	return (cmdli_first(cmds_list));
 }
 
@@ -497,3 +530,58 @@ t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 // 	print_cmdli(get_cmds(av[1]));
 // 	return (0);
 // }
+
+
+
+// void	get_data(char *str)
+// {
+// 	static *ptr;
+
+// 	if (str)
+// 	{
+// 		ptr = str;
+// 	}
+// 	return (ptr);
+// }
+
+
+// int	main()
+// {
+
+	
+// 	char *str = "hello";
+
+// 	get_data(str);
+
+// 	/////
+
+
+// 	char *ptr;
+
+// 	ptr = get_data(NULL);
+	
+
+// }
+
+
+
+
+
+
+// char test_value;
+// int  res;
+
+// if (test_value == 't')  // 1 or 0
+// 	res = var_a;
+// else
+// 	res = var_b;
+
+// res = (test_value == 't') * var_a + (test_value != 't') * var_b;
+
+// res = test_value == 't' ? var_a : var_b;
+
+
+
+
+
+	

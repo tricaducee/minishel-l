@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 16:25:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 05:26:51 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ typedef struct S_cmdli
 }					t_cmdli;
 
 // Parsing
-t_cmdli	*get_cmds(t_variable *env, char *cmdline);
-void	print_cmdli(t_cmdli *cmds_list);
-char	*heredoc(char *limit);
-void	free_cmdli(t_cmdli **cmdli);
+t_cmdli		*get_cmds(t_variable *env, char *cmdline);
+void		print_cmdli(t_cmdli *cmds_list);
+char		*heredoc(char *limit);
+void		free_cmdli(t_cmdli **cmdli);
 
 // List utils
 void		printlist(t_variable *top);
@@ -107,29 +107,29 @@ t_variable	*init_env(char **m_env);
 t_variable	*init_export(t_variable *env);
 
 // Signals
-void	handle_interrupt(int sig);
-void	sig_handler(t_shell *shell);
+void		handle_interrupt(int sig);
+void		sig_handler(t_shell *shell);
 
 // Builtins
-int		ft_env(t_shell *shell);
-int		ft_export(t_shell *shell, t_cmdli *cmdli);
-int		ft_pwd(void);
-void	ft_exit(t_shell *shell);
-void	ft_echo(char **ss);
+int			ft_env(t_shell *shell);
+int			ft_export(t_shell *shell, t_cmdli *cmdli);
+int			ft_pwd(void);
+void		ft_exit(t_shell *shell);
+void		ft_echo(char **ss);
 
 // Binaries
-void	exec_cmd(char **cmd);
+void		exec_cmd(char **cmd);
 
 // Execution
-int		run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
-int		is_builtin(t_cmdli *cmd, t_shell *shell);
-void	is_absolute_path(char **args, t_list *env);
+int			run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
+int			is_builtin(t_cmdli *cmd, t_shell *shell);
+void		is_absolute_path(char **args, t_list *env);
 
 // Readline
-void	rl_replace_line(const char *text, int clear_undo);
-t_token	*get_token(t_shell *shell);
+void		rl_replace_line(const char *text, int clear_undo);
+t_token		*get_token(t_shell *shell);
 
 // Heredoc
-char	*heredoc(char *limit);
+char		*heredoc(char *limit);
 
 #endif

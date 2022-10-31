@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/31 23:29:17 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/10/31 23:37:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,7 +551,7 @@ t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 // int	main()
 // {
 
-	
+
 // 	char *str = "hello";
 
 // 	get_data(str);
@@ -562,7 +562,7 @@ t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 // 	char *ptr;
 
 // 	ptr = get_data(NULL);
-	
+
 
 // }
 
@@ -587,4 +587,3 @@ t_cmdli	*get_cmds(t_variable *env, char *cmdline)
 
 
 
-	

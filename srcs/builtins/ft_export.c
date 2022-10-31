@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 16:21:39 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/10/31 22:27:09 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,83 @@ static void	print_export(t_variable *top)
 	}
 }
 
+t_variable *get_last_node(t_variable *list)
+{
+	t_variable	*last;
+
+	if (!list)
+		return (NULL);
+	last = list;
+	while (list)
+	{
+		last = list;
+		list = list->next;
+	}
+	return (last);
+}
+
+void	add_node_back(t_variable **list, t_variable *new)
+{
+	t_variable *last;
+
+	if (*list && new)
+	{
+		last = get_last_node(*list);
+		last->next = new;
+	}
+	else
+		*list = new;
+}
+
 /*
-	without args : just print export
+	creates new node with splitted content from argument string
+*/
+void	update_list(t_variable **list, char *arg)
+{
+	t_variable	*new;
+
+	new = create_t_variable_node(arg);
+	add_node_back(list, new);
+	printf("update_list\n");
+	printf("new content, name :[%s] value :[%s]\n", new->name, new->value);
+}
+
+int	ft_export(t_shell *shell, t_cmdli *cmdli)
+{
+	t_variable	*export;
+	int			invalid_identifier;
+
+	if (!cmdli->cmd_args)
+	{
+		print_export(shell->export);
+		return (1);
+	}
+	export = shell->export;
+	invalid_identifier = 0;
+	while (*cmdli->cmd_args)
+	{
+		if (!ft_strcmp(*cmdli->cmd_args, "=")) // si on tombe sur un =
+		{
+			invalid_identifier = 1;
+			continue ;
+		}
+		while (export)
+		{
+			if (ft_strcmp(*cmdli->cmd_args, export->name))
+			{
+				update_list(&shell->env, *cmdli->cmd_args);
+				update_list(&shell->export, *cmdli->cmd_args);
+				return (1);
+			}
+			export = export->next;
+		}
+		++cmdli->cmd_args;
+	}
+	return (1);
+}
+
+/*
+	[OK] without args : just print export
 
 	variable nouvelle :
 
@@ -72,32 +147,10 @@ static void	print_export(t_variable *top)
 	changements
 
 */
-int	ft_export(t_shell *shell, t_cmdli *cmdli)
-{
-	t_variable	*node;
-	int			invalid_identifier;
 
-	if (!cmdli->cmd_args)
-	{
-		print_export(shell->export);
-		return (1);
-	}
-	node = shell->export;
-	invalid_identifier = 0;
-	while (*cmdli->cmd_args)
-	{
-		if (!ft_strcmp(*cmdli->cmd_args, "="))
-		{
-			invalid_identifier = 1;
-			
-		}
-		while (node)
-		{
-			if (!ft_strcmp(*cmdli->cmd_args, node->name))
-				printf("Ca match !\n");
-			node = node->next;
-		}
-		++cmdli->cmd_args;
-	}
-	return (1);
-}
+
+//creer un nouveau noeud et y assigner les nouvelles valeurs
+// si '=' trouvé alors aussi dans env a la fin
+
+// fonction qui met a jour la variable, dans env et export, avec les nouvelles valeurs
+//void	update_value(t_variable *env, t_variable *export, char *arg) il faudra les split !

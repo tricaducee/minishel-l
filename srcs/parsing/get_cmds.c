@@ -6,15 +6,17 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/01 08:40:23 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/01 08:45:31 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	interpret(t_cmdli **cmds_list, char **cmdline, t_type *type, unsigned int *i)
+void	interpret(t_cmdli **cmds_list, char **cmdline,
+					t_type *type, unsigned int *i)
 {
-	while ((*cmdline)[*i] == ' ') //all white space
+	while ((*cmdline)[*i] == ' ' ||
+			((*cmdline)[*i] >= '\t' && (*cmdline)[*i] <= '\r'))
 		++*i;
 	if ((*cmdline)[*i] == '<')
 		type_and_set(split_cmd(cmdline, i, '<'), cmds_list, type, 1);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/29 15:20:52 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/11/01 11:24:13 by hermesrolle      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,6 @@ SRCS =	ft_bzero.c \
 		ft_itoa.c \
 		ft_strmapi.c \
 		ft_striteri.c \
-		ft_putchar_fd.c \
-		ft_putstr_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
 		ft_strcat.c \
 		ft_free_ppointer.c \
 		ft_strsdup.c \

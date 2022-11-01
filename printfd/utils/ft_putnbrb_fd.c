@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putnbr_base_u.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 20:27:38 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/11/05 12:18:14 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/05/23 17:15:16 by hrolle            #+#    #+#             */
+/*   Updated: 2022/06/16 10:39:15 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../HEADER/ft_printfd.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putnbrb_fd(int fd, unsigned long n, char *str, unsigned long base)
 {
-	int	i;
+	unsigned int	nb;
 
-	if (s)
-	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}
-		write(fd, "\n", 1);
-	}
+	nb = n;
+	if (n >= base)
+		ft_putnbrb_fd(fd, n / base, str, base);
+	ft_putchar_fd(fd, str[nb % base]);
 }

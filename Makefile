@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/10/30 16:35:19 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/11/01 11:20:04 by hermesrolle      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,10 @@ all:	$(NAME)
 
 $(NAME)	: $(OBJS)
 	@echo "$(BLUE)Making libft and bonuses... $(NONE)"
+	@$(MAKE) -C printfd
 	@$(MAKE) -C libft
 	@$(MAKE) -C libft bonus
-	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) printfd/libftprintfd.a -o $(NAME)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
 
 norm:
@@ -73,10 +74,12 @@ norm:
 clean:
 	@$(RM) $(OBJS)
 	@$(MAKE) -C libft clean
+	@$(MAKE) -C printfd clean
 	@printf "$(GREEN) OBJS removed.\n$(NONE)"
 
 fclean:	clean
 	@$(RM) $(NAME)
+	@$(RM) printfd/libftprintfd.a
 	@$(MAKE) -C libft fclean
 	@printf "$(GREEN) libft.a removed.\n$(NONE)"
 	@printf "$(GREEN) $(NAME) removed.\n$(NONE)"

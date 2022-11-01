@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 19:58:00 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/11/04 20:19:20 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/05/23 17:14:45 by hrolle            #+#    #+#             */
+/*   Updated: 2022/06/16 10:44:45 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
+#include "../HEADER/ft_printfd.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(int fd, char c)
 {
 	write(fd, &c, 1);
+}
+
+void	repeat_putchar_fd(int fd, char c, int len)
+{
+	while (len > 0)
+	{
+		ft_putchar_fd(fd, c);
+		len--;
+	}
 }

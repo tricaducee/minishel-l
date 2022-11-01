@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   len_atoi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 20:19:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2021/11/04 20:24:50 by lgenevey         ###   ########.fr       */
+/*   Created: 2022/05/23 17:16:37 by hrolle            #+#    #+#             */
+/*   Updated: 2022/06/16 11:16:17 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../HEADER/ft_printfd.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	len_atoi(const char *str, int *i)
 {
-	int	i;
+	unsigned int	nbr;
 
-	if (s)
+	nbr = 0;
+	if (str[*i] == '.')
+		*i += 1;
+	while (str[*i] >= '0' && str[*i] <= '9')
 	{
-		i = 0;
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}
+		nbr = (nbr * 10) + (str[*i] - '0');
+		*i += 1;
 	}
+	*i -= 1;
+	return (nbr);
 }

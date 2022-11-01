@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   print_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:23:07 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 04:23:49 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/01 07:02:34 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/01 07:02:50 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	ft_pwd(void)
+void	print_tab(char **s)
 {
-	char	*cwd;
-	char	buff[PATH_MAX];
-
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("%s\n", cwd);
-	return (1);
+	while (s && *s)
+		printf("%s\n", *(s++));
 }

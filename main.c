@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:03:24 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/01 05:21:40 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		init_shell(&shell, env);
+		ft_get_shell(&shell);
 		sig_handler(&shell);
 		read = readline("Minishell 🍋 % ");
 		if (read)
 		{
 			add_history(read);
-			cmdli = get_cmds(shell.env, read);
+			cmdli = get_cmds(&read);
 			// if (!ft_strncmp(read, "exit", 4))
 			// 	ft_exit(&shell, &cmdli, read);
 			print_cmdli(cmdli);

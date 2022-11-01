@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 21:00:18 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/01 04:37:36 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,35 @@ typedef struct S_cmdli
 }					t_cmdli;
 
 // Parsing
-t_cmdli		*get_cmds(t_variable *env, char *cmdline);
-void		print_cmdli(t_cmdli *cmds_list);
-char		*heredoc(char *limit);
+void		free_tab(char **ss);
+t_cmdli		*cmdli_first(t_cmdli *cmds_list);
+void		free_content(t_cmdli *cmdli);
 void		free_cmdli(t_cmdli **cmdli);
+t_cmdli		*error_cmdli_nl(t_cmdli **cmds_list);
+void		error_cmdli(t_cmdli **cmds_list, char *s);
+void		error_cmdli_interpret(t_cmdli **cmds_list, char *s);
+int			ft_strcmp_int(char *s1, char *s2);
+int			ft_strslen(char **s);
+char		*split_cmd(char **cmdline, unsigned int *i, char c);
+char		**ft_strsjoin(char *s, char **ss);
+char		*add_var(char **cmdline, char *str, unsigned int *i);
+char		*add_quote(char **cmdline, char *str, unsigned int *i);
+char		*add_dquote(char **cmdline, char *str, unsigned int *i);
+char		*split_cmd_sp(char **cmdline, unsigned int *i);
+void		print_tab(char **s);
+t_cmdli		*create_cmdli(void);
+void		add_pipe(t_cmdli **cmds_list, t_type *type);
+void		add_andor(t_cmdli **cmds_list, t_type *type, int and_or);
+void		add_arg(t_cmdli **cmds_list, char *arg, t_type *type);
+void		add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type);
+void		file_rdi(t_cmdli **cmds_list, char *file);
+void		file_rdo(t_cmdli **cmds_list, char *file);
+void		file_rdoa(t_cmdli **cmds_list, char *file);
+void		file_heredoc(t_cmdli **cmds_list, char *file);
+void		add_file(t_cmdli **cmds_list, char *file, t_type *type);//--------------------------------------------------------------------------------------------------------
+void		type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret); // doit retourner valeur si continue ou pas
+t_cmdli		*get_cmds(char **cmdline);
+void		print_cmdli(t_cmdli *cmds_list);
 
 // List utils
 void		free_nodes(t_variable **list);
@@ -101,6 +126,8 @@ char		*ft_get_env(t_variable *env, char *substr);
 
 // Init
 void		init_shell(t_shell *shell, char **env);
+t_shell		*ft_get_shell(t_shell *new_shell);
+char		*ft_get_var(char *substr);
 
 t_variable	*init_env(char **m_env);
 char		*ft_strldup(char *s, unsigned int len);

@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   add_quote.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:23:07 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 04:23:49 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/01 06:58:54 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/01 06:59:39 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	ft_pwd(void)
+char	*add_quote(char *(*cmdline), char *str, unsigned int *i)
 {
-	char	*cwd;
-	char	buff[PATH_MAX];
+	char			*ret;
+	unsigned int	j;
+	char			*tmp;
+	char			*new;
 
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("%s\n", cwd);
-	return (1);
+	j = 0;
+	++*i;
+	ret = NULL;
+	while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '\'')
+		j++;
+	tmp = str;
+	new = ft_substr((*cmdline), *i, j);
+	if (!new)
+	{
+		if (tmp)
+			free(tmp);
+		return (NULL);
+	}
+	ret = ft_strjoin(str, new);
+	free(new);
+	if (tmp)
+		free(tmp);
+	if (!ret)
+		return (NULL);
+	*i += j + 1;
+	return (ret);
 }

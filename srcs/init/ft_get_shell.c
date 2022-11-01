@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_get_shell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:23:07 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 04:23:49 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/01 04:27:27 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/01 04:31:06 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	ft_pwd(void)
+t_shell	*ft_get_shell(t_shell *new_shell)
 {
-	char	*cwd;
-	char	buff[PATH_MAX];
+	static t_shell	*shell;
 
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("%s\n", cwd);
-	return (1);
+	if (new_shell)
+		shell = new_shell;
+	return (shell);
 }

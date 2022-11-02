@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:39:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/01 06:39:44 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/02 18:46:45 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	free_content(t_cmdli *cmdli)
 {
-	if (cmdli->cmd)
-		free(cmdli->cmd);
 	if (cmdli->cmd_args)
 		free_tab(cmdli->cmd_args);
 	if (cmdli->pipe_in)

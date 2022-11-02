@@ -6,22 +6,22 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:58:54 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/01 06:59:39 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/01 19:45:51 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*add_quote(char *(*cmdline), char *str, unsigned int *i)
+char	*add_quote(char **cmdline, char *str, unsigned int *i)
 {
 	char			*ret;
 	unsigned int	j;
 	char			*tmp;
 	char			*new;
 
-	j = 0;
 	++*i;
 	ret = NULL;
+	j = 0;
 	while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '\'')
 		j++;
 	tmp = str;
@@ -36,8 +36,7 @@ char	*add_quote(char *(*cmdline), char *str, unsigned int *i)
 	free(new);
 	if (tmp)
 		free(tmp);
-	if (!ret)
-		return (NULL);
-	*i += j + 1;
+	if (ret)
+		*i += j + 1;
 	return (ret);
 }

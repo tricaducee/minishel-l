@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 04:37:36 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/01 19:14:45 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ void		file_rdi(t_cmdli **cmds_list, char *file);
 void		file_rdo(t_cmdli **cmds_list, char *file);
 void		file_rdoa(t_cmdli **cmds_list, char *file);
 void		file_heredoc(t_cmdli **cmds_list, char *file);
-void		add_file(t_cmdli **cmds_list, char *file, t_type *type);//--------------------------------------------------------------------------------------------------------
-void		type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret); // doit retourner valeur si continue ou pas
+void		add_file(t_cmdli **cmds_list, char *file, t_type *type);
+void		type_and_set(char *s, t_cmdli **cmds_list,
+				t_type *type, int interpret);
 t_cmdli		*get_cmds(char **cmdline);
 void		print_cmdli(t_cmdli *cmds_list);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/01 11:24:13 by hermesrolle      ###   ########.fr        #
+#    Updated: 2022/11/02 18:11:34 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,6 @@ bonus: $(OBJS_BONUS) $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(OBJS_BONUS)
-	@printf "$(BLUE) .o cleaned.\n$(NONE)"
 
 fclean: clean
 	rm -f  $(NAME)

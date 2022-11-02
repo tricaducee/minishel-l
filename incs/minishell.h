@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 19:14:45 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/02 19:19:45 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void		print_cmdli(t_cmdli *cmds_list);
 void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
 void		sort_alpha(t_variable *export);
-char		*ft_get_env(t_variable *env, char *substr);
 
 // Init
 void		init_shell(t_shell *shell, char **env);
@@ -146,6 +145,7 @@ int			ft_env(t_shell *shell);
 int			ft_export(t_shell *shell, t_cmdli *cmdli);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
+int			ft_cd(char **array);
 void		ft_echo(char **ss);
 
 // Binaries

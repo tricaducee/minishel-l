@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:28:45 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:17:38 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,4 @@ void	sort_alpha(t_variable *export)
 		}
 		tmp = compared;
 	}
-}
-
-/*
-	returns value of ENV VAR name searched
-	env : first node of our linked list of every ENV VAR
-	substr : name of the variable whose value we want.
-*/
-char	*ft_get_env(t_variable *env, char *substr)
-{
-	if (!env || !substr)
-		return (NULL);
-	if (!ft_strcmp(substr, "?")) //gestion de errno
-		return (ft_itoa(g_errno));
-	while (env)
-	{
-		if (!ft_strcmp(env->name, substr))
-			return (ft_strdup(env->value));
-		env = env->next;
-	}
-	return (ft_strdup(""));
 }

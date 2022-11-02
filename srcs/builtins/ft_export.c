@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 22:27:09 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:04:30 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 	t_variable	*export;
 	int			invalid_identifier;
 
-	if (!cmdli->cmd_args)
+	if (ft_strslen(cmdli->cmd_args) == 1)
 	{
 		print_export(shell->export);
 		return (1);
@@ -93,18 +93,19 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 			invalid_identifier = 1;
 			continue ;
 		}
+		// split name et value, ca le fera pour chaque argument
 		while (export)
 		{
-			if (ft_strcmp(*cmdli->cmd_args, export->name))
+			if (ft_strcmp(*cmdli->cmd_args, export->name) == 0) // si l'argument donné est une variable existante
 			{
-				update_list(&shell->env, *cmdli->cmd_args);
-				update_list(&shell->export, *cmdli->cmd_args);
 				return (1);
 			}
 			export = export->next;
 		}
 		++cmdli->cmd_args;
 	}
+	if (invalid_identifier)
+		printf("export: `=': not a valid identifier\n");
 	return (1);
 }
 
@@ -128,6 +129,8 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 	logname
 	env		rien a faire
 	export	declare -x logname
+
+	ignorer si l'argument commence par _
 
 	variable existante
 	pour ecraser une variable existante, doit etre en majuscule.

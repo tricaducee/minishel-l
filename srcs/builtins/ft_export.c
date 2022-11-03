@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/02 18:04:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:09:04 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 	print la liste chainee stockee dans la struc shell.export
 	print est different si on n'a pas de valeur (premier OLDPWD par exemple)
 */
-static void	print_export(t_variable *top)
+static void	print_export(void)
 {
-	t_variable	*top_copy;
+	t_variable	*export;
 
-	if (top == NULL)
+	export = ft_get_export();
+	if (export == NULL)
 		return ;
-	top_copy = top;
-	while (top_copy)
+	while (export)
 	{
-		if (top_copy->value)
-			printf("declare -x %s=\"%s\"\n", top_copy->name, top_copy->value);
+		if (export->value)
+			printf("declare -x %s=\"%s\"\n", export->name, export->value);
 		else
-			printf("declare -x %s\n", top_copy->name);
-		top_copy = top_copy->next;
+			printf("declare -x %s\n", export->name);
+		export = export->next;
 	}
 }
 
@@ -81,7 +81,7 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 
 	if (ft_strslen(cmdli->cmd_args) == 1)
 	{
-		print_export(shell->export);
+		print_export();
 		return (1);
 	}
 	export = shell->export;

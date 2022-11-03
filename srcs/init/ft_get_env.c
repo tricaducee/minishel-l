@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 01:17:32 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:19:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 01:43:54 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../incs/minishell.h"
 

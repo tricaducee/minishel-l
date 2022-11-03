@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_get_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:06:14 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/03 01:44:08 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/03 01:44:29 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-/*
-	print a list from a copy pointer
-*/
-static void	printlist(t_variable *top)
+t_variable	*ft_get_export(void)
 {
-	while (top)
-	{
-		printf("%s=%s\n", top->name, top->value);
-		top = top->next;
-	}
-}
+	t_shell	*shell;
 
-/*
-	Displays env variables
-	The order we see is when items are created
-*/
-int	ft_env(t_shell *shell)
-{
-	printlist(shell->env);
-	return (1);
+	shell = ft_get_shell(NULL);
+	return (shell->export);
 }

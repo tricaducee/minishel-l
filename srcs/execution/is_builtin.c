@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:36:55 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:47:24 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
 		ft_pwd();
 	if (!ft_strncmp(str, "echo", len))
 		ft_echo(cmd->cmd_args);
-	//if (!ft_strncmp(str, "cd", len))
-	//	ft_cd(cmd->cmd_args);
+	if (!ft_strncmp(str, "cd", len))
+		ft_cd(cmd->cmd_args);
 	return (1);
 }
 

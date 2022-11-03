@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:15:23 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:41:26 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ t_variable	*init_export(void)
 	env = env->next;
 	while (env)
 	{
-		sort_alpha(export, create_node_name_value(env->name, env->value));
+		sort_alpha(&export, create_node_name_value(env->name, env->value));
 		env = env->next;
 	}
-	sort_alpha(export, create_node_name_value(ft_strdup("OLDPWD"), NULL));
+	sort_alpha(&export, create_node_name_value(ft_strdup("OLDPWD"), NULL));
 	return (export);
 }
 

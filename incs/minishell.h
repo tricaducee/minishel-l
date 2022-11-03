@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:20:17 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:41:03 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,14 @@ void		print_cmdli(t_cmdli *cmds_list);
 // List utils
 void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
-void		sort_alpha(t_variable *export, t_variable *env);
+void		sort_alpha(t_variable **export, t_variable *env);
 t_variable	*create_node_name_value(char *name, char *value);
 
 // Init
 void		init_shell(t_shell *shell, char **env);
 t_shell		*ft_get_shell(t_shell *new_shell);
 t_variable	*ft_get_env(void);
+t_variable	*ft_get_export(void);
 char		*ft_get_var(char *substr);
 
 t_variable	*init_env(char **m_env);

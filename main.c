@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:22:35 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:02:28 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	main(int argc, char **argv, char **env)
 				printf("c'est un builtin ! :D\n");
 			free_cmdli(&cmdli);
 			free(read);
-			free_nodes_contents(&shell.export);
-			free_nodes(&shell.env);
 		}
 		else
 		{
@@ -52,5 +50,7 @@ int	main(int argc, char **argv, char **env)
 			exit (0);
 		}
 	}
+	free_nodes_contents(&shell.export);
+	free_nodes(&shell.env);
 	return (0);
 }

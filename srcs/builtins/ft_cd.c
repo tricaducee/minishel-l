@@ -6,19 +6,25 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/02 19:36:04 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/02 22:25:30 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
 
-int	ft_cd(char **array)
+/*
+	Change Directory
+	Must update pwd env variable
+*/
+int	ft_cd(char **opti)
 {
-	int	ret;
+	char	*directory;
 
-	if (array[1])
-		printf("ft_cd : [%s]\n", array[1]);
-		//printf("ft_cd : %s\n", ft_get_var("HOME"));
-	ret = chdir(array[1]);
-	return (ret);
+	directory = NULL;
+	if (!opti[1])
+		directory = ft_get_var("HOME");
+	else if (chdir(opti[1]) != 0)
+		ft_printfd(2, "cd: %s: %s\n", strerror(errno), opti[0]);
+	return (1);
 }

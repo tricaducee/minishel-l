@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:42:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 01:15:23 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 	t_variable *env : source data
 	returns new node with datas
 */
-static t_variable	*create_node(t_variable *env)
+t_variable	*create_node_name_value(char *name, char *value)
 {
 	t_variable *node;
 
-	node = (t_variable *)malloc(sizeof(t_variable));
+	node = malloc(sizeof(t_variable));
 	if (!node)
 		return (NULL);
-	node->name = env->name;
-	node->value = env->value;
+	node->name = name;
+	node->value = value;
 	node->next = NULL;
 	return (node);
 }
@@ -35,27 +35,23 @@ static t_variable	*create_node(t_variable *env)
 	Add OLDPWD alone as the real bash export does
 	Returns a t_variable export sorted
 */
-t_variable	*init_export(t_variable *env)
+t_variable	*init_export(void)
 {
-	t_variable	*ret;
 	t_variable	*export;
+	t_variable	*env;
 
+	env = ft_get_env();
 	if (!env)
 		return (NULL);
-	export = create_node(env);
-	ret = export;
+	export = create_node_name_value(env->name, env->value);
 	env = env->next;
 	while (env)
 	{
-		export->next = create_node(env);
-		export = export->next;
+		sort_alpha(export, create_node_name_value(env->name, env->value));
 		env = env->next;
 	}
-	export->name = ft_strdup("OLDPWD");
-	export->value = NULL;
-	export->next = NULL;
-	sort_alpha(ret);
-	return (ret);
+	sort_alpha(export, create_node_name_value(ft_strdup("OLDPWD"), NULL));
+	return (export);
 }
 
 /*

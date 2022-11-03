@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/02 00:31:02 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/02 23:01:10 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*add_var(char **cmdline, char *str, unsigned int *i)
 {
 	unsigned int	j;
 	char			*new;
+	char			*tmp;
 
 	j = 0;
 	++*i;
@@ -47,7 +48,12 @@ char	*add_var(char **cmdline, char *str, unsigned int *i)
 		!= '&' && (*cmdline)[*i + j] != '\'' && (*cmdline)[*i + j] != '"')
 		j++;
 	if (j)
-		new = ft_get_var(ft_substr((*cmdline), *i, j));
+	{
+		tmp = ft_substr((*cmdline), *i, j);
+		new = ft_get_var(tmp);
+		if (tmp)
+			free(tmp);
+	}
 	else if ((*cmdline)[*i] != '"' && (*cmdline)[*i] != '\'')
 		new = ft_strdup("$");
 	else

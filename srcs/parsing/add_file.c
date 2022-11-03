@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:51:22 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/01 06:53:54 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 08:55:42 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	file_rdi(t_cmdli **cmds_list, char *file)
 		free(tmp);
 	if (!(*cmds_list)->file_in)
 		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));
+	if ((*cmds_list)->here_doc)
+	{
+		free((*cmds_list)->here_doc);
+		(*cmds_list)->here_doc = NULL;
+	}
 }
 
 void	file_rdo(t_cmdli **cmds_list, char *file)

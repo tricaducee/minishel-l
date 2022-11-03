@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 04:41:22 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 09:39:04 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_shell
 {
 	t_variable			*env;
 	t_variable			*export;
+	char				**str_env;
 	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
@@ -83,6 +84,8 @@ typedef struct S_cmdli
 	char			**file_out;
 	t_type			file_type;
 	int				and_or;
+	pid_t			pid;
+	int				cmd_error;
 	struct S_cmdli	*previous;
 	struct S_cmdli	*next;
 }					t_cmdli;
@@ -129,6 +132,7 @@ t_variable	*create_node_name_value(char *name, char *value);
 void		init_shell(t_shell *shell, char **env);
 t_shell		*ft_get_shell(t_shell *new_shell);
 t_variable	*ft_get_env(void);
+char		**ft_get_str_env(void);
 t_variable	*ft_get_export(void);
 char		*ft_get_var(char *substr);
 
@@ -152,7 +156,7 @@ int			ft_cd(char **array);
 void		ft_echo(char **ss);
 
 // Binaries
-void		exec_cmd(t_cmdli *cmdli);
+int		exec_cmd(t_cmdli *cmdli);
 
 // Execution
 int			run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
@@ -170,6 +174,6 @@ char		*heredoc(char *limit);
 char		**free_tab_null(char **ss);
 
 
-void	get_absolute_path(char *cmd);
+char	*get_absolute_path(char *cmd);
 
 #endif

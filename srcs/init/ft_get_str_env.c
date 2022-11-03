@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_shell.c                                       :+:      :+:    :+:   */
+/*   ft_get_str_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:49:17 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 09:24:34 by hermesrolle      ###   ########.fr       */
+/*   Created: 2022/11/03 09:20:33 by hermesrolle       #+#    #+#             */
+/*   Updated: 2022/11/03 09:25:44 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	init_shell(t_shell *shell, char **m_env)
+char	**ft_get_str_env(void)
 {
-	shell->env = init_env(m_env);
-	shell->export = init_export();
-	shell->str_env = m_env;
-	tcgetattr(0, &shell->term);
-	shell->sa_interrupt.sa_handler = &handle_interrupt;
-	shell->sa_backslash.sa_handler = SIG_IGN;
-}
+	t_shell	*shell;
 
-// nouvelle variable sans valeur affichee que dans export
+	shell = ft_get_shell(NULL);
+	return (shell->str_env);
+}

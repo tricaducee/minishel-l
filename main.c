@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 04:37:36 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 09:56:50 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 	t_cmdli	*cmdli;
+	t_cmdli	*cmdli_i;
 	char	*read;
 
 	ft_get_shell(&shell);
@@ -34,15 +35,26 @@ int	main(int argc, char **argv, char **env)
 			cmdli = get_cmds(&read);
 			// if (!ft_strncmp(read, "exit", 4))
 			// 	ft_exit(&shell, &cmdli, read);
-			print_cmdli(cmdli);
-			if (!is_builtin(cmdli, &shell))
+			if (cmdli)
 			{
-				printf("c'est pas un builtin :\(\n");
-				get_absolute_path(cmdli->cmd);
+				//print_cmdli(cmdli);
+				cmdli_i = cmdli;
+				while (cmdli_i)
+				{
+					if (!is_builtin(cmdli_i, &shell))
+					{
+						printf("c'est pas un builtin :\(\n");
+						exec_cmd(cmdli_i);
+					}
+					else
+					{
+						printf("c'est un builtin ! :D\n");
+					}
+					cmdli_i = cmdli_i->next;
+				}
+				while (wait(NULL) != -1);
+				free_cmdli(&cmdli);
 			}
-			else
-				printf("c'est un builtin ! :D\n");
-			free_cmdli(&cmdli);
 			free(read);
 		}
 		else

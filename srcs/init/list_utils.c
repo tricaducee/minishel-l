@@ -6,11 +6,12 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:28:45 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/03 01:09:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
 
 /*
 	free node address (used for env linked list)
@@ -47,69 +48,36 @@ void	free_nodes_contents(t_variable **list)
 	}
 }
 
-/*
-	faire un tri par insertion a l'occasion
-*/
-static void ft_swap(t_variable *a, t_variable *b)
+void	sort_alpha(t_variable *export, t_variable *new)
 {
-	char	*tmp_name;
-	char	*tmp_value;
+	t_variable	*prev;
+	static int	i;
 
-	tmp_name = a->name;
-	tmp_value = a->value;
-	a->name = b->name;
-	a->value = b->value;
-	b->name = tmp_name;
-	b->value = tmp_value;
-}
-
-/*
-	Bubble sort : sort export linked list for initialization.
-*/
-void	sort_alpha(t_variable *export)
-{
-	int swapped;
-	t_variable *compared;
-	t_variable *tmp;
-
-	if (export == NULL)
-		return ;
-	swapped = 1;
-	tmp = NULL;
-	while (swapped)
+	prev = NULL;
+	i++;
+	//ft_printfd(1, "new %d : [%s]\n", i, new->name);
+	ft_printfd(1, "#+rexport %d : [%s]#0\n", i, export->name);
+	while (export)
 	{
-		swapped = 0;
-		compared = export;
-
-		while (compared->next != tmp)
+		if (ft_strcmp(export->name, new->name) >= 0)
 		{
-			if (ft_strcmp(compared->name, compared->next->name) > 0)
-			{
-				ft_swap(compared, compared->next);
-				swapped = 1;
-			}
-			compared = compared->next;
+			if (prev)
+				prev->next = new;
+			new->next = export;
+			ft_printfd(1, "while : new->next %d : [%s]\n", i, new->next->name);
+			if (prev)
+				ft_printfd(1, "#+gwhile : prev->next %d : [%s]\n#0", i, prev->next->name);
+			else
+				ft_printfd(1, "#+gwhile : prev->next %d : [%s]\n#0", i, new->name);
+			return ;
 		}
-		tmp = compared;
+		prev = export;
+		export = export->next;
 	}
-}
-
-/*
-	returns value of ENV VAR name searched
-	env : first node of our linked list of every ENV VAR
-	substr : name of the variable whose value we want.
-*/
-char	*ft_get_env(t_variable *env, char *substr)
-{
-	if (!env || !substr)
-		return (NULL);
-	if (!ft_strcmp(substr, "?")) //gestion de errno
-		return (ft_itoa(g_errno));
-	while (env)
+	if (!export)
 	{
-		if (!ft_strcmp(env->name, substr))
-			return (ft_strdup(env->value));
-		env = env->next;
+		prev->next = new;
+		ft_printfd(1, "new->next %d : [%p]\n", i, new->next);
+		ft_printfd(1, "#+gprev->next %d : [%s]\n#0", i, prev->next->name);
 	}
-	return (ft_strdup(""));
 }

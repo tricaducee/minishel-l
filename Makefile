@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/01 11:20:04 by hermesrolle      ###   ########.fr        #
+#    Updated: 2022/11/02 18:02:20 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ clean:
 fclean:	clean
 	@$(RM) $(NAME)
 	@$(RM) printfd/libftprintfd.a
-	@$(MAKE) -C libft fclean
+	@$(RM) libft/libft.a
 	@printf "$(GREEN) libft.a removed.\n$(NONE)"
 	@printf "$(GREEN) $(NAME) removed.\n$(NONE)"
 

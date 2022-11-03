@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 19:14:45 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:20:17 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,13 @@ void		print_cmdli(t_cmdli *cmds_list);
 // List utils
 void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
-void		sort_alpha(t_variable *export);
-char		*ft_get_env(t_variable *env, char *substr);
+void		sort_alpha(t_variable *export, t_variable *env);
+t_variable	*create_node_name_value(char *name, char *value);
 
 // Init
 void		init_shell(t_shell *shell, char **env);
 t_shell		*ft_get_shell(t_shell *new_shell);
+t_variable	*ft_get_env(void);
 char		*ft_get_var(char *substr);
 
 t_variable	*init_env(char **m_env);
@@ -135,7 +136,7 @@ char		*ft_strldup(char *s, unsigned int len);
 void		split_variable(t_variable *node, char *s);
 t_variable	*create_t_variable_node(char *s);
 
-t_variable	*init_export(t_variable *env);
+t_variable	*init_export(void);
 
 // Signals
 void		handle_interrupt(int sig);
@@ -146,6 +147,7 @@ int			ft_env(t_shell *shell);
 int			ft_export(t_shell *shell, t_cmdli *cmdli);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
+int			ft_cd(char **array);
 void		ft_echo(char **ss);
 
 // Binaries

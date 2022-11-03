@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/01 05:21:40 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 01:22:35 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	main(int argc, char **argv, char **env)
 	t_cmdli	*cmdli;
 	char	*read;
 
+	ft_get_shell(&shell);
+	init_shell(&shell, env);
 	(void)argc;
 	(void)argv;
 	while (true)
 	{
-		init_shell(&shell, env);
-		ft_get_shell(&shell);
 		sig_handler(&shell);
 		read = readline("Minishell 🍋 % ");
 		if (read)

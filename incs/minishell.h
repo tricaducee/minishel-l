@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:41:03 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 04:41:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int			ft_cd(char **array);
 void		ft_echo(char **ss);
 
 // Binaries
-void		exec_cmd(char **cmd);
+void		exec_cmd(t_cmdli *cmdli);
 
 // Execution
 int			run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
@@ -165,5 +165,11 @@ t_token		*get_token(t_shell *shell);
 
 // Heredoc
 char		*heredoc(char *limit);
+
+//Secure
+char		**free_tab_null(char **ss);
+
+
+void	get_absolute_path(char *cmd);
 
 #endif

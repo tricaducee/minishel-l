@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   free_tab_null.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 06:29:48 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/03 04:29:34 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/03 04:30:14 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/03 04:42:43 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	free_tab(char **ss)
+char	**free_tab_null(char **ss)
 {
 	unsigned int	i;
 
 	i = 0;
 	if (!ss)
-		return ;
+		return (NULL);
 	while (ss[i])
 		free(ss[i++]);
 	free(ss);
+	return (NULL);
 }

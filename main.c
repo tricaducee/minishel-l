@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:02:28 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/03 04:37:36 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	main(int argc, char **argv, char **env)
 			// 	ft_exit(&shell, &cmdli, read);
 			print_cmdli(cmdli);
 			if (!is_builtin(cmdli, &shell))
+			{
 				printf("c'est pas un builtin :\(\n");
+				get_absolute_path(cmdli->cmd);
+			}
 			else
 				printf("c'est un builtin ! :D\n");
 			free_cmdli(&cmdli);

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/04 07:52:44 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 08:30:13 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	interpret(t_cmdli **cmds_list, char **cmdline,
 					t_type *type, unsigned int *i)
 {
-	while ((*cmdline)[*i] == ' ' ||
-			((*cmdline)[*i] >= '\t' && (*cmdline)[*i] <= '\r'))
+	while ((*cmdline)[*i] && ((*cmdline)[*i] == ' ' ||
+			((*cmdline)[*i] >= '\t' && (*cmdline)[*i] <= '\r')))
 		++*i;
-	if ((*cmdline)[*i] == '<')
+	if (!(*cmdline)[*i])
+		return ;
+	else if ((*cmdline)[*i] == '<')
 		type_and_set(split_cmd(cmdline, i, '<'), cmds_list, type, 1);
 	else if ((*cmdline)[*i] == '>')
 		type_and_set(split_cmd(cmdline, i, '>'), cmds_list, type, 1);

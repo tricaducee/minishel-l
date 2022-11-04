@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 07:41:19 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 08:48:19 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ char	*split_cmd_sp_ret(char	**cmdline, char *ret,
 
 char	*split_cmd_sp_add_func(char **cmdline, char *ret, unsigned int *i)
 {
-	while ((*cmdline)[*i] == ' ' ||
-			((*cmdline)[*i] >= '\t' && (*cmdline)[*i] <= '\r'))
-		++*i;
 	if ((*cmdline)[*i] && (*cmdline)[*i] == '$')
 		return (add_var(cmdline, ret, i));
 	else if ((*cmdline)[*i] && (*cmdline)[*i] == '\'')
@@ -70,9 +67,6 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 		!= '<' && (*cmdline)[*i] != '>' && (*cmdline)[*i]
 		!= '|' && (*cmdline)[*i] != '&')
 	{
-		while ((*cmdline)[*i] == ' ' ||
-			((*cmdline)[*i] >= '\t' && (*cmdline)[*i] <= '\r'))
-		++*i;
 		j = 0;
 		while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '$'
 			&& (*cmdline)[*i + j] != ' ' && (*cmdline)[*i + j]

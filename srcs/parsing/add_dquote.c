@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:58:28 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/01 19:37:20 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 08:46:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*add_dquote(char **cmdline, char *str, unsigned int *i)
 			return (NULL);
 	}
 	++*i;
+	if (!ret)
+		return (ft_strdup(""));
 	return (ret);
 }
 

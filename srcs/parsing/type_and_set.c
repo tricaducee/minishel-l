@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:28 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/02 02:16:28 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 08:27:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	type_and_set(char *s, t_cmdli **cmds_list, t_type *type, int interpret)
 	int	rd;
 
 	if (!s)
-		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));
+		return (error_cmdli(cmds_list, "memory allocation failed\n"));
 	if (*type == RDI || *type == RDO || *type == RDIH || *type == RDOA)
 		rd = 1;
 	else

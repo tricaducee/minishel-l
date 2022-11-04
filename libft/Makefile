@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/02 18:11:34 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/11/04 04:14:04 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS =	ft_bzero.c \
 		ft_free_ppointer.c \
 		ft_strsdup.c \
 		ft_strcmp.c \
-		ft_is_uppercase.c
+		ft_is_uppercase.c \
+		ft_strinset.c
 
 SRCS_BONUS =	ft_lstnew.c \
 				ft_lstadd_front.c \

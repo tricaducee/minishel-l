@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_strinset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:23:39 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/04 04:00:27 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/04 04:11:58 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "libft.h"
 
-int	ft_exit(t_shell *shell, t_cmdli **cmdli, char *read)
+int	ft_strinset(char *str, char *set)
 {
-	free_nodes_contents(&shell->export);
-	free_nodes(&shell->env);
-	free_cmdli(cmdli);
-	free(read);
-	return (g_errno);
+	unsigned int	i;
+
+	while (*str)
+	{
+		i = 0;
+		while (set[i] && set[i] != *str)
+			i++;
+		if (!set[i])
+			return (1);
+		str++;
+	}
+	return (0);
 }

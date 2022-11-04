@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/10/28 09:02:11 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 04:21:59 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,35 @@ static void	putstr_bs(char *s, t_echoptions *options)
 	}
 }
 
-char	**set_options(char **ss, t_echoptions *options)
+void	init_options(t_echoptions *options)
 {
 	options->n = 0;
 	options->e = 0;
 	options->c = 0;
-	while ((*ss && !ft_strcmp(*ss, "-n"))
-		|| !ft_strcmp(*ss, "-e") || !ft_strcmp(*ss, "-c"))
+}
+
+char	**set_options(char **ss, t_echoptions *options)
+{
+	unsigned int	i;
+
+	init_options(options);
+	while (*ss && (*ss)[0] == '-')
 	{
-		if (!ft_strcmp(*ss, "-n"))
+		if (ft_strinset((*ss) + 1, "enc"))
+			return (ss);
+		i = 1;
+		while ((*ss)[i] && ((*ss)[i] == 'e'
+			|| (*ss)[i] == 'n' || (*ss)[i] == 'c'))
 		{
-			ss++;
-			options->n = 1;
+			if ((*ss)[i] == 'e')
+				options->e = 1;
+			else if ((*ss)[i] == 'n')
+				options->n = 1;
+			else if ((*ss)[i] == 'c')
+				options->c = 1;
+			i++;
 		}
-		else if (!ft_strcmp(*ss, "-e"))
-		{
-			ss++;
-			options->e = 1;
-		}
-		else if (!ft_strcmp(*ss, "-c"))
-		{
-			ss++;
-			options->c = 1;
-		}
+		ss++;
 	}
 	return (ss);
 }
@@ -100,12 +106,15 @@ void	ft_echo(char **ss)
 		return ;
 	}
 	ss = set_options(ss, &options);
-	while (*ss && *(ss + 1))
+	if (*ss)
 	{
-		putstr_bs(*(ss++), &options);
-		write(1, " ", 1);
+		while (*ss && *(ss + 1))
+		{
+			putstr_bs(*(ss++), &options);
+			write(1, " ", 1);
+		}
+		putstr_bs(*ss, &options);
 	}
-	putstr_bs(*ss, &options);
 	if (!options.n)
 	{
 		if (options.c)

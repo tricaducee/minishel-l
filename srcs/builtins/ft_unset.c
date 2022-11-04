@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/30 13:52:21 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/04 03:21:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 	It takes one ore more arguments, UPPERCASE letters only, with OR without $
-	If exists : replace the env value with blank string and newline (in env and export list)
+	If exists : replace the env value with blank string and newline
+	(in env and export list)
 	(does not delete the node because echo should be able to find the variable
 	and print blank line)
 
@@ -45,7 +46,6 @@ void	ft_unset(t_shell *shell, char **args)
 			if (ft_strcmp(args[i], env->name) == 0)
 			{
 				printf("ft_unset argument %d : [%s]\n", i, args[i]);
-
 				env->next = env->next->next;
 				break ;
 			}

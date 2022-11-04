@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 09:56:50 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/04 03:26:39 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	main(int argc, char **argv, char **env)
 					}
 					cmdli_i = cmdli_i->next;
 				}
-				while (wait(NULL) != -1);
+				while (wait(NULL) != -1)
+					;
 				free_cmdli(&cmdli);
 			}
 			free(read);

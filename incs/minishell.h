@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 09:39:04 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/04 03:11:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,14 @@ int			ft_cd(char **array);
 void		ft_echo(char **ss);
 
 // Binaries
-int		exec_cmd(t_cmdli *cmdli);
+int			exec_cmd(t_cmdli *cmdli);
 
 // Execution
 int			run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
 int			is_builtin(t_cmdli *cmd, t_shell *shell);
 void		is_absolute_path(char **args, t_list *env);
+void		set_redirection(t_cmdli *cmdli);
+char		*get_absolute_path(char *cmd);
 
 // Readline
 void		rl_replace_line(const char *text, int clear_undo);
@@ -172,8 +174,5 @@ char		*heredoc(char *limit);
 
 //Secure
 char		**free_tab_null(char **ss);
-
-
-char	*get_absolute_path(char *cmd);
 
 #endif

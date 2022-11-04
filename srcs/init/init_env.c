@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/31 20:59:00 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/04 03:20:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	split_variable(t_variable *node, char *s)
 	unsigned int	i;
 
 	i = 0;
-	while(s[i] && s[i] != '=')
+	while (s[i] && s[i] != '=')
 		i++;
 	node->name = ft_strldup(s, i);
 	s += i + 1;
 	i = 0;
-	while(s[i])
+	while (s[i])
 		i++;
 	node->value = ft_strldup(s, i);
 }
@@ -61,7 +61,7 @@ void	split_variable(t_variable *node, char *s)
 */
 t_variable	*create_t_variable_node(char *s)
 {
-	t_variable *node;
+	t_variable	*node;
 
 	node = (t_variable *)malloc(sizeof(t_variable));
 	if (!node)

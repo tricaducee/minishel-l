@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:09:04 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 03:23:20 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	print_export(void)
 	}
 }
 
-t_variable *get_last_node(t_variable *list)
+t_variable	*get_last_node(t_variable *list)
 {
 	t_variable	*last;
 
@@ -50,7 +50,7 @@ t_variable *get_last_node(t_variable *list)
 
 void	add_node_back(t_variable **list, t_variable *new)
 {
-	t_variable *last;
+	t_variable	*last;
 
 	if (*list && new)
 	{
@@ -151,9 +151,10 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 
 */
 
-
 //creer un nouveau noeud et y assigner les nouvelles valeurs
 // si '=' trouvé alors aussi dans env a la fin
 
-// fonction qui met a jour la variable, dans env et export, avec les nouvelles valeurs
-//void	update_value(t_variable *env, t_variable *export, char *arg) il faudra les split !
+//fonction qui met a jour la variable,
+// dans env et export, avec les nouvelles valeurs
+//void	update_value(t_variable *env, t_variable *export, char *arg)
+// il faudra les split !

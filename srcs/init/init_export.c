@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:41:26 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 03:20:13 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 t_variable	*create_node_name_value(char *name, char *value)
 {
-	t_variable *node;
+	t_variable	*node;
 
 	node = malloc(sizeof(t_variable));
 	if (!node)
@@ -78,7 +78,8 @@ t_variable	*init_export(void)
 // 	else
 // 	{
 // 		tmp = sorted_head;
-// 		while (tmp->next != NULL && ft_strcmp(tmp->next->name, current->name) < 0)
+// 		while (tmp->next != NULL
+			//&& ft_strcmp(tmp->next->name, current->name) < 0)
 // 			tmp = tmp->next;
 // 		current->next = tmp->next;
 // 		tmp->next = current;

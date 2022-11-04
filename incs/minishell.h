@@ -6,12 +6,13 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 09:50:32 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 11:50:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define PATH_MAX 2048
 
 # include <fcntl.h>
 # include <errno.h>
@@ -135,6 +136,7 @@ t_variable	*ft_get_env(void);
 char		**ft_get_str_env(void);
 t_variable	*ft_get_export(void);
 char		*ft_get_var(char *substr);
+char		*ft_prompt(void);
 
 t_variable	*init_env(char **m_env);
 char		*ft_strldup(char *s, unsigned int len);

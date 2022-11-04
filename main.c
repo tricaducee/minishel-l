@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:26:39 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 11:51:56 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		sig_handler(&shell);
-		read = readline("Minishell 🍋 % ");
+		read = readline(ft_prompt());
 		if (read)
 		{
 			add_history(read);
@@ -61,6 +61,9 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			free(read);
+			read = ft_prompt();
+			if (read)
+				free(read);
 			free_nodes_contents(&shell.export);
 			free_nodes(&shell.env);
 			exit (0);

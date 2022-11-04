@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/04 04:21:59 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 05:26:08 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	putstr_bs(char *s, t_echoptions *options)
 		}
 		else if (options->c && *s == '\n')
 			write(1, "$", 1);
-		if (*s)
+		else if (*s)
 			write(1, s++, 1);
 	}
 }

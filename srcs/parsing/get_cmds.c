@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:31:19 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/01 17:58:14 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 07:52:44 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_cmdli	*get_cmds(char **cmdline)
 		if (!cmds_list)
 			return (NULL);
 	}
-	if (type != CMD && type != ARG && type != RFILE)
+	if (type != CMD && type != ARG && type != RFILE && type != EMPTY)
 		return (error_cmdli_nl(&cmds_list));
 	return (cmdli_first(cmds_list));
 }

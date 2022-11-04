@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:56:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/24 18:33:01 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 07:29:05 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	ret = str;
 	if (!str)
 		return (0);
-	while (s1 && *s1)
-		*(str++) = *(s1++);
-	while (s2 && *s2)
-		*(str++) = *(s2++);
+	if (s1)
+		while (*s1)
+			*(str++) = *(s1++);
+	if (s2)
+		while (*s2)
+			*(str++) = *(s2++);
 	*str = 0;
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:23:20 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 18:15:09 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,18 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 		print_export();
 		return (1);
 	}
-	export = shell->export;
+	export = shell->export; // ft_get_export et retirer argument shell
 	invalid_identifier = 0;
 	while (*cmdli->cmd_args)
 	{
-		if (!ft_strcmp(*cmdli->cmd_args, "=")) // si on tombe sur un =
+		if (!ft_strcmp(*cmdli->cmd_args, "="))
 		{
 			invalid_identifier = 1;
 			continue ;
 		}
-		// split name et value, ca le fera pour chaque argument
 		while (export)
 		{
-			if (ft_strcmp(*cmdli->cmd_args, export->name) == 0) // si l'argument donné est une variable existante
+			if (ft_strcmp(*cmdli->cmd_args, export->name) == 0)
 			{
 				return (1);
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:21:33 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 18:38:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,52 @@
 
 /*
 	It takes one ore more arguments, UPPERCASE letters only, with OR without $
-	If exists : replace the env value with blank string and newline
-	(in env and export list)
-	(does not delete the node because echo should be able to find the variable
-	and print blank line)
-
-	Example :
-	bash-3.2$ unset PWD
-	bash-3.2$ echo $PWD
-
-	bash-3.2$
-
-	if env is empty or unset has no argument we return nothing
-	else returns the new updated list if variable name exists.
+	If exists : skip next node, replace its address with next next's one
+	(in both env and export lists)
 */
-void	ft_unset(t_shell *shell, char **args)
+int	ft_unset(char **args)
 {
 	int			i;
 	t_variable	*env;
+	t_variable	*export;
 
-	if (!shell->env || !shell->export || !args)
-		return ;
-	i = 0;
+	if (!args || !args[0])
+		return (0);
+	i = 1;
 	while (args[i])
 	{
-		if (!ft_is_uppercase(args[i]))
-			return ;
-		env = shell->env;
-		while (env)
+		env = ft_get_env();
+		export = ft_get_export();
+		while (export && export->next && (ft_strcmp(args[i], export->next->name) != 0))
 		{
-			if (ft_strcmp(args[i], env->name) == 0)
-			{
-				printf("ft_unset argument %d : [%s]\n", i, args[i]);
-				env->next = env->next->next;
-				break ;
-			}
-			env = env->next;
+			// avancer jusqu'au noeud qui precede la comparaison exacte
+			printf("current export.name : [%s]\n", export->name);
+			export = export->next;
 		}
+		if (export) // si on n'est pas arrive au bout
+		{
+			export->next = export->next->next;
+			free_nodes(&export->next);
+		}
+		// while (env)
+		// {
+		// 	if (ft_strcmp(args[i], env->name) == 0)
+		// 	{
+		// 		printf("env.name : [%s]\n", export->name);
+		// 		env->next = env->next->next;
+		// 	}
+		// 	env = env->next;
+		// 	//free_nodes_contents(&tmp);
+		// 	//free_nodes(&env);
+		// }
 		++i;
 	}
+	return (1);
 }
+
+/*
+	Parcourir le char **
+	Si nom strictement identique a une variable alors le skip
+	faire une fonction qui skip un noeud, prend en entree un t_variable *node
+
+*/

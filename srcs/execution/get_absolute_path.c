@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 03:12:31 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 11:03:51 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	*get_absolute_path(char *cmd)
 		i++;
 	if (!path_tab[i])
 	{
+		free_tab(path_tab);
 		g_errno = errno;
 		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(g_errno));
 		return (NULL);

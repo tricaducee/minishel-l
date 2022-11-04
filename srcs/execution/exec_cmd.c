@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 09:02:01 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 11:09:45 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ int	close_pipe(int	*pipe)
 	return (0);
 }
 
+int	close_and_free(t_cmdli	*cmdli)
+{
+	if (cmdli->pipe_in)
+	{
+		close(cmdli->pipe_in[0]);
+		close(cmdli->pipe_in[1]);
+	}
+	if (cmdli->cmd)
+	{
+		free(cmdli->cmd);
+		cmdli->cmd = NULL;
+	}
+	return (0);
+}
+
 int	exec_cmd(t_cmdli *cmdli)
 {
 	cmdli->cmd = get_absolute_path(cmdli->cmd);
@@ -32,7 +47,7 @@ int	exec_cmd(t_cmdli *cmdli)
 	if (cmdli->pid == -1)
 	{
 		g_errno = errno;
-		ft_printfd(2, "#+wminishell#0:#/r %s#0", strerror(g_errno));
+		ft_printfd(2, "#+wminishell#0:#/r %s#0\n", strerror(g_errno));
 		return (g_errno);
 	}
 	else if (!cmdli->pid)
@@ -47,6 +62,6 @@ int	exec_cmd(t_cmdli *cmdli)
 		exit(0);
 	}
 	else
-		return (close_pipe(cmdli->pipe_in));
+		return (close_and_free(cmdli));
 	return (0);
 }

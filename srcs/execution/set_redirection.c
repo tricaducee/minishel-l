@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 09:01:19 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 09:33:55 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	set_file_in(t_cmdli *cmdli)
 		if (cmdli->fd_in == -1)
 		{
 			g_errno = errno;
-			ft_printfd(2, "#+wminishell#0:#/r %s#0", strerror(g_errno));
-			exit(g_errno);
+			ft_printfd(2, "#+wminishell#0:#/r %s#0\n", strerror(g_errno));
 		}
 	}
 }
@@ -50,8 +49,7 @@ void	set_file_out(t_cmdli *cmdli)
 		if (cmdli->fd_out == -1)
 		{
 			g_errno = errno;
-			ft_printfd(2, "#+wminishell#0:#/r %s#0", strerror(g_errno));
-			exit(g_errno);
+			ft_printfd(2, "#+wminishell#0:#/r %s#0\n", strerror(g_errno));
 		}
 	}
 }

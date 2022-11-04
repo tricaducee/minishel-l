@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 09:01:29 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 09:50:32 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int			is_builtin(t_cmdli *cmd, t_shell *shell);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd);
+int			close_pipe(int	*pipe);
 
 // Readline
 void		rl_replace_line(const char *text, int clear_undo);

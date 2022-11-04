@@ -6,11 +6,24 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 18:38:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:51:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+static void	skip_node(t_variable *node, char *arg)
+{
+	while (node->next)
+	{
+		if (ft_strcmp(arg, node->next->name) == 0)
+		{
+			node->next = node->next->next;
+			break ;
+		}
+		node = node->next;
+	}
+}
 
 /*
 	It takes one ore more arguments, UPPERCASE letters only, with OR without $
@@ -30,28 +43,8 @@ int	ft_unset(char **args)
 	{
 		env = ft_get_env();
 		export = ft_get_export();
-		while (export && export->next && (ft_strcmp(args[i], export->next->name) != 0))
-		{
-			// avancer jusqu'au noeud qui precede la comparaison exacte
-			printf("current export.name : [%s]\n", export->name);
-			export = export->next;
-		}
-		if (export) // si on n'est pas arrive au bout
-		{
-			export->next = export->next->next;
-			free_nodes(&export->next);
-		}
-		// while (env)
-		// {
-		// 	if (ft_strcmp(args[i], env->name) == 0)
-		// 	{
-		// 		printf("env.name : [%s]\n", export->name);
-		// 		env->next = env->next->next;
-		// 	}
-		// 	env = env->next;
-		// 	//free_nodes_contents(&tmp);
-		// 	//free_nodes(&env);
-		// }
+		skip_node(export, args[i]);
+		skip_node(env, args[i]);
 		++i;
 	}
 	return (1);

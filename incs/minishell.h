@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 17:27:55 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 06:43:04 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_shell
 	t_variable			*env;
 	t_variable			*export;
 	char				**str_env;
-	struct termios		term;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
@@ -150,8 +149,8 @@ void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
 
 // Builtins
-int			ft_env(t_shell *shell);
-int			ft_export(t_shell *shell, t_cmdli *cmdli);
+int			ft_env();
+int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
@@ -162,8 +161,8 @@ void		ft_echo(char **ss);
 int			exec_cmd(t_cmdli *cmdli);
 
 // Execution
-int			run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len);
-int			is_builtin(t_cmdli *cmd, t_shell *shell);
+int			run_builtin(const char *str, t_cmdli *cmd);
+int			is_builtin(t_cmdli *cmd);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd);

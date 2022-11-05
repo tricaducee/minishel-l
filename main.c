@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 11:51:56 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 06:47:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
-					if (!is_builtin(cmdli_i, &shell))
+					if (!is_builtin(cmdli_i))
 					{
 						printf("c'est pas un builtin :\(\n");
 						exec_cmd(cmdli_i);

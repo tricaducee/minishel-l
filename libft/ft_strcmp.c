@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 17:37:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 20:30:12 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 06:44:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	return 0 : no difference
 	else : return the ascii difference
 */
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(const char *s1, char *s2)
 {
 	int	i;
 

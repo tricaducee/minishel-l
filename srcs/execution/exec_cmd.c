@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 11:09:45 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 03:47:54 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ int	close_and_free(t_cmdli	*cmdli)
 	{
 		free(cmdli->cmd);
 		cmdli->cmd = NULL;
+	}
+	if (cmdli->file_in)
+	{
+		free_tab(cmdli->file_in);
+		cmdli->file_in = NULL;
+	}
+	if (cmdli->file_out)
+	{
+		free_tab(cmdli->file_out);
+		cmdli->file_out = NULL;
 	}
 	return (0);
 }

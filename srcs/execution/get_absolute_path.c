@@ -6,12 +6,21 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/04 11:03:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 02:22:38 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
+
+char	**free_path(char **tab, char *path)
+{
+	if (tab)
+		free_tab(tab);
+	if (path)
+		free(path);
+	return (NULL);
+}
 
 unsigned int	path_counter(char *path)
 {
@@ -49,25 +58,28 @@ char	*path_join(char *path, char *cmd,
 char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 {
 	char			**ret;
+	char			*path_i;
 	unsigned int	i;
 	unsigned int	j;
 
+	path_i = path;
 	ret = malloc((path_counter(path) + 1) * sizeof(char *));
 	if (!ret)
 		return (NULL);
 	j = 0;
-	while (*path)
+	while (*path_i)
 	{
-		while (*path == ':')
-			path++;
+		while (*path_i == ':')
+			path_i++;
 		i = 0;
-		while (path[i] && path[i] != ':')
+		while (path_i[i] && path_i[i] != ':')
 			i++;
-		ret[j] = path_join(path, cmd, i, cmd_len);
+		ret[j] = path_join(path_i, cmd, i, cmd_len);
 		if (!ret[j++])
-			return (free_tab_null(ret));
-		path += i;
+			return (free_path(ret, path));
+		path_i += i;
 	}
+	free_path(NULL, path);
 	ret[j] = NULL;
 	return (ret);
 }

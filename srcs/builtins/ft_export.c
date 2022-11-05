@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 18:15:09 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 06:42:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	update_list(t_variable **list, char *arg)
 	printf("new content, name :[%s] value :[%s]\n", new->name, new->value);
 }
 
-int	ft_export(t_shell *shell, t_cmdli *cmdli)
+int	ft_export(t_cmdli *cmdli)
 {
 	t_variable	*export;
 	int			invalid_identifier;
@@ -84,7 +84,7 @@ int	ft_export(t_shell *shell, t_cmdli *cmdli)
 		print_export();
 		return (1);
 	}
-	export = shell->export; // ft_get_export et retirer argument shell
+	export = ft_get_export();
 	invalid_identifier = 0;
 	while (*cmdli->cmd_args)
 	{

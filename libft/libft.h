@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:25:09 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 04:13:34 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 06:46:36 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strcat(char *dest, const char *src);
 void	ft_free_ppointer(char **array);
 char	**ft_strsdup(char **strs);
-int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(const char *s1, char *s2);
 int		ft_is_uppercase(char *str);
 
 //bonus

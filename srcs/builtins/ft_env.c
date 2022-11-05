@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 02:06:14 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 06:40:49 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ static void	printlist(t_variable *top)
 	Displays env variables
 	The order we see is when items are created
 */
-int	ft_env(t_shell *shell)
+int	ft_env()
 {
-	printlist(shell->env);
+	t_variable	*env;
+
+	env = ft_get_env();
+	printlist(env);
 	return (1);
 }

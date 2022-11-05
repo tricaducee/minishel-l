@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 04:17:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 04:25:26 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	handle_interrupt(int sig)
 */
 void	sig_handler(t_shell *shell)
 {
-	struct termios	terminos;
+	struct termios	term_flag;
 
-	if (tcgetattr(0, &terminos) != 0)
+	if (tcgetattr(0, &term_flag) != 0)
 		perror("tcgetattr() error");
-	terminos.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &terminos);
+	term_flag.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term_flag);
 	sigaction(SIGINT, &shell->sa_interrupt, NULL);
 	sigaction(SIGQUIT, &shell->sa_backslash, NULL);
 }

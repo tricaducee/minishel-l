@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/03 01:37:29 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/05 03:40:58 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,6 @@ int	ft_cd(char **opti)
 		ft_printfd(2, "cd: %s: %s\n", strerror(errno), opti[0]);
 	return (1);
 }
+
+// cd tout seul : HOME
+// cd tilde : HOME

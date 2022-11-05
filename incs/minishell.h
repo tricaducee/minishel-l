@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 11:50:22 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/04 17:27:55 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void		sig_handler(t_shell *shell);
 // Builtins
 int			ft_env(t_shell *shell);
 int			ft_export(t_shell *shell, t_cmdli *cmdli);
+int			ft_unset(char **args);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
 int			ft_cd(char **array);

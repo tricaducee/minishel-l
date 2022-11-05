@@ -6,11 +6,12 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/02 13:52:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 04:17:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
 
 /*
 	handle ctrl + C (interruption)
@@ -18,12 +19,7 @@
 void	handle_interrupt(int sig)
 {
 	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+		ft_printfd(1, "\n%s", ft_prompt());
 }
 
 /*

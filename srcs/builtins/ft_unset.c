@@ -6,20 +6,29 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 18:51:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 22:28:50 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	skip_node(t_variable *node, char *arg)
+static void	skip_node(t_variable *node, char *arg, int is_env)
 {
+	t_variable	*tmp;
+
 	while (node->next)
 	{
 		if (ft_strcmp(arg, node->next->name) == 0)
 		{
+			tmp = node->next;
 			node->next = node->next->next;
-			break ;
+			if (!is_env)
+			{
+				free(tmp->name);
+				free(tmp->value);
+			}
+			free(tmp);
+			return ;
 		}
 		node = node->next;
 	}
@@ -43,16 +52,9 @@ int	ft_unset(char **args)
 	{
 		env = ft_get_env();
 		export = ft_get_export();
-		skip_node(export, args[i]);
-		skip_node(env, args[i]);
+		skip_node(env, args[i], 1);
+		skip_node(export, args[i], 0);
 		++i;
 	}
 	return (1);
 }
-
-/*
-	Parcourir le char **
-	Si nom strictement identique a une variable alors le skip
-	faire une fonction qui skip un noeud, prend en entree un t_variable *node
-
-*/

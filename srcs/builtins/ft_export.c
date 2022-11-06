@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:42:10 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:34:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,30 @@ int	ft_export(t_cmdli *cmdli)
 {
 	t_variable	*export;
 	int			invalid_identifier;
+	char		**content;
+	int			i;
 
 	if (ft_strslen(cmdli->cmd_args) == 1)
 	{
 		print_export();
 		return (1);
 	}
+	i = 1;
 	export = ft_get_export();
 	invalid_identifier = 0;
-	while (*cmdli->cmd_args)
+	content = ft_split(cmdli->cmd_args[i], '=');
+	while (cmdli->cmd_args[i])
 	{
-		if (!ft_strcmp(*cmdli->cmd_args, "="))
+		if (!ft_strcmp(cmdli->cmd_args[i], "="))
 		{
 			invalid_identifier = 1;
 			continue ;
 		}
 		while (export)
 		{
-			if (ft_strcmp(*cmdli->cmd_args, export->name) == 0)
+			if (ft_strcmp(cmdli->cmd_args[i], export->name) == 0)
 			{
-				return (1);
+				printf("ca match, update value\n");
 			}
 			export = export->next;
 		}
@@ -157,3 +161,6 @@ int	ft_export(t_cmdli *cmdli)
 // dans env et export, avec les nouvelles valeurs
 //void	update_value(t_variable *env, t_variable *export, char *arg)
 // il faudra les split !
+
+// print export dans un fichier, write dans un fd, utiliser printfd pour ecrire dans le fd si yen a un sinon dans stdin 1
+// set_file_out (set_redirections dans dossier execution)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:43:04 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/07 00:46:23 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define PATH_MAX 2048
+//# define PATH_MAX 2048
 
 # include <fcntl.h>
 # include <errno.h>
@@ -125,7 +125,7 @@ void		print_cmdli(t_cmdli *cmds_list);
 // List utils
 void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
-void		sort_alpha(t_variable **export, t_variable *env);
+void		insert_new_node(t_variable **export, t_variable *env);
 t_variable	*create_node_name_value(char *name, char *value);
 
 // Init
@@ -135,7 +135,14 @@ t_variable	*ft_get_env(void);
 char		**ft_get_str_env(void);
 t_variable	*ft_get_export(void);
 char		*ft_get_var(char *substr);
+
 char		*ft_prompt(void);
+char		*get_git_path(char *cwd, char *file);
+void		none_git_prompt(char *prompt, const char **prompt_elem, char *cwd);
+void		git_prompt(char *prompt, const char **prompt_elem,
+				char *git_path, char *cwd);
+char		*get_git_branch(char *git_path);
+void		prompt_cat(char *prompt, const char *element, unsigned int *i);
 
 t_variable	*init_env(char **m_env);
 char		*ft_strldup(char *s, unsigned int len);
@@ -149,12 +156,12 @@ void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
 
 // Builtins
-int			ft_env();
+int			ft_env(void);
 int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
-int			ft_cd(char **array);
+int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
 
 // Binaries

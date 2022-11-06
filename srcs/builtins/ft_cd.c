@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 03:40:58 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:16:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@
 	Change Directory
 	Must update pwd env variable
 */
-int	ft_cd(char **opti)
+int	ft_cd(t_cmdli *cmdli)
 {
-	char	*directory;
+	char	*path;
 
-	directory = NULL;
-	if (!opti[1])
-		directory = ft_get_var("HOME");
-	else if (chdir(opti[1]) != 0)
-		ft_printfd(2, "cd: %s: %s\n", strerror(errno), opti[0]);
+	path = NULL;
+	if (!cmdli->cmd_args[1])
+	{
+		path = ft_get_var("HOME");
+		chdir(path);
+	}
+	else if (chdir(cmdli->cmd_args[1]))
+		ft_printfd(2, "cd: %s: %s\n", strerror(errno), cmdli->cmd_args[1]);
+	free(path);
 	return (1);
 }
 
-// cd tout seul : HOME
-// cd tilde : HOME
+// free le retour de get var
+// si pipe faire fork sinon pas. mais pas dans env et export

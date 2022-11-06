@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:47:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:08:59 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	run_builtin(const char *str, t_cmdli *cmd)// ATTENTION pas strncmp car expor
 	if (ft_strcmp(str, "echo") == 0)
 		ft_echo(&cmd->cmd_args[1]);
 	if (ft_strcmp(str, "cd") == 0)
-		ft_cd(cmd->cmd_args);
+		ft_cd(cmd);
 	return (1);
 }
 // int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)

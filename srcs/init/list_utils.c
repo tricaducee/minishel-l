@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:13:28 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:18:47 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/06 16:02:22 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_nodes_contents(t_variable **list)
 	}
 }
 
-void	sort_alpha(t_variable **export, t_variable *new)
+void	insert_new_node(t_variable **export, t_variable *new)
 {
 	t_variable	*prev;
 	t_variable	*current;

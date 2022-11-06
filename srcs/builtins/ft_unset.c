@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 18:51:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/05 07:28:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,3 @@ int	ft_unset(char **args)
 	}
 	return (1);
 }
-
-/*
-	Parcourir le char **
-	Si nom strictement identique a une variable alors le skip
-	faire une fonction qui skip un noeud, prend en entree un t_variable *node
-
-*/

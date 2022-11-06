@@ -6,13 +6,13 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:43:04 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:23:27 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define PATH_MAX 2048
+//# define PATH_MAX 2048
 
 # include <fcntl.h>
 # include <errno.h>
@@ -125,7 +125,7 @@ void		print_cmdli(t_cmdli *cmds_list);
 // List utils
 void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
-void		sort_alpha(t_variable **export, t_variable *env);
+void		insert_new_node(t_variable **export, t_variable *env);
 t_variable	*create_node_name_value(char *name, char *value);
 
 // Init
@@ -154,7 +154,7 @@ int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
 int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
-int			ft_cd(char **array);
+int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
 
 // Binaries

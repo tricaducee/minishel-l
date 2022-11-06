@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:47:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 19:01:14 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			free(read);
-			read = ft_prompt();
-			if (read)
-				free(read);
+			//read = ft_prompt();
+			//if (read)
+			//	free(read);
 			free_nodes_contents(&shell.export);
 			free_nodes(&shell.env);
 			exit (0);

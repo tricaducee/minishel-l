@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:47:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 14:26:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 	run the builtin
 */
-int	run_builtin(const char *str, t_cmdli *cmd)// ATTENTION pas strncmp car exporttttttttt n'est pas valide !
+int	run_builtin(const char *str, t_cmdli *cmd)
 {
 	if (ft_strcmp(str, "env") == 0)
 		ft_env();

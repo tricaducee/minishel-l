@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 01:21:07 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:54:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			free(read);
-			read = ft_prompt();
-			if (read)
-				free(read);
+			//read = ft_prompt();
+			//if (read)
+			//	free(read);
 			free_nodes_contents(&shell.export);
 			free_nodes(&shell.env);
 			exit (0);

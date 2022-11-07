@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/05 03:47:54 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/06 23:58:24 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	exec_cmd(t_cmdli *cmdli)
 		if (execve(cmdli->cmd, cmdli->cmd_args, ft_get_str_env()) == -1)
 		{
 			g_errno = errno;
-			ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(g_errno));
+			ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n",
+				cmdli->cmd_args[0], strerror(g_errno));
 			exit(g_errno);
 		}
 		exit(0);

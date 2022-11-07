@@ -5,41 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 11:19:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/05 01:29:38 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/07 00:43:49 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/07 00:44:14 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*prompt_join(char *s1, char *s2, char *s3)
-{
-	char			*ret;
-	unsigned int	i;
-
-	ret = malloc((ft_strlen(s1) + ft_strlen(s2)
-				+ ft_strlen(s3) + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (*s1)
-		ret[i++] = *(s1++);
-	while (*s2)
-		ret[i++] = *(s2++);
-	while (*s3)
-		ret[i++] = *(s3++);
-	ret[i] = 0;
-	return (ret);
-}
-
 char	*ft_prompt(void)
 {
-	static char	*prompt;
-	char		buff[PATH_MAX];
+	static char		prompt[PATH_MAX + 110];
+	char			cwd[PATH_MAX];
+	char			*git_path;
+	const char		*prompt_elem[] = {
+		"\033[32m🄼  ⓘ  ⓝ  ⓘ  \033[33m🅂  ⓗ  ⓔ  ⓛ  ⓛ  🍋 \033[0;3m",
+		"\033[0;32m on (\033[1;34m", "\033[0;32m)", "\n\033[1m% 👉 \033[0m", NULL};
 
-	if (prompt)
-		free(prompt);
-	prompt = prompt_join("\033[32m🄼  ⓘ  ⓝ  ⓘ  \033[33m🅂  ⓗ  ⓔ  ⓛ  ⓛ  🍋 \033[0;3m",
-			getcwd(buff, PATH_MAX), "\n\033[1m% 👉 \033[0m");
+	git_path = get_git_path(getcwd(cwd, PATH_MAX), "/.git/HEAD");
+	if (git_path)
+	{
+		git_prompt(prompt, prompt_elem, git_path, cwd);
+		free(git_path);
+	}
+	else
+		none_git_prompt(prompt, prompt_elem, cwd);
 	return (prompt);
 }

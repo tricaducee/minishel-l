@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/06 16:02:22 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 22:12:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,3 @@ t_variable	*init_export(void)
 	return (export);
 }
 
-/*
-	creer le premier noeud export
-	initialiser son contenu avec le contenu du premier noeud de env
-	garder en memoire ce pointeur sur le premier noeud de export
-	parcourir env
-		parcourir export et comparer chaque noeud avec env
-		si plus grand, ajouter a export.next
-		si plus petit ajouter a export.prev
-
-*/

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/06 16:23:27 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/06 20:33:35 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
 
 // Builtins
-int			ft_env();
+int			ft_env(void);
 int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:47:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/07 01:21:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,7 @@ int	main(int argc, char **argv, char **env)
 				while (cmdli_i)
 				{
 					if (!is_builtin(cmdli_i))
-					{
-						printf("c'est pas un builtin :\(\n");
 						exec_cmd(cmdli_i);
-					}
-					else
-					{
-						printf("c'est un builtin ! :D\n");
-					}
 					cmdli_i = cmdli_i->next;
 				}
 				while (wait(NULL) != -1)

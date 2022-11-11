@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 00:43:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:39:27 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_interrupt(int sig)
 	if (sig == SIGINT)
 	{
 		ft_printfd(1, "\n%s", ft_prompt());
-		rl_on_new_line();
+		//rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
@@ -30,7 +30,6 @@ void	handle_interrupt(int sig)
 /*
 	handle ctrl + \
 	no ^C with ECHOCTL option
-	using them
 */
 void	sig_handler(t_shell *shell)
 {

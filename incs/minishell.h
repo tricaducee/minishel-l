@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 01:54:05 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/07 21:35:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void		prompt_cat(char *prompt, const char *element, unsigned int *i);
 t_variable	*init_env(char **m_env);
 char		*ft_strldup(char *s, unsigned int len);
 void		split_variable(t_variable *node, char *s);
-t_variable	*create_t_variable_node(char *s);
+t_variable	*create_var_node(char *s);
 
 t_variable	*init_export(void);
 
@@ -156,7 +156,7 @@ void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
 
 // Builtins
-int			ft_env(void);
+int			ft_env();
 int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);

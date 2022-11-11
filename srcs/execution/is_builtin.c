@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 00:42:00 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/11 23:26:51 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,24 @@
 /*
 	run the builtin
 */
-int	run_builtin(const char *str, t_cmdli *cmd)
+int	is_builtin(t_cmdli **cmdli, char *read)
 {
-	if (ft_strcmp(str, "env") == 0)
+	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
 		ft_env();
-	if (ft_strcmp(str, "export") == 0)
-		ft_export(cmd);
-	if (ft_strcmp(str, "unset") == 0)
-		ft_unset(cmd->cmd_args);
-	if (ft_strcmp(str, "pwd") == 0)
+	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
+		ft_export((*cmdli));
+	else if (ft_strcmp((*cmdli)->cmd, "unset") == 0)
+		ft_unset((*cmdli)->cmd_args);
+	else if (ft_strcmp((*cmdli)->cmd, "pwd") == 0)
 		ft_pwd();
-	if (ft_strcmp(str, "echo") == 0)
-		ft_echo(&cmd->cmd_args[1]);
-	if (ft_strcmp(str, "cd") == 0)
-		ft_cd(cmd);
+	else if (ft_strcmp((*cmdli)->cmd, "echo") == 0)
+		ft_echo(&(*cmdli)->cmd_args[1]);
+	else if (ft_strcmp((*cmdli)->cmd, "cd") == 0)
+		ft_cd((*cmdli));
+	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
+		ft_exit(cmdli, read, 1);
+	else
+		return (0);
 	return (1);
 }
 // int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
@@ -66,20 +70,20 @@ int	run_builtin(const char *str, t_cmdli *cmd)
 	returns 0 if cmd->cmd is empty or if it's not a builtin
 	if cmd->cmd matches with builtin : run the builtin
 */
-int	is_builtin(t_cmdli *cmd)
-{
-	const char	*builtins[]
-		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
-	int			i;
+// int	is_builtin(t_cmdli *cmd)
+// {
+// 	const char	*builtins[]
+// 		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
+// 	int			i;
 
-	if (!cmd || !cmd->cmd)
-		return (0);
-	i = 0;
-	while (builtins[i])
-	{
-		if (ft_strcmp(builtins[i], cmd->cmd) == 0)
-			return (run_builtin(builtins[i], cmd));
-		++i;
-	}
-	return (0);
-}
+// 	if (!cmd || !cmd->cmd)
+// 		return (0);
+// 	i = 0;
+// 	while (builtins[i])
+// 	{
+// 		if (ft_strcmp(builtins[i], cmd->cmd) == 0)
+// 			return (run_builtin(builtins[i], cmd));
+// 		++i;
+// 	}
+// 	return (0);
+// }

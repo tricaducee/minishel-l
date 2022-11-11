@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 21:35:11 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/11 23:27:46 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int			ft_env();
 int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
-int			ft_exit(t_shell *shell, t_cmdli **cmdli, char *read);
+void		ft_exit(t_cmdli **cmdli, char *read, int mode);
 int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
 
@@ -168,8 +168,8 @@ void		ft_echo(char **ss);
 int			exec_cmd(t_cmdli *cmdli);
 
 // Execution
-int			run_builtin(const char *str, t_cmdli *cmd);
-int			is_builtin(t_cmdli *cmd);
+//int			run_builtin(const char *str, t_cmdli *cmd);-------------------------------------
+int			is_builtin(t_cmdli **cmdli, char *read);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd);

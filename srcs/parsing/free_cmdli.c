@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmdli.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:39:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/02 18:46:45 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/11 22:27:48 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	free_cmdli(t_cmdli **cmdli)
 {
 	t_cmdli	*tmp;
 
+	if (!cmdli)
+		return ;
 	*cmdli = cmdli_first(*cmdli);
 	while (*cmdli)
 	{

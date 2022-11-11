@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 01:18:00 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/11 22:19:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,54 @@ static int	print_export()
 	return (1);
 }
 
-// DELETE IF NOT NECESSARY
-// t_variable	*get_last_node(t_variable *list)
-// {
-// 	t_variable	*last;
+/*
+	update and fill env variables depending on the following cases
+		si bad premier char		:	print error et passer au pointeur suivant
+		si _					:	juste passer au suivant
 
-// 	if (!list)
-// 		return (NULL);
-// 	last = list;
-// 	while (list)
-// 	{
-// 		last = list;
-// 		list = list->next;
-// 	}
-// 	return (last);
-// }
+		[ok]connu et sans =	:	ne rien faire, ni dans env, ni dans export
+		[ok mais valeur cheloue dans export]connu avec = mais vide	:	vider valeur existante		mais garder = et mettre "" pour export
 
-// void	add_node_back(t_variable **list, t_variable *new)
-// {
-// 	t_variable	*last;
+		nouveau et sans =		:	rien dans env, nouveau noeud dans export
+		nouveau avec = mais vide:	nouveau noeud dans export, valeur vide, trier. Nouveau noeud dans env qui pointe sur export
+		nouveau avec valeur		:	nouveau noeud dans export, valeur pleine,  trier, Nouveau noeud dans env qui pointe sur export
+*/
+static int	run_env(t_cmdli *cmdli, t_variable *env, int *i)
+{
+	char	**arg;
 
-// 	if (*list && new)
-// 	{
-// 		last = get_last_node(*list);
-// 		last->next = new;
-// 	}
-// 	else
-// 		*list = new;
-// }
+	arg = ft_split(cmdli->cmd_args[*i], '=');
+	while (env)
+	{
+		if (ft_strcmp(arg[0], env->name) == 0)
+		{
+			if (!ft_strchr(cmdli->cmd_args[*i], '='))
+			{
+				free(env->value);
+				env->value = NULL;
+				break ;
+			}
+			else if (arg[1] == NULL)
+			{
+				free(env->value);
+				env->value = NULL;
+				//env->value = NULL;
+				break ;
+			}
+			else
+			{
+				free(env->value);
+				env->value = arg[1];
+				break ;
+			}
+		}
+		env = env->next;
+		if (!env)
+			return (0);
+	}
+	free(arg);
+	return (1);
+}
 
 /*
 	return 1 if c is not a valid identifier or doesnt content any =
@@ -86,7 +106,6 @@ static int is_bad_arg(char *str, int *i, int first_time)
 	return (0);
 }
 
-
 /*
 	a faire : raccourcir cette fonction de mort
 	a faire : aussi ajouter un noeud dans env
@@ -94,65 +113,25 @@ static int is_bad_arg(char *str, int *i, int first_time)
 int	ft_export(t_cmdli *cmdli)
 {
 	t_variable	*export;
-	t_variable	*env;
-	char		**cmd_args_split;
+	//t_variable	*env;
 	int			first_time;
 	int			i;
 
 	if (ft_strslen(cmdli->cmd_args) == 1)
 		return (print_export());
-	first_time = 1;
-	i = 1;
-	while (cmdli->cmd_args[i])
+	first_time = 0;
+	i = 0;
+	while (cmdli->cmd_args[++i])
 	{
-		if (is_bad_arg(cmdli->cmd_args[i][0], &i, first_time))
-		{
-			//first_time = 0;
+		if (is_bad_arg(cmdli->cmd_args[i], &i, first_time))
 			continue ;
-		}
-		cmd_args_split = ft_split(cmdli->cmd_args[i], '=');
-		export = ft_get_export();	// revenir au debut de la liste
-		env = ft_get_env();			// revenir au debut de la liste
-		while (export)
-		{
-			if (ft_strcmp(cmd_args_split[0], export->name) == 0)
-			{
-				if (!ft_strchr(cmdli->cmd_args[i], '='))
-				{
-					free(export->value);
-					export->value = NULL;
-					break ;
-				}
-				else if (cmd_args_split[1] == NULL)
-				{
-					free(export->value);
-					export->value = ft_strdup("");
-					break ;
-				}
-				else
-				{
-					free(export->value);
-					export->value = cmd_args_split[1];
-					break ;
-				}
-			}
-			export = export->next;
-			if (!export)
-			{
-				export = ft_get_export(); // revenir au debut de la liste
-				insert_new_node(&export, create_var_node(cmdli->cmd_args[i]));
-			}
-		}
-		free(cmd_args_split);
-		++i;
+		export = ft_get_export();
+		//env = ft_get_env();
+		if (!run_env(cmdli, ft_get_env(), &i))
+			insert_new_node(&export, create_var_node(cmdli->cmd_args[i]));
 	}
 	return (1);
 }
-
-//fonction qui met a jour la variable,
-// dans env et export, avec les nouvelles valeurs
-//void	update_value(t_variable *env, t_variable *export, char *arg)
-// il faudra les split !
 
 // print export dans un fichier, write dans un fd, utiliser printfd pour ecrire dans le fd si yen a un sinon dans stdin 1
 // set_file_out (set_redirections dans dossier execution)

@@ -6,12 +6,11 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 01:54:12 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/11 23:54:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
-
 #include <stdio.h>
 
 int	main(int argc, char **argv, char **env)
@@ -31,7 +30,8 @@ int	main(int argc, char **argv, char **env)
 		read = readline(ft_prompt());
 		if (read)
 		{
-			add_history(read);
+			if (*read)
+				add_history(read);
 			cmdli = get_cmds(&read);
 			// if (!ft_strncmp(read, "exit", 4))
 			// 	ft_exit(&shell, &cmdli, read);
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
-					if (!is_builtin(cmdli_i))
+					if (!is_builtin(&cmdli_i, read))
 						exec_cmd(cmdli_i);
 					cmdli_i = cmdli_i->next;
 				}
@@ -53,13 +53,14 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			free(read);
-			//read = ft_prompt();
-			//if (read)
-			//	free(read);
-			free_nodes_contents(&shell.export);
-			free_nodes(&shell.env);
-			exit (0);
+			// free(read);
+			// //read = ft_prompt();
+			// //if (read)
+			// //	free(read);
+			// free_nodes_contents(&shell.export);
+			// free_nodes(&shell.env);
+			// exit (0);
+			ft_exit(&cmdli, read, 0);
 		}
 	}
 	free_nodes_contents(&shell.export);

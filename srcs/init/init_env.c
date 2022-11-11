@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/04 03:20:48 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/07 19:47:31 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	split_variable(t_variable *node, char *s)
 /*
 	creates new node for t_variable linked list
 */
-t_variable	*create_t_variable_node(char *s)
+t_variable	*create_var_node(char *s)
 {
 	t_variable	*node;
 
@@ -78,14 +78,14 @@ t_variable	*init_env(char **m_env)
 
 	if (!m_env || !*m_env)
 		return (NULL);
-	node = create_t_variable_node(*m_env);
+	node = create_var_node(*m_env);
 	ret = node;
 	++m_env;
 	while (*m_env)
 	{
 		if (ft_strncmp(*m_env, "OLDPWD", 6) == 0)
 			++m_env;
-		node->next = create_t_variable_node(*(m_env++));
+		node->next = create_var_node(*(m_env++));
 		node = node->next;
 	}
 	node->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 22:04:16 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/12 23:38:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 	pointeur null : pas les guillemets
 	chaine vide : oui les guillemets
 */
+
 static int	print_export(void)
 {
 	t_variable	*export;
@@ -37,11 +38,9 @@ static int	print_export(void)
 	return (1);
 }
 
-// modifier oldpwd des le moment ou on appelle cd
-
 /*
-	no '=' : value is null
-	yes '=' : value is empty string
+	no  '='	: value is null
+	yes '='	: value is empty string
 */
 int	put_node(t_variable **export, t_variable *current,
 			t_variable *prev, t_variable *new)
@@ -58,6 +57,17 @@ int	put_node(t_variable **export, t_variable *current,
 		new->next = current;
 		return (0);
 	}
+	if (!cmp_ret && !current->value)
+	{
+		if (prev)
+			prev->next = new;
+		else
+			(*export) = new;
+		new->next = current->next;
+		free(current->name);
+		free(current);
+		return (0);
+	}
 	if (!cmp_ret)
 	{
 		if (!new->value)
@@ -69,6 +79,11 @@ int	put_node(t_variable **export, t_variable *current,
 	}
 	return (1);
 }
+
+/*
+	parcourir export, si variable deja existante alors la remplacer
+	autrement ajouter le nouveau noeud au bon endroit selon le tri insertion
+*/
 
 void	replace_node(t_variable **export, t_variable *new)
 {
@@ -90,6 +105,40 @@ void	replace_node(t_variable **export, t_variable *new)
 		prev->next = new;
 }
 
+/*
+	parcourir env, si variable deja existante alors la remplacer
+	autrement ajouter le nouveau noeud a la fin
+*/
+
+void	replace_node_env(t_variable *env, t_variable *new)
+{
+	t_variable	*prev;
+
+	prev = NULL;
+	while (env)
+	{
+		if (!ft_strcmp(env->name, new->name))
+		{
+			env->value = new->value;
+			free(new->name);
+			free(new);
+			return ;
+		}
+		prev = env;
+		env = env->next;
+	}
+	prev->next = malloc(sizeof(t_variable));
+	if (prev->next)
+	{
+		prev->next->name = new->name;
+		prev->next->value = new->value;
+	}
+}
+
+/*
+	Creer nouveau noeud avec valeurs des arguments
+*/
+
 void	ft_export(t_cmdli *cmdli)
 {
 	t_shell			*shell;
@@ -105,9 +154,13 @@ void	ft_export(t_cmdli *cmdli)
 		{
 			new = create_var_node(cmdli->cmd_args[i++]);
 			replace_node(&shell->export, new);
-			//if ()
+			if (new->value)
+				replace_node_env(shell->env, new);
 		}
 	}
 	else
 		print_export();
 }
+
+// free dans export si value = NULL
+// free dans env si la variable existe

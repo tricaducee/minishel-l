@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:51:22 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/03 08:55:42 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/12 15:24:19 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,12 @@ void	file_rdi(t_cmdli **cmds_list, char *file)
 	}
 }
 
-void	file_rdo(t_cmdli **cmds_list, char *file)
+void	file_rdo(t_cmdli **cmds_list, char *file, t_type type)
 {
-	char	**tmp;
+	t_file	**tmp;
 
-	(*cmds_list)->file_type = RDO;
 	tmp = (*cmds_list)->file_out;
-	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
-	if (tmp)
-		free(tmp);
-	if (!(*cmds_list)->file_out)
-		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));
-}
-
-void	file_rdoa(t_cmdli **cmds_list, char *file)
-{
-	char	**tmp;
-
-	(*cmds_list)->file_type = RDOA;
-	tmp = (*cmds_list)->file_out;
-	(*cmds_list)->file_out = ft_strsjoin(file, tmp);
+	(*cmds_list)->file_out = file_join(file, tmp, type);
 	if (tmp)
 		free(tmp);
 	if (!(*cmds_list)->file_out)
@@ -79,9 +65,9 @@ void	add_file(t_cmdli **cmds_list, char *file, t_type *type)
 	if (*type == RDI)
 		file_rdi(cmds_list, file);
 	else if (*type == RDO)
-		file_rdo(cmds_list, file);
+		file_rdo(cmds_list, file, RDO);
 	else if (*type == RDOA)
-		file_rdoa(cmds_list, file);
+		file_rdo(cmds_list, file, RDOA);
 	else
 		file_heredoc(cmds_list, file);
 	*type = RFILE;

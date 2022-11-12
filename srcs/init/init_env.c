@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 23:57:59 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/07 19:47:31 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 21:40:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ void	split_variable(t_variable *node, char *s)
 	while (s[i] && s[i] != '=')
 		i++;
 	node->name = ft_strldup(s, i);
-	s += i + 1;
+	s += i;
+	if (!*s)
+	{
+		node->value = NULL;
+		return ;
+	}
+	s++;
 	i = 0;
 	while (s[i])
 		i++;

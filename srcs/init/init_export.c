@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:29:53 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/06 22:12:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:30:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ t_variable	*init_export(void)
 	insert_new_node(&export, create_node_name_value(ft_strdup("OLDPWD"), NULL));
 	return (export);
 }
-

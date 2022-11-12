@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 22:19:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 03:32:30 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static int	print_export()
 		return (0);
 	while (export)
 	{
-		if (export->value)
-			printf("declare -x %s=\"%s\"\n", export->name, export->value);
-		else
+		if (!*(export)->value) // "" != NULL -- chaine non nulle
 			printf("declare -x %s\n", export->name);
+		else
+			printf("declare -x %s=\"%s\"\n", export->name, export->value);
 		export = export->next;
 	}
 	return (1);
@@ -41,13 +41,40 @@ static int	print_export()
 		si _					:	juste passer au suivant
 
 		[ok]connu et sans =	:	ne rien faire, ni dans env, ni dans export
-		[ok mais valeur cheloue dans export]connu avec = mais vide	:	vider valeur existante		mais garder = et mettre "" pour export
+		[]connu avec = mais vide	:	vider valeur existante		mais garder = et mettre "" pour export
 
 		nouveau et sans =		:	rien dans env, nouveau noeud dans export
 		nouveau avec = mais vide:	nouveau noeud dans export, valeur vide, trier. Nouveau noeud dans env qui pointe sur export
 		nouveau avec valeur		:	nouveau noeud dans export, valeur pleine,  trier, Nouveau noeud dans env qui pointe sur export
 */
-static int	run_env(t_cmdli *cmdli, t_variable *env, int *i)
+
+/*
+	run through export and change value with new env value
+*/
+void	find_and_replace(char *name, char *value)
+{
+	t_variable	*export;
+
+	export = ft_get_export();
+	while (export)
+	{
+		if (ft_strcmp(export->name, name))
+		{
+			if (!export->value)
+				export->value = value;
+			else
+			{
+				free(export->value);
+				export->value = value;
+			}
+			return ;
+		}
+		export = export->next;
+	}
+
+}
+
+static int	variable_exists(t_cmdli *cmdli, t_variable *env, int *i)
 {
 	char	**arg;
 
@@ -56,23 +83,20 @@ static int	run_env(t_cmdli *cmdli, t_variable *env, int *i)
 	{
 		if (ft_strcmp(arg[0], env->name) == 0)
 		{
-			if (!ft_strchr(cmdli->cmd_args[*i], '='))
+			if (arg[1]) // si on a une valeur, remplacer l'actuelle
 			{
+				printf("nom=valeur\n");
 				free(env->value);
-				env->value = NULL;
+				env->value = arg[1]; //already malloced with split
+				find_and_replace(env->name, env->value); // attribuer la valeur a export aussi
 				break ;
 			}
-			else if (arg[1] == NULL)
+			else if (!arg[1]) // si on a un = mais que la valeur est nulle
 			{
+				printf("nom=\n");
 				free(env->value);
 				env->value = NULL;
-				//env->value = NULL;
-				break ;
-			}
-			else
-			{
-				free(env->value);
-				env->value = arg[1];
+				find_and_replace(env->name, env->value);
 				break ;
 			}
 		}
@@ -81,6 +105,7 @@ static int	run_env(t_cmdli *cmdli, t_variable *env, int *i)
 			return (0);
 	}
 	free(arg);
+	free(arg[0]);
 	return (1);
 }
 
@@ -98,7 +123,7 @@ static int is_bad_arg(char *str, int *i, int first_time)
 	if (!ft_isalpha(str[0]))
 	{
 		if (first_time)
-			ft_printfd(2, "export: `%c': not a valid identifier\n", str[0]);
+			ft_printfd(2, "export: `%s': not a valid identifier\n", str);
 		first_time = 0;
 		++(*i);
 		return (1);
@@ -113,11 +138,11 @@ static int is_bad_arg(char *str, int *i, int first_time)
 int	ft_export(t_cmdli *cmdli)
 {
 	t_variable	*export;
-	//t_variable	*env;
+	t_variable	*env;
 	int			first_time;
 	int			i;
 
-	if (ft_strslen(cmdli->cmd_args) == 1)
+	if (!cmdli->cmd_args[1])
 		return (print_export());
 	first_time = 0;
 	i = 0;
@@ -125,10 +150,14 @@ int	ft_export(t_cmdli *cmdli)
 	{
 		if (is_bad_arg(cmdli->cmd_args[i], &i, first_time))
 			continue ;
+		env = ft_get_env();
 		export = ft_get_export();
-		//env = ft_get_env();
-		if (!run_env(cmdli, ft_get_env(), &i))
+		if (!variable_exists(cmdli, env, &i))
+		{
+			if (ft_strchr(cmdli->cmd_args[i], '='))
+				add_node_back(&env, create_var_node(cmdli->cmd_args[i]));
 			insert_new_node(&export, create_var_node(cmdli->cmd_args[i]));
+		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 23:27:46 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 01:42:51 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void		free_nodes(t_variable **list);
 void		free_nodes_contents(t_variable **list);
 void		insert_new_node(t_variable **export, t_variable *env);
 t_variable	*create_node_name_value(char *name, char *value);
+t_variable	*get_last_node(t_variable *list);
+void		add_node_back(t_variable **list, t_variable *new);
 
 // Init
 void		init_shell(t_shell *shell, char **env);

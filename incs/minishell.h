@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 21:26:37 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:12:38 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ void		sig_handler(t_shell *shell);
 
 // Builtins
 int			ft_env(void);
+int			put_node(t_variable **export, t_variable *current,
+				t_variable *prev, t_variable *new);
 void		ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);

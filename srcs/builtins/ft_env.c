@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:40:49 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/13 23:00:50 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	printlist(t_variable *top)
 	Displays env variables
 	The order we see is when items are created
 */
-int	ft_env()
+int	ft_env(void)
 {
 	t_variable	*env;
 

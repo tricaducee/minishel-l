@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 16:59:08 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:01:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,3 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	ft_printfd(1, "Good Bye ! See you soon ;)\n");
 	exit(code);
 }
-
-// verifier si nombre, si oui faire atoi, si pas nombre exit 0

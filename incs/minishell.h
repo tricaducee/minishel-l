@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 23:12:38 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:35:26 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,10 @@ int			ft_pwd(void);
 void		ft_exit(t_cmdli **cmdli, char *read, int mode);
 int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
+
+// ft_export_utils.c
+int			export_inset(char *s);
+void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
 
 // Builtins utils
 void		replace_node(t_variable **export, t_variable *new);

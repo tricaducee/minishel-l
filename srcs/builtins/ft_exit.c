@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 16:59:08 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:40:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	check_exit_code(char **args)
 	return (ft_atoi(args[1]));
 }
 
+void	free_shell_node_content(t_shell *shell)
+{
+	if (shell->export)
+		free_nodes_contents(&shell->export);
+	if (shell->env)
+		free_nodes(&shell->env);
+}
+
 void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 {
 	t_shell	*shell;
@@ -54,12 +62,7 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 		code = 0;
 	shell = ft_get_shell(NULL);
 	if (shell)
-	{
-		if (shell->export)
-			free_nodes_contents(&shell->export);
-		if (shell->env)
-			free_nodes(&shell->env);
-	}
+		free_shell_node_content(shell);
 	free_cmdli(cmdli);
 	if (read)
 		free(read);
@@ -67,5 +70,3 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	ft_printfd(1, "Good Bye ! See you soon ;)\n");
 	exit(code);
 }
-
-// verifier si nombre, si oui faire atoi, si pas nombre exit 0

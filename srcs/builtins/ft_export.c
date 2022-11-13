@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 23:45:15 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/14 00:45:39 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 /*
-	print la liste chainee stockee dans la struc shell.export
 	print est different si on n'a pas de valeur (premier OLDPWD par exemple)
 	pointeur null : pas les guillemets
 	chaine vide : oui les guillemets
+	no  '='	: value is null
+	yes '='	: value is empty string
 */
-
 static int	print_export(void)
 {
 	t_variable	*export;
@@ -38,7 +38,7 @@ static int	print_export(void)
 	return (1);
 }
 
-int	cmp_ret_is_greater(t_variable **export, t_variable *prev,
+int	cmp_ret_is_positive(t_variable **export, t_variable *prev,
 						t_variable *current, t_variable *new)
 {
 	if (prev)
@@ -46,7 +46,7 @@ int	cmp_ret_is_greater(t_variable **export, t_variable *prev,
 	else
 		(*export) = new;
 	new->next = current;
-	return (1);
+	return (0);
 }
 
 int	cmp_ret_is_equal(t_variable *new, t_variable *current)
@@ -65,8 +65,8 @@ int	put_node(t_variable **export, t_variable *current,
 	int	cmp_ret;
 
 	cmp_ret = ft_strcmp(current->name, new->name);
-	if (cmp_ret_is_greater(export, prev, new, current))
-		return (0);
+	if (cmp_ret > 0)
+		return (cmp_ret_is_positive(export, prev, new, current));
 	if (!cmp_ret && !current->value)
 	{
 		if (prev)
@@ -78,27 +78,8 @@ int	put_node(t_variable **export, t_variable *current,
 		free(current);
 		return (0);
 	}
-	if (!cmp_ret_is_equal(new, current))
-		return (0);
-	return (1);
-}
-
-/*
-	Creer nouveau noeud avec valeurs des arguments
-*/
-
-int	export_inset(char *s)
-{
-	if (!s)
-		return (0);
-	while (*s)
-	{
-		if (*s != '_' && (*s < 'a' || *s > 'z')
-			&& (*s < 'A' || *s > 'Z')
-			&& (*s < '0' || *s > '9'))
-			return (0);
-			s++;
-	}
+	if (!cmp_ret)
+		return (cmp_ret_is_equal(new, current));
 	return (1);
 }
 
@@ -126,9 +107,8 @@ void	ft_export(t_cmdli *cmdli)
 		while (cmdli->cmd_args[i])
 		{
 			new = create_var_node(cmdli->cmd_args[i++]);
-			if (!export_inset(new->name)
-				|| (new->name[0] >= '0' && new->name[0] <= '9'))
-				free_content_node_and_print(cmdli, new, &i);
+			if (!export_inset(new->name))
+				free_content_node_and_print(cmdli, new, i - 1);
 			else
 			{
 				replace_node(&shell->export, new);
@@ -140,6 +120,3 @@ void	ft_export(t_cmdli *cmdli)
 	else
 		print_export();
 }
-
-// free dans export si value = NULL
-// free dans env si la variable existe

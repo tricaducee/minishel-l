@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 17:23:31 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:41:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,15 @@ static int	print_export(void)
 	return (1);
 }
 
-/*
-	no  '='	: value is null
-	yes '='	: value is empty string
-*/
+int	cmp_ret_is_equal(t_variable *new, t_variable *current)
+{
+	if (!new->value)
+		return (0);
+	if (current->value)
+		free(current->value);
+	current->value = new->value;
+	return (0);
+}
 int	put_node(t_variable **export, t_variable *current,
 			t_variable *prev, t_variable *new)
 {
@@ -79,12 +84,52 @@ int	put_node(t_variable **export, t_variable *current,
 	}
 	return (1);
 }
+/*
+	no  '='	: value is null
+	yes '='	: value is empty string
+*/
+// int	put_node(t_variable **export, t_variable *current,
+// 			t_variable *prev, t_variable *new)
+// {
+// 	int	cmp_ret;
+
+// 	cmp_ret = ft_strcmp(current->name, new->name);
+// 	if (cmp_ret > 0)
+// 	{
+// 		if (prev)
+// 			prev->next = new;
+// 		else
+// 			(*export) = new;
+// 		new->next = current;
+// 		return (0);
+// 	}
+// 	if (!cmp_ret && !current->value)
+// 	{
+// 		if (prev)
+// 			prev->next = new;
+// 		else
+// 			(*export) = new;
+// 		new->next = current->next;
+// 		free(current->name);
+// 		free(current);
+// 		return (0);
+// 	}
+// 	if (!cmp_ret)
+// 	{
+// 		if (!new->value)
+// 			return (0);
+// 		if (current->value)
+// 			free(current->value);
+// 		current->value = new->value;
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
 /*
 	parcourir export, si variable deja existante alors la remplacer
 	autrement ajouter le nouveau noeud au bon endroit selon le tri insertion
 */
-
 void	replace_node(t_variable **export, t_variable *new)
 {
 	t_variable	*prev;
@@ -143,6 +188,8 @@ int	export_inset(char *s)
 {
 	if (!s)
 		return (0);
+	if (*s >= '0' && *s <= '9')
+		return (0);
 	while (*s)
 	{
 		if (*s != '_' && (*s < 'a' || *s > 'z')
@@ -168,8 +215,7 @@ void	ft_export(t_cmdli *cmdli)
 		while (cmdli->cmd_args[i])
 		{
 			new = create_var_node(cmdli->cmd_args[i++]);
-			if (!export_inset(new->name)
-				|| (new->name[0] >= '0' && new->name[0] <= '9'))
+			if (!export_inset(new->name))
 			{
 				free(new->name);
 				free(new->value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:25:09 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/05 06:46:36 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/13 16:55:08 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ int		ft_lstsize(t_list *lst);
 //perso
 
 int		ft_strinset(char *str, char *set);
+int		ft_strnotinset(char *str, char *set);
+int		ft_str_alpha_num(char *s);
 
 #endif

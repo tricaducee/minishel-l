@@ -6,7 +6,7 @@
 #    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/04 04:14:04 by hrolle           ###   ########.fr        #
+#    Updated: 2022/11/13 16:55:24 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,9 @@ SRCS =	ft_bzero.c \
 		ft_strsdup.c \
 		ft_strcmp.c \
 		ft_is_uppercase.c \
-		ft_strinset.c
+		ft_strinset.c \
+		ft_strnotinset.c \
+		ft_str_alpha_num.c
 
 SRCS_BONUS =	ft_lstnew.c \
 				ft_lstadd_front.c \

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 23:38:53 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 17:23:31 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,21 @@ void	replace_node_env(t_variable *env, t_variable *new)
 	Creer nouveau noeud avec valeurs des arguments
 */
 
+int	export_inset(char *s)
+{
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		if (*s != '_' && (*s < 'a' || *s > 'z')
+			&& (*s < 'A' || *s > 'Z')
+			&& (*s < '0' || *s > '9'))
+			return (0);
+			s++;
+	}
+	return (1);
+}
+
 void	ft_export(t_cmdli *cmdli)
 {
 	t_shell			*shell;
@@ -153,9 +168,23 @@ void	ft_export(t_cmdli *cmdli)
 		while (cmdli->cmd_args[i])
 		{
 			new = create_var_node(cmdli->cmd_args[i++]);
-			replace_node(&shell->export, new);
-			if (new->value)
-				replace_node_env(shell->env, new);
+			if (!export_inset(new->name)
+				|| (new->name[0] >= '0' && new->name[0] <= '9'))
+			{
+				free(new->name);
+				free(new->value);
+				free(new);
+				ft_printfd(2,
+					"#+wminishell#0: export: `%s': #/r%s#0\n",
+					cmdli->cmd_args[i - 1], "not a valid identifier");
+				g_errno = 1;
+			}
+			else
+			{
+				replace_node(&shell->export, new);
+				if (new->value)
+					replace_node_env(shell->env, new);
+			}
 		}
 	}
 	else

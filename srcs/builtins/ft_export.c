@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 17:16:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:27:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 /*
 	print la liste chainee stockee dans la struc shell.export
 	print est different si on n'a pas de valeur (premier OLDPWD par exemple)
+	pointeur null : pas les guillemets
+	chaine vide : oui les guillemets
 */
-static int	print_export()
+
+static int	print_export(void)
 {
 	t_variable	*export;
 
@@ -26,7 +29,7 @@ static int	print_export()
 		return (0);
 	while (export)
 	{
-		if (!export->value) // "" != NULL -- chaine non nulle
+		if (!export->value)
 			printf("declare -x %s\n", export->name);
 		else
 			printf("declare -x %s=\"%s\"\n", export->name, export->value);
@@ -62,116 +65,157 @@ static int is_bad_arg(char *str, int *i, int first_time)
 }
 
 /*
-	update and fill env variables depending on the following cases
-		si bad premier char		:	print error et passer au pointeur suivant
-		si _ uniquement			:	juste passer au suivant
-
-		[ok]connu et sans =	:	ne rien faire, ni dans env, ni dans export
-		[]connu avec = mais vide	:	vider valeur existante		mais garder = et mettre "" pour export
-
-		nouveau et sans =		:	rien dans env, nouveau noeud dans export
-		nouveau avec = mais vide:	nouveau noeud dans export, valeur vide, trier. Nouveau noeud dans env qui pointe sur export
-		nouveau avec valeur		:	nouveau noeud dans export, valeur pleine,  trier, Nouveau noeud dans env qui pointe sur export
-
-		premier = separe le nom de la valeur, jamais de = dans le nom
-
+	no  '='	: value is null
+	yes '='	: value is empty string
 */
+int	put_node(t_variable **export, t_variable *current,
+			t_variable *prev, t_variable *new)
+{
+	int	cmp_ret;
+
+	cmp_ret = ft_strcmp(current->name, new->name);
+	if (cmp_ret > 0)
+	{
+		if (prev)
+			prev->next = new;
+		else
+			(*export) = new;
+		new->next = current;
+		return (0);
+	}
+	if (!cmp_ret && !current->value)
+	{
+		if (prev)
+			prev->next = new;
+		else
+			(*export) = new;
+		new->next = current->next;
+		free(current->name);
+		free(current);
+		return (0);
+	}
+	if (!cmp_ret)
+	{
+		if (!new->value)
+			return (0);
+		if (current->value)
+			free(current->value);
+		current->value = new->value;
+		return (0);
+	}
+	return (1);
+}
 
 /*
-	Mets a jour la valeur d'un noeud d'export selon env
-	Parcours la liste export, s'arreter au bon emplacement par rapport a env
-	et faire pointer la value de export sur la value de env
+	parcourir export, si variable deja existante alors la remplacer
+	autrement ajouter le nouveau noeud au bon endroit selon le tri insertion
 */
-void	find_and_replace(char *name, char *value)
-{
-	t_variable	*export;
 
-	export = ft_get_export();
-	while (export)
+void	replace_node(t_variable **export, t_variable *new)
+{
+	t_variable	*prev;
+	t_variable	*current;
+	static int	i;
+
+	prev = NULL;
+	current = *export;
+	i++;
+	while (current)
 	{
-		if (ft_strcmp(export->name, name))
-		{
-			if (!export->value)
-				export->value = value;
-			else
-			{
-				free(export->value);
-				export->value = value;
-			}
-			printf("export.value : [%s]\n", export->value);
+		if (!put_node(export, current, prev, new))
 			return ;
-		}
-		export = export->next;
+		prev = current;
+		current = current->next;
 	}
-
+	if (!current)
+		prev->next = new;
 }
-static int	variable_exists(t_cmdli *cmdli, t_variable *env, int *i)
-{
-	char	**arg;
 
-	arg = ft_split(cmdli->cmd_args[*i], '=');
+/*
+	parcourir env, si variable deja existante alors la remplacer
+	autrement ajouter le nouveau noeud a la fin
+*/
+
+void	replace_node_env(t_variable *env, t_variable *new)
+{
+	t_variable	*prev;
+
+	prev = NULL;
 	while (env)
 	{
-		if (ft_strcmp(arg[0], env->name) == 0)
+		if (!ft_strcmp(env->name, new->name))
 		{
-			if (arg[1] != NULL) // si on a une valeur, remplacer l'actuelle
-			{
-				printf("nom=valeur\n");
-				printf("env.value avant free : [%s]\n", env->value);
-				free(env->value);
-				env->value = arg[1]; //already malloced with split
-				printf("env.value apres free : [%s]\n", env->value);
-				find_and_replace(env->name, arg[1]); // attribuer la valeur a export aussi
-				break ;
-			}
-			else if (!arg[1]) // si on a un = mais que la valeur est nulle
-			{
-				printf("nom=\n");
-				free(env->value);
-				env->value = NULL;
-				find_and_replace(env->name, env->value);
-				break ;
-			}
+			env->value = new->value;
+			free(new->name);
+			free(new);
+			return ;
 		}
+		prev = env;
 		env = env->next;
-		if (!env)
-			return (0);
 	}
-	free(arg);
-	free(arg[0]);
-	return (1);
+	prev->next = malloc(sizeof(t_variable));
+	if (prev->next)
+	{
+		prev->next->name = new->name;
+		prev->next->value = new->value;
+	}
 }
 
 /*
-	a faire : raccourcir cette fonction de mort
-	a faire : aussi ajouter un noeud dans env
+	Creer nouveau noeud avec valeurs des arguments
 */
-int	ft_export(t_cmdli *cmdli)
-{
-	t_variable	*export;
-	t_variable	*env;
-	int			first_time;
-	int			i;
 
-	if (!cmdli->cmd_args[1])
-		return (print_export());
-	first_time = 1;
-	i = 0;
-	while (cmdli->cmd_args[++i])
+int	export_inset(char *s)
+{
+	if (!s)
+		return (0);
+	while (*s)
 	{
-		if (is_bad_arg(cmdli->cmd_args[i], &i, first_time))
-			continue ;
-		env = ft_get_env();
-		export = ft_get_export();
-		if (!variable_exists(cmdli, env, &i))
-		{
-			if (ft_strchr(cmdli->cmd_args[i], '='))
-				add_node_back(&env, create_var_node(cmdli->cmd_args[i]));
-			insert_new_node(&export, create_var_node(cmdli->cmd_args[i]));
-		}
+		if (*s != '_' && (*s < 'a' || *s > 'z')
+			&& (*s < 'A' || *s > 'Z')
+			&& (*s < '0' || *s > '9'))
+			return (0);
+			s++;
 	}
 	return (1);
 }
 
-// print export dans un fichier, write dans un fd, utiliser printfd pour ecrire dans le fd si yen a un sinon dans stdin 1
-// set_file_out (set_redirections dans dossier execution)
+void	ft_export(t_cmdli *cmdli)
+{
+	t_shell			*shell;
+	t_variable		*new;
+	unsigned int	i;
+
+	shell = ft_get_shell(NULL);
+	new = NULL;
+	if (cmdli->cmd_args[1])
+	{
+		i = 1;
+		while (cmdli->cmd_args[i])
+		{
+			new = create_var_node(cmdli->cmd_args[i++]);
+			if (!export_inset(new->name)
+				|| (new->name[0] >= '0' && new->name[0] <= '9'))
+			{
+				free(new->name);
+				free(new->value);
+				free(new);
+				ft_printfd(2,
+					"#+wminishell#0: export: `%s': #/r%s#0\n",
+					cmdli->cmd_args[i - 1], "not a valid identifier");
+				g_errno = 1;
+			}
+			else
+			{
+				replace_node(&shell->export, new);
+				if (new->value)
+					replace_node_env(shell->env, new);
+			}
+		}
+	}
+	else
+		print_export();
+}
+
+// free dans export si value = NULL
+// free dans env si la variable existe

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/06 20:16:12 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 23:25:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,37 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 /*
-	Change Directory
-	Must update pwd env variable
+	update OLDPWD value in env and export
+*/
+void	update_oldpwd_value(char *str)
+{
+	t_shell	*shell;
+
+	shell = ft_get_shell(NULL);
+	while (shell->export)
+	{
+		if (!ft_strcmp(str, shell->export->name))
+		{
+			free(shell->export->value);
+			shell->export->value = ft_strdup(str);
+		}
+		shell->export = shell->export->next;
+	}
+}
+
+/*
+	getcwd : Change the current working directory
+	returns 0 = success
+	Must update OLDPWD variable at first use of cd
 */
 int	ft_cd(t_cmdli *cmdli)
 {
 	char	*path;
+	char	*oldpwd;
+	char	buff[PATH_MAX];
 
+	oldpwd = getcwd(buff, PATH_MAX);
+	//update_oldpwd_value(oldpwd);
 	path = NULL;
 	if (!cmdli->cmd_args[1])
 	{

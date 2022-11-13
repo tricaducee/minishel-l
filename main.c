@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 23:54:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:31:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@ int	main(int argc, char **argv, char **env)
 			if (*read)
 				add_history(read);
 			cmdli = get_cmds(&read);
-			// if (!ft_strncmp(read, "exit", 4))
-			// 	ft_exit(&shell, &cmdli, read);
 			if (cmdli)
 			{
-				//print_cmdli(cmdli);
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
@@ -52,16 +49,7 @@ int	main(int argc, char **argv, char **env)
 			free(read);
 		}
 		else
-		{
-			// free(read);
-			// //read = ft_prompt();
-			// //if (read)
-			// //	free(read);
-			// free_nodes_contents(&shell.export);
-			// free_nodes(&shell.env);
-			// exit (0);
 			ft_exit(&cmdli, read, 0);
-		}
 	}
 	free_nodes_contents(&shell.export);
 	free_nodes(&shell.env);

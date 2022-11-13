@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 23:34:46 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/13 16:59:08 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	check_exit_code(char **args)
 		i++;
 	if (args[1][i])
 	{
-		ft_printfd(2, "#+wminishell#0: exit: %s: #/rnumeric argument required#0\n"
-					, args[1]);
+		ft_printfd(2,
+			"#+wminishell#0: exit: %s: #/rnumeric argument required#0\n",
+			args[1]);
 		return (255);
 	}
 	return (ft_atoi(args[1]));
@@ -35,13 +36,14 @@ int	check_exit_code(char **args)
 
 void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 {
-	t_shell *shell;
+	t_shell	*shell;
 	int		code;
 
 	if (mode)
 	{
 		code = check_exit_code((*cmdli)->cmd_args);
-		if (code != 255 && (*cmdli)->cmd_args && (*cmdli)->cmd_args[1] && (*cmdli)->cmd_args[2])
+		if (code != 255 && (*cmdli)->cmd_args && (*cmdli)->cmd_args[1]
+			&& (*cmdli)->cmd_args[2])
 		{
 			ft_printfd(2, "#+wminishell#0: exit: #/rtoo many arguments#0\n");
 			g_errno = 1;

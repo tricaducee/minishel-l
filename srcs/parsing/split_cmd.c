@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/10 23:38:41 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 17:11:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 			&& (*cmdline)[*i + j] != ' ' && (*cmdline)[*i + j]
 			!= '<' && (*cmdline)[*i + j] != '>' && (*cmdline)[*i + j]
 			!= '|' && (*cmdline)[*i + j] != '&' && (*cmdline)[*i + j]
-			!= '\'' && (*cmdline)[*i + j] != '"' && (*cmdline)[*i + j] != '*')
+			!= '\'' && (*cmdline)[*i + j] != '"'/* && (*cmdline)[*i + j] != '*'*/)
 			++j;
 		if (j)
 			ret = split_cmd_sp_ret(cmdline, ret, i, j);

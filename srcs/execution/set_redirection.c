@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/06 13:20:07 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/12 15:48:41 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	set_file_out(t_cmdli *cmdli)
 	{
 		if (cmdli->fd_out != -1)
 			close(cmdli->fd_out);
-		if (cmdli->file_type == RDO)
-			cmdli->fd_out = open(cmdli->file_out[i++],
+		if (cmdli->file_out[i]->type == RDO)
+			cmdli->fd_out = open(cmdli->file_out[i++]->name,
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (cmdli->file_type == RDOA)
-			cmdli->fd_out = open(cmdli->file_out[i++],
+		else if (cmdli->file_out[i]->type == RDOA)
+			cmdli->fd_out = open(cmdli->file_out[i++]->name,
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (cmdli->fd_out == -1)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 01:42:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/12 21:42:05 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef enum e_type
 	ANDOR
 }			t_type;
 
+typedef struct S_file
+{
+	t_type	type;
+	char	*name;
+}			t_file;
+
 typedef struct S_cmdli
 {
 	char			*cmd;
@@ -81,8 +87,7 @@ typedef struct S_cmdli
 	int				fd_in;
 	int				fd_out;
 	char			**file_in;
-	char			**file_out;
-	t_type			file_type;
+	t_file			**file_out;
 	int				and_or;
 	pid_t			pid;
 	int				cmd_error;
@@ -95,13 +100,16 @@ void		free_tab(char **ss);
 t_cmdli		*cmdli_first(t_cmdli *cmds_list);
 void		free_content(t_cmdli *cmdli);
 void		free_cmdli(t_cmdli **cmdli);
+void		free_file(t_file **files);
 t_cmdli		*error_cmdli_nl(t_cmdli **cmds_list);
 void		error_cmdli(t_cmdli **cmds_list, char *s);
 void		error_cmdli_interpret(t_cmdli **cmds_list, char *s);
 int			ft_strcmp_int(char *s1, char *s2);
 int			ft_strslen(char **s);
+int			files_len(t_file **files);
 char		*split_cmd(char **cmdline, unsigned int *i, char c);
 char		**ft_strsjoin(char *s, char **ss);
+t_file		**file_join(char *file, t_file **files, t_type type);
 char		*add_var(char **cmdline, char *str, unsigned int *i);
 char		*add_quote(char **cmdline, char *str, unsigned int *i);
 char		*add_dquote(char **cmdline, char *str, unsigned int *i);
@@ -113,8 +121,7 @@ void		add_andor(t_cmdli **cmds_list, t_type *type, int and_or);
 void		add_arg(t_cmdli **cmds_list, char *arg, t_type *type);
 void		add_cmd(t_cmdli **cmds_list, char *cmd, t_type *type);
 void		file_rdi(t_cmdli **cmds_list, char *file);
-void		file_rdo(t_cmdli **cmds_list, char *file);
-void		file_rdoa(t_cmdli **cmds_list, char *file);
+void		file_rdo(t_cmdli **cmds_list, char *file, t_type type);
 void		file_heredoc(t_cmdli **cmds_list, char *file);
 void		add_file(t_cmdli **cmds_list, char *file, t_type *type);
 void		type_and_set(char *s, t_cmdli **cmds_list,
@@ -158,8 +165,8 @@ void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
 
 // Builtins
-int			ft_env();
-int			ft_export(t_cmdli *cmdli);
+int			ft_env(void);
+void		ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
 void		ft_exit(t_cmdli **cmdli, char *read, int mode);
@@ -170,7 +177,6 @@ void		ft_echo(char **ss);
 int			exec_cmd(t_cmdli *cmdli);
 
 // Execution
-//int			run_builtin(const char *str, t_cmdli *cmd);-------------------------------------
 int			is_builtin(t_cmdli **cmdli, char *read);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);

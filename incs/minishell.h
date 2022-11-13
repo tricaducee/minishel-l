@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 21:42:05 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:02:21 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,10 @@ int			ft_pwd(void);
 void		ft_exit(t_cmdli **cmdli, char *read, int mode);
 int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
+
+// Builtins utils
+void		replace_node_env(t_variable *env, t_variable *new);
+void		replace_node(t_variable **export, t_variable *new);
 
 // Binaries
 int			exec_cmd(t_cmdli *cmdli);

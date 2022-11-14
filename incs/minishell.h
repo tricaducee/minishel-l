@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 15:17:05 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 17:11:46 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ t_variable	*ft_get_export(void);
 char		*ft_get_var(char *substr);
 
 char		*ft_prompt(void);
+void		ft_print_prompt(void);
 char		*get_git_path(char *cwd, char *file);
 void		none_git_prompt(char *prompt, const char **prompt_elem, char *cwd);
 void		git_prompt(char *prompt, const char **prompt_elem,

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 00:48:19 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:37:30 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	handle_interrupt(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printfd(1, "\n%s", ft_prompt());
+		write(1, "\n", 1);
+		ft_print_prompt();
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

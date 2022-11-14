@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:56:15 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:38:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	update_node(char *name, char *value)
 		replace_node_env(shell->env, node);
 }
 
-/* 
+/*
 	getcwd : Change the current working directory
 	chdir : returns 0 if success
 	Must update OLDPWD variable at first use of cd
@@ -60,6 +60,3 @@ int	ft_cd(t_cmdli *cmdli)
 	free(new_path);
 	return (1);
 }
-
-// free le retour de get var
-// si pipe faire fork sinon pas. mais pas dans env et export

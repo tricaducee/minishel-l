@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:36:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:45:39 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,21 @@ int	put_node(t_variable **export, t_variable *current,
 	return (1);
 }
 
+void	free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int *i)
+{
+	free(new->name);
+	free(new->value);
+	free(new);
+	ft_printfd(2, "#+wminishell#0: export: `%s': #/r%s#0\n",
+		cmdli->cmd_args[*i - 1], "not a valid identifier");
+	g_errno = 1;
+}
+
 void	ft_export(t_cmdli *cmdli)
 {
 	t_shell			*shell;
 	t_variable		*new;
-	unsigned int	i;
+	int	i;
 
 	shell = ft_get_shell(NULL);
 	new = NULL;

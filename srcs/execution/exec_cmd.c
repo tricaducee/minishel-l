@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/14 00:47:50 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 23:03:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int	close_pipe(int *pipe)
 int	close_and_free(t_cmdli *cmdli)
 {
 	if (cmdli->pipe_in)
-	{
-		close(cmdli->pipe_in[0]);
-		close(cmdli->pipe_in[1]);
-	}
+		close_pipe(cmdli->pipe_in);
 	if (cmdli->cmd)
 	{
 		free(cmdli->cmd);
@@ -70,9 +67,6 @@ int	exec_cmd(t_cmdli *cmdli)
 				cmdli->cmd_args[0], strerror(g_errno));
 			exit(g_errno);
 		}
-		exit(0);
 	}
-	else
-		return (close_and_free(cmdli));
-	return (0);
+	return (close_and_free(cmdli));
 }

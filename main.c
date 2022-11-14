@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/12 19:31:02 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 23:10:51 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int	main(int argc, char **argv, char **env)
 				{
 					if (!is_builtin(&cmdli_i, read))
 						exec_cmd(cmdli_i);
+					shell.if_sig = 0;
 					cmdli_i = cmdli_i->next;
 				}
 				while (wait(NULL) != -1)
 					;
+				shell.if_sig = 1;
 				free_cmdli(&cmdli);
 			}
 			free(read);

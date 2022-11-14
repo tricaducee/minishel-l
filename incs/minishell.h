@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 17:11:46 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 23:00:29 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_shell
 	t_variable			*env;
 	t_variable			*export;
 	char				**str_env;
+	int					if_sig;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
@@ -89,7 +90,7 @@ typedef struct S_cmdli
 	char			**file_in;
 	t_file			**file_out;
 	int				and_or;
-	pid_t			pid;
+	pid_t			pid;	
 	int				cmd_error;
 	struct S_cmdli	*previous;
 	struct S_cmdli	*next;
@@ -164,6 +165,9 @@ t_variable	*init_export(void);
 // Signals
 void		handle_interrupt(int sig);
 void		sig_handler(t_shell *shell);
+
+void		handle_interrupt_test(int sig);
+void		sig_handler_test(t_shell *shell);
 
 // Builtins
 int			ft_env(void);

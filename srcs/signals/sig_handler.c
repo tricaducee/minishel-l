@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 16:37:30 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/14 23:11:14 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 /*
-	handle ctrl + C (interruption)
+	handle ctrl + C (interruption) when cmd = done
 */
 void	handle_interrupt(int sig)
 {
-	if (sig == SIGINT)
+	t_shell	*shell;
+
+	shell = ft_get_shell(NULL);
+	if (sig == SIGINT && shell->if_sig)
 	{
 		write(1, "\n", 1);
 		ft_print_prompt();

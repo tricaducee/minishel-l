@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/12 15:48:41 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 21:22:34 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	set_in(t_cmdli *cmdli)
 		dup2(cmdli->fd_in, STDIN_FILENO);
 		close(cmdli->fd_in);
 		if (cmdli->pipe_in)
-			close(cmdli->pipe_in[0]);
+			close_pipe(cmdli->pipe_in);
 	}
 	else if (cmdli->pipe_in)
 	{
 		dup2(cmdli->pipe_in[0], STDIN_FILENO);
-		close(cmdli->pipe_in[0]);
+		close_pipe(cmdli->pipe_in);
 	}
 }
 
@@ -79,12 +79,12 @@ void	set_out(t_cmdli *cmdli)
 		dup2(cmdli->fd_out, STDOUT_FILENO);
 		close(cmdli->fd_out);
 		if (cmdli->pipe_out)
-			close(cmdli->pipe_out[1]);
+			close_pipe(cmdli->pipe_out);
 	}
 	else if (cmdli->pipe_out)
 	{
 		dup2(cmdli->pipe_out[1], STDOUT_FILENO);
-		close(cmdli->pipe_out[1]);
+		close_pipe(cmdli->pipe_out);
 	}
 }
 

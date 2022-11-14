@@ -6,14 +6,14 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/12 15:50:23 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:47:50 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-int	close_pipe(int	*pipe)
+int	close_pipe(int *pipe)
 {
 	if (pipe)
 	{
@@ -23,7 +23,7 @@ int	close_pipe(int	*pipe)
 	return (0);
 }
 
-int	close_and_free(t_cmdli	*cmdli)
+int	close_and_free(t_cmdli *cmdli)
 {
 	if (cmdli->pipe_in)
 	{

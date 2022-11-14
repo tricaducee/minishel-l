@@ -6,11 +6,12 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/14 00:40:44 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:48:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
 
 /*
 	Incorrect char cases for ft_export

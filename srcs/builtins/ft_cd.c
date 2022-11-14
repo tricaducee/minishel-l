@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 22:04:01 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:56:15 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	update_node(char *name, char *value)
 /* 
 	getcwd : Change the current working directory
 	chdir : returns 0 if success
-	returns 0 = success
 	Must update OLDPWD variable at first use of cd
 */
 int	ft_cd(t_cmdli *cmdli)

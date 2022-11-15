@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:43:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/15 06:31:33 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	else
 		code = 0;
 	shell = ft_get_shell(NULL);
+	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
 	if (shell)
 		free_shell_node_content(shell);
 	free_cmdli(cmdli);
 	if (read)
 		free(read);
 	clear_history();
-	ft_printfd(1, "Good Bye ! See you soon ;)\n");
 	exit(code);
 }

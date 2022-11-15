@@ -6,11 +6,46 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 04:45:28 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/15 05:32:58 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 06:43:37 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
+
+void	print_minishell(void)
+{
+	ft_printfd(1, "\n\n ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ████");
+	ft_printfd(1, "██  ██░ ██ ▓█████  ██▓     ██▓    \n");
+	ft_printfd(1, "▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██   ");
+	ft_printfd(1, " ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    \n");
+	ft_printfd(1, "▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄");
+	ft_printfd(1, "   ▒██▀▀██░▒███   ▒██░    ▒██░    \n");
+	ft_printfd(1, "▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ");
+	ft_printfd(1, "██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    \n");
+	ft_printfd(1, "▒██▒   ░██▒░██░▒██░   ▓██░░██░▒█████");
+	ft_printfd(1, "█▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒\n");
+	ft_printfd(1, "░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ");
+	ft_printfd(1, "▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░\n");
+	ft_printfd(1, "░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ");
+	ft_printfd(1, "░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░\n");
+	ft_printfd(1, "░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ");
+	ft_printfd(1, "░   ░  ░░ ░   ░     ░ ░     ░ ░   \n");
+	ft_printfd(1, "       ░    ░           ░  ░        ");
+	ft_printfd(1, "░   ░  ░  ░   ░  ░    ░  ░    ░  ░\n\n\n");
+}
+
+void	print_and_say(char *print, char *say)
+{
+	ft_printfd(1, "%s\n", print);
+	ft_say(say);
+}
+
+void	exec_say(char *path, char **strs)
+{
+	execve(path, strs, ft_get_str_env());
+	exit (1);
+}
 
 void	ft_say(char *str)
 {
@@ -34,7 +69,8 @@ void	ft_say(char *str)
 	if (pid == -1)
 		return ;
 	if (!pid)
-		execve(path, strs, ft_get_str_env());
+		exec_say(path, strs);
+	wait(NULL);
 	free(path);
 	free_tab(strs);
 }

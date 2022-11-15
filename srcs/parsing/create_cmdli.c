@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:48:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/01 06:50:33 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 06:02:38 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ t_cmdli	*create_cmdli(void)
 	if (!ret)
 		return (NULL);
 	*ret = (t_cmdli){};
-	ret->fd_in = -1;
-	ret->fd_out = -1;
+	ret->cmd = NULL;
+	ret->cmd_args = NULL;
+	ret->pipe_in = NULL;
+	ret->pipe_out = NULL;
+	ret->file_in = NULL;
+	ret->file_out = NULL;
+	ret->here_doc = NULL;
+	ret->and_or = 0;
+	ret->previous = NULL;
+	ret->next = NULL;
 	return (ret);
 }
 

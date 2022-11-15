@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/15 05:19:49 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 06:42:15 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,5 +213,7 @@ char		**free_tab_null(char **ss);
 
 //Fun
 void		ft_say(char *str);
+void		print_and_say(char *print, char *say);
+void		print_minishell(void);
 
 #endif

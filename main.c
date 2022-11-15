@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/15 05:41:35 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 06:41:47 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **env)
 	status = 0;
 	ft_get_shell(&shell);
 	init_shell(&shell, env);
+	print_minishell();
 	ft_say("Welcom to the best minishell");
 	(void)argc;
 	(void)argv;

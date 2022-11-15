@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 15:38:12 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/15 03:39:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	update_node(char *name, char *value)
 	t_variable	*node;
 
 	shell = ft_get_shell(NULL);
-	node = (t_variable *)malloc(sizeof(t_variable));
+	node = malloc(sizeof(t_variable));
 	if (!node)
 		return ;
 	node->name = ft_strdup(name);

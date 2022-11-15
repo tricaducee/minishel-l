@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 23:10:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 05:41:35 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ int	main(int argc, char **argv, char **env)
 	t_cmdli	*cmdli;
 	t_cmdli	*cmdli_i;
 	char	*read;
+	int		status;
 
+	status = 0;
 	ft_get_shell(&shell);
 	init_shell(&shell, env);
+	ft_say("Welcom to the best minishell");
 	(void)argc;
 	(void)argv;
 	while (true)
@@ -43,8 +46,10 @@ int	main(int argc, char **argv, char **env)
 					shell.if_sig = 0;
 					cmdli_i = cmdli_i->next;
 				}
-				while (wait(NULL) != -1)
+				while (wait(&status) != -1)
 					;
+				if (errno == ECHILD && WIFEXITED(status))
+					g_errno = WEXITSTATUS(status);
 				shell.if_sig = 1;
 				free_cmdli(&cmdli);
 			}

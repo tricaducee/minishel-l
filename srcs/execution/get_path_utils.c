@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_var.c                                       :+:      :+:    :+:   */
+/*   get_path_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 04:32:21 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/15 00:50:36 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/15 01:05:01 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/15 01:35:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-/*
-	Our getenv function
-*/
-char	*ft_get_var(char *substr)
+int	ft_strchr_path(char *s, char *path, int c)
 {
-	t_shell		*shell;
-	t_variable	*env;
+	int		i;
 
-	shell = ft_get_shell(NULL);
-	env = shell->env;
-	if (!env || !substr)
-		return (ft_strdup(""));
-	if (!ft_strcmp(substr, "?"))
-		return (ft_itoa(g_errno));
-	while (env)
+	if (!path || !*path)
+		return (1);
+	i = 0;
+	while (s[i])
 	{
-		if (!ft_strcmp(env->name, substr))
-			return (ft_strdup(env->value));
-		env = env->next;
+		if (s[i] == (char)c)
+			return (1);
+		i++;
 	}
-	return (ft_strdup(""));
+	if (s[i] == (char)c)
+		return (1);
+	return (0);
 }

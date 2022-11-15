@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_var.c                                       :+:      :+:    :+:   */
+/*   ft_say.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 04:32:21 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/15 00:50:36 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/15 04:45:28 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/15 05:32:58 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-/*
-	Our getenv function
-*/
-char	*ft_get_var(char *substr)
+void	ft_say(char *str)
 {
-	t_shell		*shell;
-	t_variable	*env;
+	char	**strs;
+	char	*path;
+	int		pid;
 
-	shell = ft_get_shell(NULL);
-	env = shell->env;
-	if (!env || !substr)
-		return (ft_strdup(""));
-	if (!ft_strcmp(substr, "?"))
-		return (ft_itoa(g_errno));
-	while (env)
+	strs = malloc(3 * sizeof(char *));
+	if (!strs)
+		return ;
+	strs[0] = ft_strdup("say");
+	strs[1] = ft_strdup(str);
+	strs[2] = NULL;
+	path = get_absolute_path("say", ft_get_var("PATH"));
+	if (!path)
 	{
-		if (!ft_strcmp(env->name, substr))
-			return (ft_strdup(env->value));
-		env = env->next;
+		free_tab(strs);
+		return ;
 	}
-	return (ft_strdup(""));
+	pid = fork();
+	if (pid == -1)
+		return ;
+	if (!pid)
+		execve(path, strs, ft_get_str_env());
+	free(path);
+	free_tab(strs);
 }

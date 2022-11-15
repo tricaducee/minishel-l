@@ -3,22 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 23:26:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/15 00:18:47 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
+void	no_cmd(t_cmdli *cmdli)
+{
+	if (cmdli->file_in)
+		set_file_in(cmdli);
+	if (cmdli->file_out)
+		set_file_out(cmdli);
+	if (cmdli->pipe_in)
+		close_pipe(cmdli->pipe_in);
+}
+
 /*
 	run the builtin
 */
 int	is_builtin(t_cmdli **cmdli, char *read)
 {
-	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
+	if (!(*cmdli)->cmd)
+		no_cmd(*cmdli);
+	else if (ft_strcmp((*cmdli)->cmd, "env") == 0)
 		ft_env();
 	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
 		ft_export((*cmdli));

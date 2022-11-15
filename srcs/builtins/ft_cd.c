@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 15:38:12 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/15 02:16:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	update_node(char *name, char *value)
 }
 
 /*
-	getcwd : Change the current working directory
-	chdir : returns 0 if success
+	getcwd : Get the current working directory
+	chdir : change current dir, returns 0 if success
 	Must update OLDPWD variable at first use of cd
+	Must update PWD variable after chdir
 */
 int	ft_cd(t_cmdli *cmdli)
 {
@@ -52,11 +53,13 @@ int	ft_cd(t_cmdli *cmdli)
 	if (!cmdli->cmd_args[1])
 		new_path = ft_get_var("HOME");
 	else if (cmdli->cmd_args[1] || !ft_strcmp(cmdli->cmd_args[1], "."))
-		new_path = ft_strdup(cmdli->cmd_args[1]);
+		new_path = cmdli->cmd_args[1];
 	if (!chdir(new_path))
+	{
+		new_path = getcwd(buff, PATH_MAX);
 		update_node("PWD", new_path);
+	}
 	else
 		ft_printfd(2, "cd: %s: %s\n", strerror(errno), cmdli->cmd_args[1]);
-	free(new_path);
 	return (1);
 }

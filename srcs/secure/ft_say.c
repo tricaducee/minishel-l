@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 04:45:28 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/15 06:43:37 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/16 23:59:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,27 @@ void	print_and_say(char *print, char *say)
 	ft_say(say);
 }
 
-void	exec_say(char *path, char **strs)
+void	say_error(char *path, char **strs)
 {
-	execve(path, strs, ft_get_str_env());
-	exit (1);
+	if (path)
+		free(path);
+	if (strs)
+		free_tab(strs);
+}
+
+void	exec_say(char *path, char **strs, int pid)
+{
+	if (!pid)
+	{
+		execve(path, strs, ft_get_str_env());
+		say_error(path, strs);
+		exit(1);
+	}
+	else
+	{
+		wait(NULL);
+		say_error(path, strs);
+	}
 }
 
 void	ft_say(char *str)
@@ -53,6 +70,8 @@ void	ft_say(char *str)
 	char	*path;
 	int		pid;
 
+	if (!ft_get_shell(NULL)->say)
+		return ;
 	strs = malloc(3 * sizeof(char *));
 	if (!strs)
 		return ;
@@ -67,10 +86,6 @@ void	ft_say(char *str)
 	}
 	pid = fork();
 	if (pid == -1)
-		return ;
-	if (!pid)
-		exec_say(path, strs);
-	wait(NULL);
-	free(path);
-	free_tab(strs);
+		return (say_error(path, strs));
+	exec_say(path, strs, pid);
 }

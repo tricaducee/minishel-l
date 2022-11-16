@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/15 06:42:15 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/16 23:53:56 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_shell
 	t_variable			*export;
 	char				**str_env;
 	int					if_sig;
+	int					say;
 	struct sigaction	sa_interrupt;
 	struct sigaction	sa_backslash;
 }	t_shell;
@@ -210,6 +211,8 @@ char		*heredoc(char *limit);
 
 //Secure
 char		**free_tab_null(char **ss);
+int			return_error(char *debug);
+int			exit_error(void);
 
 //Fun
 void		ft_say(char *str);

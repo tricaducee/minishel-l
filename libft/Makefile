@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/13 16:55:24 by hrolle           ###   ########.fr        #
+#    Updated: 2022/11/17 23:31:23 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,19 +71,19 @@ NONE	= \033[0m
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) -c $(SRCS)
-	ar rc $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -c $(SRCS)
+	@ar rc $(NAME) $(OBJS)
 	@printf "$(GREEN) $(NAME) ready.\n$(NONE)"
 
 bonus: $(OBJS_BONUS) $(OBJS)
-	ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
+	@ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
 	@printf "$(GREEN) $(NAME) bonus ready.\n$(NONE)"
 
 clean:
-	rm -f $(OBJS) $(OBJS_BONUS)
+	@rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	rm -f  $(NAME)
+	@rm -f  $(NAME)
 	@printf "$(BLUE) $(NAME) cleaned.\n$(NONE)"
 
 re: fclean all

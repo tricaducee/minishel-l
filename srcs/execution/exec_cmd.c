@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/17 00:41:16 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/17 02:03:47 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	write_heredoc(t_cmdli *cmdli)
 	{
 		cmdli->pipe_in = malloc(2 * sizeof(int));
 		if (!cmdli->pipe_in)
-			return (return_error("54 at exec_cmd.c"));
+			return (return_error("59 at exec_cmd.c"));
 		if (pipe(cmdli->pipe_in) == -1)
-			return (return_error("56 at exec_cmd.c"));
+			return (return_error("61 at exec_cmd.c"));
 	}
 	else
 	{
@@ -66,7 +66,7 @@ int	write_heredoc(t_cmdli *cmdli)
 	}
 	if (write(cmdli->pipe_in[1],
 			cmdli->here_doc, ft_strlen(cmdli->here_doc)) == -1)
-		return (return_error("62 at exec_cmd.c"));
+		return (return_error("69 at exec_cmd.c"));
 	return (0);
 }
 
@@ -77,10 +77,14 @@ int	set_cmd(t_cmdli *cmdli)
 		return (1);
 	if (write_heredoc(cmdli))
 		return (1);
-	if (!cmdli->pipe_out)
+	if (!cmdli->pipe)
 		return (0);
+	cmdli->pipe_out = malloc(2 * sizeof(int));
+	if (!cmdli->pipe_out)
+		return (return_error("84 at exec_cmd.c"));
 	if (pipe(cmdli->pipe_out) == -1)//-------------------malloc pipe here
-		return (return_error("76 at exec_cmd.c"));
+		return (return_error("86 at exec_cmd.c"));
+	cmdli->next->pipe_in = cmdli->pipe_out;
 	return (0);
 }
 
@@ -90,7 +94,7 @@ int	exec_cmd(t_cmdli *cmdli)
 		return (1);
 	cmdli->pid = fork();
 	if (cmdli->pid == -1)
-		return (return_error("86 at exec_cmd.c"));
+		return (return_error("97 at exec_cmd.c"));
 	else if (!cmdli->pid)
 	{
 		set_redirection(cmdli);

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/06 13:13:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 01:12:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 	path_i = path;
 	ret = malloc((path_counter(path) + 1) * sizeof(char *));
 	if (!ret)
-		return (NULL);
+		return (free_path(NULL, path));
 	j = 0;
 	while (*path_i)
 	{
@@ -84,15 +84,15 @@ char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 	return (ret);
 }
 
-char	*get_absolute_path(char *cmd)
+char	*get_absolute_path(char *cmd, char *path)
 {
 	char			**path_tab;
 	char			*ret;
 	unsigned int	i;
 
-	if (ft_strchr((const char *)cmd, '/'))
+	if (ft_strchr_path(cmd, path, '/'))
 		return (ft_strdup(cmd));
-	path_tab = split_path(ft_get_var("PATH"), cmd, ft_strlen(cmd));
+	path_tab = split_path(path, cmd, ft_strlen(cmd));
 	if (!path_tab)
 		return (ft_strdup(cmd));
 	i = 0;

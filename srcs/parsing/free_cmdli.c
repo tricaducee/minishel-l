@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:39:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/12 15:51:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 06:06:11 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_cmdli(t_cmdli **cmdli)
 {
 	t_cmdli	*tmp;
 
-	if (!cmdli)
+	if (!cmdli || !*cmdli)
 		return ;
 	*cmdli = cmdli_first(*cmdli);
 	while (*cmdli)

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 11:19:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/07 00:44:09 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 03:32:55 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void	git_prompt(char *prompt, const char **prompt_elem,
 	{
 		prompt_cat(prompt, prompt_elem[i], &j);
 		if (!i)
+		{
+			prompt_cat(prompt, "\033[3m", &j);
 			prompt_cat(prompt, cwd, &j);
-		else if (i == 1)
+		}
+		else if (i == 2)
 			prompt_cat(prompt, branch_name, &j);
 		i++;
 	}
@@ -73,11 +76,21 @@ void	none_git_prompt(char *prompt, const char **prompt_elem, char *cwd)
 	j = 0;
 	while (prompt_elem[i])
 	{
-		if (i == 1)
+		if (i == 2)
+		{
 			i += 2;
+			if (!prompt_elem[i])
+			{
+				prompt[j] = 0;
+				return ;
+			}
+		}
 		prompt_cat(prompt, prompt_elem[i], &j);
 		if (!i)
+		{
+			prompt_cat(prompt, "\033[3m", &j);
 			prompt_cat(prompt, cwd, &j);
+		}
 		i++;
 	}
 	prompt[j] = 0;

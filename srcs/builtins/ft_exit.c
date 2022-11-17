@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/15 04:12:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:18:19 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	else
 		code = 0;
 	shell = ft_get_shell(NULL);
+	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
 	if (shell)
 	if (shell->export)
 		free_nodes_contents(&shell->export);
@@ -70,6 +71,5 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	if (read)
 		free(read);
 	clear_history();
-	ft_printfd(1, "Good Bye ! See you soon ;)\n");
 	exit(code);
 }

@@ -1,0 +1,131 @@
+
+//simple command & global
+// commit?
+
+make -n
+/bin/ls
+/bin/wc
+
+//empty
+
+   	 	 
+   
+		
+//echo
+echo hola
+echo patate
+echo a mi abuelita le gusta programar
+echo -n echo -n fait pas un retour apres dafficher
+echo "-n echo" -n fait un retour?
+
+//return value of a process
+PIKACHU
+echo $?
+ls
+echo $?
+ls -29392jfasifjasi
+echo $?
+ls fichierquinexistepas
+echo $?
+ls > <
+echo $?
+/bin/ls
+echo $?
+./minishell
+asodjiaos
+exit 4
+echo $?
+djoiasdas
+echo $? + $?
+echo $? + $?
+
+// Double quotes
+echo "cat lol.c | cat > lol.c"
+ls ""
+ls "-a" """-p"
+//grep "cela et cela"
+grep patate fichier
+hola "
+"
+//Single Quotes
+ls ''
+echo 'cat lol.c | <> <<eof cat > lol.c'
+echo '$USER' '$PWD' 
+
+// Double + single
+ls '"-a" """-p"'
+
+//env
+env
+
+//export
+export 
+export a
+export b=15
+export 
+export a=
+export a=3
+export a=5
+export 
+
+//unset
+unset a
+env
+unset b
+export
+
+//cd
+//pwd
+cd saodjsaoi
+echo $?
+cd ../../../.
+pwd
+cd 
+pwd
+cd ..
+pwd
+cd .
+pwd
+cd ~
+pwd
+cd -
+pwd
+cd ~
+pwd
+
+//relative path
+cd 
+cd ./minishell/test/../out1
+./minishell/test/../out1
+
+//env PATH
+cd minishell
+./minishell 
+unset PATH
+ls
+wc
+exit
+
+//redirection
+ls > f1 | wc -l << eof >f2 >> f1
+ls > f1 | wc -l >f2 >> f1
+
+//pipes
+cat f1 | grep bla | wc -l
+
+//environment vairables
+echo $PWD
+echo $?
+echo patata
+echo $?
+echo $sadsaopkd
+echo $?
+echo $PATH
+echo $?
+echo $USER "$PWD"
+echo $?
+
+// signals
+//hystory check!
+
+leaks minishell

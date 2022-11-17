@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmdli.c                                     :+:      :+:    :+:   */
+/*   get_path_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 06:48:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/17 00:20:01 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/15 01:05:01 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/15 01:35:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_cmdli	*create_cmdli(void)
+int	ft_strchr_path(char *s, char *path, int c)
 {
-	t_cmdli	*ret;
+	int		i;
 
-	ret = malloc(1 * sizeof(t_cmdli));
-	if (!ret)
-		return (NULL);
-	*ret = (t_cmdli){};
-	return (ret);
+	if (!path || !*path)
+		return (1);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return (1);
+		i++;
+	}
+	if (s[i] == (char)c)
+		return (1);
+	return (0);
 }
-
-	// ret->cmd = NULL;
-	// ret->cmd_args = NULL;
-	// ret->pipe_in = NULL;
-	// ret->pipe_out = NULL;
-	// ret->file_in = NULL;
-	// ret->file_out = NULL;
-	// ret->here_doc = NULL;
-	// ret->and_or = 0;
-	// ret->previous = NULL;
-	// ret->next = NULL;

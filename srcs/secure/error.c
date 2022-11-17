@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmdli.c                                     :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 06:48:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/17 00:20:01 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/16 23:40:46 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/16 23:53:35 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../printfd/HEADER/ft_printfd.h"
 
-t_cmdli	*create_cmdli(void)
+int	return_error(char *debug)
 {
-	t_cmdli	*ret;
-
-	ret = malloc(1 * sizeof(t_cmdli));
-	if (!ret)
-		return (NULL);
-	*ret = (t_cmdli){};
-	return (ret);
+	if (debug)
+		ft_printfd(1, "Here : line %s\n", debug);
+	g_errno = errno;
+	ft_printfd(2, "#+bminishell#0: #/r%s#0\n", strerror(g_errno));
+	return (g_errno);
 }
 
-	// ret->cmd = NULL;
-	// ret->cmd_args = NULL;
-	// ret->pipe_in = NULL;
-	// ret->pipe_out = NULL;
-	// ret->file_in = NULL;
-	// ret->file_out = NULL;
-	// ret->here_doc = NULL;
-	// ret->and_or = 0;
-	// ret->previous = NULL;
-	// ret->next = NULL;
+int	exit_error(void)
+{
+	g_errno = errno;
+	ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(g_errno));
+	exit(g_errno);
+}

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/15 02:16:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:58:28 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	update_node(char *name, char *value)
 	t_variable	*node;
 
 	shell = ft_get_shell(NULL);
-	node = (t_variable *)malloc(sizeof(t_variable));
+	node = malloc(sizeof(t_variable));
 	if (!node)
 		return ;
 	node->name = ft_strdup(name);
@@ -52,8 +52,8 @@ int	ft_cd(t_cmdli *cmdli)
 	new_path = NULL;
 	if (!cmdli->cmd_args[1])
 		new_path = ft_get_var("HOME");
-	else if (cmdli->cmd_args[1] || !ft_strcmp(cmdli->cmd_args[1], "."))
-		new_path = cmdli->cmd_args[1];
+	else if (cmdli->cmd_args[1])
+		new_path = ft_strdup(cmdli->cmd_args[1]);
 	if (!chdir(new_path))
 	{
 		new_path = getcwd(buff, PATH_MAX);

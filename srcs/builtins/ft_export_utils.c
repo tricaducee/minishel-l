@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/15 04:37:07 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/17 20:24:04 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	export_inset(char *s)
 {
 	if (!s)
 		return (0);
-	if (*s >= '0' && *s <= '9')
+	if ((*s >= '0' && *s <= '9') || *s == '=')
 		return (0);
 	while (*s)
 	{

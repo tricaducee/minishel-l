@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 23:10:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 02:22:13 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	main(int argc, char **argv, char **env)
 	t_cmdli	*cmdli_i;
 	char	*read;
 
-	ft_get_shell(&shell);
-	init_shell(&shell, env);
 	(void)argc;
 	(void)argv;
+	ft_get_shell(&shell);
+	init_shell(&shell, env);
+	sig_handler(&shell);
 	while (true)
 	{
-		sig_handler(&shell);
 		read = readline(ft_prompt());
 		if (read)
 		{

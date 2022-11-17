@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:49:17 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 22:59:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 02:34:16 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,3 @@ void	init_shell(t_shell *shell, char **m_env)
 	shell->sa_interrupt.sa_handler = &handle_interrupt;
 	shell->sa_backslash.sa_handler = SIG_IGN;
 }
-
-// nouvelle variable sans valeur affichee que dans export

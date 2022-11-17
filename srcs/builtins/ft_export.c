@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 23:31:21 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/15 05:00:02 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int	put_node(t_variable **export, t_variable *current,
 
 void	ft_export(t_cmdli *cmdli)
 {
-	t_shell			*shell;
-	t_variable		*new;
-	int				i;
+	t_shell		*shell;
+	t_variable	*new;
+	int			i;
 
 	shell = ft_get_shell(NULL);
 	new = NULL;

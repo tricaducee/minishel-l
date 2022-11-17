@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:43:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/15 04:12:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	check_exit_code(char **args)
 	return (ft_atoi(args[1]));
 }
 
-void	free_shell_node_content(t_shell *shell)
-{
-	if (shell->export)
-		free_nodes_contents(&shell->export);
-	if (shell->env)
-		free_nodes(&shell->env);
-}
+// void	free_shell_node_content(t_shell *shell)
+// {
+// 	if (shell->export)
+// 		free_nodes_contents(&shell->export);
+// 	if (shell->env)
+// 		free_nodes(&shell->env);
+// }
 
 void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 {
@@ -62,7 +62,10 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 		code = 0;
 	shell = ft_get_shell(NULL);
 	if (shell)
-		free_shell_node_content(shell);
+	if (shell->export)
+		free_nodes_contents(&shell->export);
+	if (shell->env)
+		free_nodes(&shell->env);
 	free_cmdli(cmdli);
 	if (read)
 		free(read);
